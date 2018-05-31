@@ -1,6 +1,8 @@
-const { resolve } = require('path');
+const webpack = require('./webpack');
 
 module.exports = function (src, opts) {
-	src = resolve(src || '.');
-	console.log('> [export] ', src, opts);
+	opts.export = opts.production = true;
+	webpack(src, opts).run((err, stats) => {
+		console.log('> format messages');
+	});
 }

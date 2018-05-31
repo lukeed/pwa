@@ -1,6 +1,7 @@
-const { resolve } = require('path');
+const webpack = require('./webpack');
 
 module.exports = function (src, opts) {
-	src = resolve(src || '.');
-	console.log('> [watch] ', src, opts);
+	webpack(src, opts).watch((err, stats) => {
+		console.log('> format messages');
+	});
 }
