@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const sade = require('sade');
-const { version } = require('../package');
+const { version } = require('./package');
 
 sade('pwa')
 	.version(version)
