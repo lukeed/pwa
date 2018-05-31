@@ -1,8 +1,9 @@
 {
-  "name": "pwa-cli",
-  "version": "0.0.0",
-  "main": "index.js",
-  "description": "WIP! Coming soon. Almost done ;-)",
-  "author": "Luke Edwards <luke.edwards05@gmail.com>",
-  "license": "MIT"
+  "private": true,
+  "scripts": {
+    "pretest": "lerna bootstrap"
+  },
+  "devDependencies": {
+    "lerna": "^2.11.0"
+  }
 }
