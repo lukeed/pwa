@@ -1,4 +1,13 @@
 {
   "name": "pwa-cli",
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "bin": {
+    "pwa": "lib/index.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "sade": "^1.4.1"
+  }
 }
