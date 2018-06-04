@@ -23,6 +23,8 @@ sade('pwa')
 
 	.command('watch [src]')
 	.describe('Start development server')
+	.option('-H, --host', 'hostname', 'localhost')
+	.option('-p, --port', 'port', 8080)
 	.action(watch)
 
 	.parse(process.argv);

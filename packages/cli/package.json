@@ -11,6 +11,7 @@
   "dependencies": {
     "sade": "^1.4.1",
     "webpack": "^4.10.2",
-    "webpack-bundle-analyzer": "^2.13.1"
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-dev-server": "^3.1.4"
   }
 }
