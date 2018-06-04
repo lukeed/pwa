@@ -5,9 +5,9 @@ module.exports = function (src, opts) {
 	let isProd = opts.production;
 
 	return {
-		context: opts.cwd,
+		context: src,
 		entry: {
-			bundle: join(src, 'index.js')
+			bundle: './index.js'
 		},
 		output: {
 			publicPath: '/',
