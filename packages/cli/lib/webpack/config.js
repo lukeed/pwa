@@ -1,5 +1,7 @@
 const { join } = require('path');
 const webpack = require('webpack');
+const HTML = require('html-webpack-plugin');
+const toHTMLConfig = require('./html');
 
 module.exports = function (src, opts) {
 	let isProd = opts.production;
@@ -42,6 +44,7 @@ module.exports = function (src, opts) {
 		devtool: isProd && 'source-map',
 		plugins: [
 			// new webpack.NoEmitOnErrorsPlugin(),
+			new HTML(toHTMLConfig(src, opts))
 		].concat(isProd ? [
 			new webpack.HashedModuleIdsPlugin(),
 			new webpack.LoaderOptionsPlugin({ minimize:true })
