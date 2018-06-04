@@ -1,11 +1,17 @@
 const { join } = require('path');
+const webpack = require('webpack');
 
-module.exports = function (dir, isProd) {
+module.exports = function (src, opts) {
+	let isProd = opts.production;
+
 	return {
-		context: dir,
+		context: opts.cwd,
+		entry: {
+			bundle: join(src, 'index.js')
+		},
 		output: {
-			path: distDir,
-			publicPath: '/assets/',
+			publicPath: '/',
+			path: join(opts.cwd, 'build'),
 			filename: isProd ? '[name].[hash:8].js' : '[name].js',
 			chunkFilename: isProd ? '[name].chunk.[chunkhash:5].js' : '[name].chunk.js'
 		},
@@ -13,12 +19,12 @@ module.exports = function (dir, isProd) {
 		resolve: {
 			alias: {
 				// locals
-				'@': dir,
-				'@tags': join(dir, 'tags'),
-				'@assets': join(dir, 'assets'),
-				'@components': join(dir, 'components'),
-				'@static': join(dir, 'static'),
-				'@pages': join(dir, 'pages'),
+				'@': src,
+				'@tags': join(src, 'tags'),
+				'@assets': join(src, 'assets'),
+				'@components': join(src, 'components'),
+				'@static': join(src, 'static'),
+				'@pages': join(src, 'pages'),
 			}
 		},
 		node: {
@@ -33,6 +39,7 @@ module.exports = function (dir, isProd) {
 		module: {
 			rules: []
 		},
+		devtool: isProd && 'source-map',
 		plugins: [
 			// new webpack.NoEmitOnErrorsPlugin(),
 		].concat(isProd ? [
@@ -40,7 +47,6 @@ module.exports = function (dir, isProd) {
 			new webpack.LoaderOptionsPlugin({ minimize:true })
 		] : [
 			new webpack.HotModuleReplacementPlugin()
-		]),
-		devtool: isProd && 'source-map'
+		])
 	};
 }
