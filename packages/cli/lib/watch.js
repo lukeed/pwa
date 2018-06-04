@@ -19,6 +19,7 @@ module.exports = function (src, opts) {
 		contentBase: src,
 		historyApiFallback: true,
 		disableHostCheck: true,
+		stats: 'minimal',
 		watchOptions: {
 			ignored: [
 				join(cwd, 'build'),

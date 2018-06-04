@@ -5,12 +5,18 @@ const toHTMLConfig = require('./html');
 
 module.exports = function (src, opts) {
 	let isProd = opts.production;
+	let bundle = ['./index.js'];
+
+	if (!isProd) {
+		bundle.push(
+			require.resolve('webpack-dev-server/client'),
+			require.resolve('webpack/hot/dev-server')
+		);
+	}
 
 	return {
 		context: src,
-		entry: {
-			bundle: './index.js'
-		},
+		entry: { bundle },
 		output: {
 			publicPath: '/',
 			path: join(opts.cwd, 'build'),
@@ -49,6 +55,7 @@ module.exports = function (src, opts) {
 			new webpack.HashedModuleIdsPlugin(),
 			new webpack.LoaderOptionsPlugin({ minimize:true })
 		] : [
+			new webpack.NamedModulesPlugin(),
 			new webpack.HotModuleReplacementPlugin()
 		])
 	};
