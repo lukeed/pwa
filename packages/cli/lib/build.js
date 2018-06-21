@@ -1,8 +1,10 @@
 const webpack = require('./webpack');
+const format = require('webpack-format-messages');
 
 module.exports = function (src, opts) {
 	opts.production = true;
 	webpack(src, opts).run((err, stats) => {
-		console.log('> format messages');
+		let msgs = format(stats);
+		console.log(msgs);
 	});
 }
