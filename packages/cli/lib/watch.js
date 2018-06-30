@@ -15,6 +15,7 @@ module.exports = function (src, opts) {
 		publicPath,
 		quiet: true,
 		inline: true,
+		overlay: true,
 		compress: true,
 		contentBase: src,
 		historyApiFallback: true,
