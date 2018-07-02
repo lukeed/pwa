@@ -1,6 +1,7 @@
 const { join } = require('path');
 const webpack = require('webpack');
 const OptimizeCSS = require('optimize-css-assets-webpack-plugin');
+const UglifyJS = require('uglifyjs-webpack-plugin');
 const HTML = require('html-webpack-plugin');
 const toHTMLConfig = require('./html');
 
@@ -8,7 +9,7 @@ module.exports = function (src, config, opts) {
 	let isProd = opts.production;
 	let bundle = ['./index.js'];
 
-	let { babel, browsers, postcss } = config;
+	let { babel, browsers, postcss, uglify } = config;
 
 	// Apply "browserlist" to Babel config
 	babel.presets = babel.presets.map(x => {
@@ -77,7 +78,7 @@ module.exports = function (src, config, opts) {
 		]),
 		optimation: {
 			minimizer: [
-				// TODO: UglifyJS
+				new UglifyJS(uglify),
 				new OptimizeCSS({})
 			]
 		}
