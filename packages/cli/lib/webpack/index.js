@@ -14,7 +14,7 @@ module.exports = function (src, opts) {
 	let tmp, customs=[], handlers=[];
 
 	// Parse any "@pwa/preset"s from local "package.json"
-	if (tmp = $.load(cwd, 'package.json')) {
+	if (tmp = $.load('package.json', cwd)) {
 		let m, devs=Object.keys(tmp.devDependencies || {});
 		devs.filter(x => x.indexOf('@pwa/preset') == 0).forEach(str => {
 			console.log('[PWA] Applying preset :: `%s`', str);
@@ -24,7 +24,7 @@ module.exports = function (src, opts) {
 	}
 
 	// Determine if custom config exists (always last)
-	if (tmp = $.load(cwd, 'pwa.config.js')) {
+	if (tmp = $.load('pwa.config.js', cwd)) {
 		console.log('[PWA] Loading custom config');
 		customs.push(tmp);
 	}

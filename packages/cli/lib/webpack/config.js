@@ -76,7 +76,7 @@ module.exports = function (src, config, opts) {
 			new webpack.NamedModulesPlugin(),
 			new webpack.HotModuleReplacementPlugin()
 		]),
-		optimation: {
+		optimization: {
 			minimizer: [
 				new UglifyJS(uglify),
 				new OptimizeCSS({})
