@@ -3,9 +3,18 @@ const webpack = require('webpack');
 const HTML = require('html-webpack-plugin');
 const toHTMLConfig = require('./html');
 
-module.exports = function (src, opts) {
+module.exports = function (src, config, opts) {
 	let isProd = opts.production;
 	let bundle = ['./index.js'];
+
+	let { babel, browsers } = config;
+
+	// Apply "browserlist" to Babel config
+	babel.presets = babel.presets.map(x => {
+		if (!Array.isArray(x) || x[0] !== 'env') return x;
+		x[1].targets = Object.assign({ browsers }, x[1].targets);
+		return x;
+	});
 
 	if (!isProd) {
 		bundle.push(
@@ -45,7 +54,11 @@ module.exports = function (src, opts) {
 			assetFilter: str => !(/\.map|mp4|ogg|mov|webm$/.test(str)),
 		},
 		module: {
-			rules: []
+			rules: [{
+				test: /\.jsx?$/,
+				loader: 'babel-loader',
+				options: babel
+			}]
 		},
 		devtool: isProd && 'source-map',
 		plugins: [
