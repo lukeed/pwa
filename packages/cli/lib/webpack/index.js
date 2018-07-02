@@ -48,6 +48,7 @@ module.exports = function (src, opts) {
 	let wconfig = toWebpack(src, config, opts);
 
 	// Apply presets' & custom webpack changes
+	opts.webpack = webpack; // pass down to presets
 	handlers.forEach(fn => fn(wconfig, opts));
 
 	if (opts.production && opts.analyze) {
