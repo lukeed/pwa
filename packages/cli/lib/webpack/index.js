@@ -35,7 +35,7 @@ module.exports = function (src, opts) {
 		if (typeof mix === 'function') {
 			handlers.push(mix); // is webpack only
 		} else {
-			$.merge(config, mix); //~> mutate
+			$.merge(config, mix, opts); //~> mutate
 			mix.webpack && handlers.push(mix.webpack);
 		}
 	});

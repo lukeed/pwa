@@ -10,11 +10,11 @@ exports.load = function (str, dir) {
 	return existsSync(str) && require(str);
 }
 
-exports.merge = function (old, nxt) {
+exports.merge = function (old, nxt, args) {
 	if (!nxt) return;
 	for (let k in old) {
 		if (typeof nxt[k] === 'function') {
-			nxt[k](old[k]); // expect mutate
+			nxt[k](old[k], args); // expect mutate
 		} else {
 			old[k] = nxt[k] || old[k];
 		}
