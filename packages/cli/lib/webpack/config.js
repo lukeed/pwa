@@ -1,5 +1,6 @@
 const { join } = require('path');
 const webpack = require('webpack');
+const OptimizeCSS = require('optimize-css-assets-webpack-plugin');
 const HTML = require('html-webpack-plugin');
 const toHTMLConfig = require('./html');
 
@@ -7,7 +8,7 @@ module.exports = function (src, config, opts) {
 	let isProd = opts.production;
 	let bundle = ['./index.js'];
 
-	let { babel, browsers } = config;
+	let { babel, browsers, postcss } = config;
 
 	// Apply "browserlist" to Babel config
 	babel.presets = babel.presets.map(x => {
@@ -15,6 +16,9 @@ module.exports = function (src, config, opts) {
 		x[1].targets = Object.assign({ browsers }, x[1].targets);
 		return x;
 	});
+
+	// Construct Style rules
+	let styles = require('./style')(browsers, postcss, opts);
 
 	if (!isProd) {
 		bundle.push(
@@ -58,18 +62,24 @@ module.exports = function (src, config, opts) {
 				test: /\.jsx?$/,
 				loader: 'babel-loader',
 				options: babel
-			}]
+			}].concat(styles.rules)
 		},
 		devtool: isProd && 'source-map',
 		plugins: [
 			// new webpack.NoEmitOnErrorsPlugin(),
 			new HTML(toHTMLConfig(src, opts))
-		].concat(isProd ? [
+		].concat(styles.plugins, isProd ? [
 			new webpack.HashedModuleIdsPlugin(),
 			new webpack.LoaderOptionsPlugin({ minimize:true })
 		] : [
 			new webpack.NamedModulesPlugin(),
 			new webpack.HotModuleReplacementPlugin()
-		])
+		]),
+		optimation: {
+			minimizer: [
+				// TODO: UglifyJS
+				new OptimizeCSS({})
+			]
+		}
 	};
 }
