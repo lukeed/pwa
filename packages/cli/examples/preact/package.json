@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "build": "pwa build"
+  },
+  "dependencies": {
+    "preact": "^8.2.9"
+  },
+  "devDependencies": {
+    "@pwa/cli": "*",
+    "@pwa/preset-preact": "*"
+  }
+}
