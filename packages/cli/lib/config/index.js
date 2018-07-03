@@ -29,7 +29,7 @@ exports.browsers = [
 // Any PostCSS config
 // ~> "autoprefixer" will be replaced
 exports.postcss = {
-	plugins: { autoprefixer:{} }
+	plugins: ['autoprefixer']
 }
 
 // Empty ~> no customization

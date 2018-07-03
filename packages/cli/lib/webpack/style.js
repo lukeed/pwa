@@ -38,8 +38,9 @@ module.exports = function (browsers, postcss, opts) {
 	arr.push(fn('css', css)); // css-loader
 
 	// PostCSS ~> Object, apply browserlist
-	postcss.plugins = postcss.plugins || {};
-	postcss.plugins.autoprefixer = Object.assign({}, postcss.plugins.autoprefixer, { browsers });
+	// postcss.plugins = postcss.plugins || {};
+	// postcss.plugins.autoprefixer = Object.assign({}, postcss.plugins.autoprefixer, { browsers });
+	postcss.plugins = [ require('autoprefixer')({ browsers }) ];
 	arr.push(fn('postcss', postcss)); // postcss-loader
 
 	for (ext in obj) {
