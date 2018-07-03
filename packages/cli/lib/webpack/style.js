@@ -1,4 +1,5 @@
 const ExtractCSS = require('mini-css-extract-plugin');
+const { isEmpty } = require('../utils');
 
 function generate(isProd, name, options) {
 	options.sourceMap = isProd;
@@ -37,10 +38,38 @@ module.exports = function (browsers, postcss, opts) {
 	arr.push(fallback); // add initial
 	arr.push(fn('css', css)); // css-loader
 
-	// PostCSS ~> Object, apply browserlist
-	// postcss.plugins = postcss.plugins || {};
-	// postcss.plugins.autoprefixer = Object.assign({}, postcss.plugins.autoprefixer, { browsers });
-	postcss.plugins = [ require('autoprefixer')({ browsers }) ];
+	// PostCSS ~> Array, apply browserlist
+	let k, had, tmp=postcss.plugins, out=[], pfx='autoprefixer';
+
+	if (typeof tmp === 'function') {
+		throw new Error('Received unsupported `function` type for PostCSS "plugins" config');
+	} else if (isEmpty(tmp)) {
+		out.push( require(pfx)({ browsers }) );
+	} else if (Array.isArray(tmp)) {
+		out = tmp.map(x => {
+			let type = typeof x;
+			if (type === 'string') {
+				had = had || x === pfx;
+				return require(x)(x === pfx ? { browsers } : {});
+			} else if (type === 'function') {
+				(x.postcssPlugin === pfx) && (had=true) && (x.browsers=browsers);
+				return x;
+			} else {
+				throw new Error(`Found unsupported type \`${type}\` in PostCSS "plugins" config`);
+			}
+		});
+	} else {
+		for (k in tmp) {
+			if (k === pfx) Object.assign(tmp[k], { browsers });
+			out.push( require(x)(tmp[k] || {}) );
+		}
+	}
+
+	if (!had) {
+		out.push( require(pfx)({ browsers }) );
+	}
+
+	postcss.plugins = out;
 	arr.push(fn('postcss', postcss)); // postcss-loader
 
 	for (ext in obj) {

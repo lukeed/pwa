@@ -20,3 +20,7 @@ exports.merge = function (old, nxt, args) {
 		}
 	}
 }
+
+exports.isEmpty = function (mix) {
+	return Object.keys(mix).length == 0;
+}
