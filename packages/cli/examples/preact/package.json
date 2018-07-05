@@ -3,7 +3,8 @@
     "build": "pwa build"
   },
   "dependencies": {
-    "preact": "^8.2.9"
+    "preact": "^8.2.9",
+    "preact-router": "latest"
   },
   "devDependencies": {
     "@pwa/cli": "*",
