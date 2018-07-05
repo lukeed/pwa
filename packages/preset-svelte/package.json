@@ -1,0 +1,13 @@
+{
+  "name": "@pwa/preset-svelte",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "svelte-loader": "^2.9.1"
+  }
+}
