@@ -50,7 +50,12 @@ module.exports = function (src, config, opts) {
 			}
 		},
 		node: {
-			process: false
+			process: false,
+			setImmediate: false,
+			__filename: false,
+			__dirname: false,
+			console: false,
+			Buffer: false,
 		},
 		performance: {
 			maxAssetSize: 2e5, // 200kb
