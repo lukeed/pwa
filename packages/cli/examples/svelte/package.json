@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "build": "pwa build"
+  },
+  "devDependencies": {
+    "@pwa/cli": "*",
+    "@pwa/preset-svelte": "*",
+    "svelte": "^2.9.1"
+  }
+}
