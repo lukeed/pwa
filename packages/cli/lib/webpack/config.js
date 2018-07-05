@@ -68,6 +68,12 @@ module.exports = function (src, config, opts) {
 				test: /\.jsx?$/,
 				loader: 'babel-loader',
 				options: babel
+			}, {
+				test: /\.(svg|woff2?|ttf|eot|jpe?g|png|gif|mp4|mov|ogg|webm)(\?.*)?$/i,
+				loader: isProd ? 'file-loader' : 'url-loader'
+			}, {
+				test: /\.(xml|html|txt|md)$/,
+				loader: 'raw-loader'
 			}].concat(styles.rules)
 		},
 		devtool: isProd && 'source-map',
