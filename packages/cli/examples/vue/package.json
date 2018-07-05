@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "pwa build"
+  },
+  "dependencies": {
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@pwa/cli": "*",
+    "@pwa/preset-vue": "*"
+  }
+}
