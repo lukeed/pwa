@@ -13,13 +13,15 @@ module.exports = function (src, opts) {
 	let config = require('../config');
 	let tmp, customs=[], handlers=[];
 
-	// Parse any "@pwa/preset"s from local "package.json"
+	// Parse configs from local "package.json"
 	if (tmp = $.load('package.json', cwd)) {
-		let m, devs=Object.keys(tmp.devDependencies || {});
-		devs.filter(x => x.indexOf('@pwa/preset') == 0).forEach(str => {
-			console.log('[PWA] Applying preset :: `%s`', str);
-			m = require(rr.resolve(str, cwd)); // allow throw
-			customs.push(m);
+		let devs = Object.keys(tmp.devDependencies || {});
+		// apply any presets first, then plugins
+		['preset', 'plugin'].forEach(type => {
+			devs.filter(x => x.indexOf(`@pwa/${type}`) == 0).forEach(str => {
+				console.log(`[PWA] Applying ${type} :: \`${str}\``);
+				customs.push( require(rr.resolve(str, cwd)) ); // allow throw
+			});
 		});
 	}
 
