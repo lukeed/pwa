@@ -1,0 +1,13 @@
+{
+  "name": "@pwa/preset-react",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "babel-preset-react-app": "^3.1.2"
+  }
+}
