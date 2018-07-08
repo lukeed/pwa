@@ -1,6 +1,6 @@
 const { join } = require('path');
+const webpack = require('@pwa/core');
 const Server = require('webpack-dev-server');
-const webpack = require('./webpack');
 
 const { HOST, PORT } = process.env;
 

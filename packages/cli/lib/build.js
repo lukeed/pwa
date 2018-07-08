@@ -1,4 +1,4 @@
-const webpack = require('./webpack');
+const webpack = require('@pwa/core');
 const format = require('webpack-format-messages');
 
 module.exports = function (src, opts) {

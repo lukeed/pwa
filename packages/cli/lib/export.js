@@ -1,4 +1,4 @@
-const webpack = require('./webpack');
+const webpack = require('@pwa/core');
 
 module.exports = function (src, opts) {
 	opts.export = opts.production = true;

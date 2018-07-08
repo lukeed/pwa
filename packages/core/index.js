@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
 const rr = require('require-relative');
-const toWebpack = require('./config');
-const $ = require('../utils');
+const toConfig = require('./webpack');
+const $ = require('./util');
 
 module.exports = function (src, opts) {
 	let cwd = opts.cwd = resolve(opts.cwd || '.');
@@ -10,7 +10,7 @@ module.exports = function (src, opts) {
 	delete opts._; // useless
 
 	// Load default configs
-	let config = require('../config');
+	let config = require('./config');
 	let tmp, customs=[], handlers=[];
 
 	// Parse configs from local "package.json"
@@ -47,7 +47,7 @@ module.exports = function (src, opts) {
 	src = $.isDir(src) ? src : cwd;
 
 	// Build Webpack's Config for 1st time
-	let wconfig = toWebpack(src, config, opts);
+	let wconfig = toConfig(src, config, opts);
 
 	// Apply presets' & custom webpack changes
 	opts.webpack = webpack; // pass down to presets

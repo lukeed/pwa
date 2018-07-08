@@ -1,5 +1,5 @@
 const ExtractCSS = require('mini-css-extract-plugin');
-const { isEmpty } = require('../utils');
+const { isEmpty } = require('../util');
 
 function generate(isProd, name, options) {
 	options.sourceMap = isProd;
