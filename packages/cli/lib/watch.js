@@ -1,11 +1,10 @@
 const { join } = require('path');
-const webpack = require('@pwa/core');
-const Server = require('webpack-dev-server');
-
 const { HOST, PORT } = process.env;
 
 module.exports = function (src, opts) {
-	let c = webpack(src, opts);
+	let c = require('@pwa/core')(src, opts);
+	let Server = require('webpack-dev-server');
+
 	let cwd = opts.cwd; // mutated
 	src = c.options.context; // src vs root
 	let publicPath = c.options.output.publicPath;
