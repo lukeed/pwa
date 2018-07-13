@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@pwa/core": "*",
+    "prompts": "^0.1.11",
     "sade": "^1.4.1",
     "webpack-dev-server": "^3.1.4",
     "webpack-format-messages": "^2.0.1"

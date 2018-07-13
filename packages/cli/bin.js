@@ -9,8 +9,9 @@ const init = require('./lib/init');
 sade('pwa')
 	.version(version)
 
-	.command('init <framework> [dest]')
+	.command('init [framework] [dest]')
 	.describe('Initialize new project')
+	.option('--force', 'Force destination')
 	.action(init)
 
 	.command('build [src]')
