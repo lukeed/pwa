@@ -16,6 +16,7 @@ sade('pwa')
 
 	.command('build [src]')
 	.describe('Build production assets')
+	.option('--analyze', 'Launch interactive Analyzer to inspect production bundle(s)')
 	.action(build)
 
 	.command('export [src]')
