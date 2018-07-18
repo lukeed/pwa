@@ -18,6 +18,10 @@ function setValue(key, val) {
 	}
 }
 
+function toRouter(obj) {
+	return /react|vue/.test(obj.preset) ? `${obj.preset}-router` : 'navaid';
+}
+
 module.exports = function (type, dir, opts) {
 	let prompts = require('prompts');
 
@@ -51,10 +55,8 @@ module.exports = function (type, dir, opts) {
 			initial: true,
 			name: 'router',
 			type: (_, all) => all.features.includes('router') && 'confirm',
-			message: (_, all) => {
-				let lib = /react|vue/.test(all.preset) ? `${all.preset}-router` : 'navaid';
-				return `Accept \`${lib}\` as your application router?`;
-			}
+			message: (_, all) => `Accept \`${toRouter(all)}\` as your application router?`,
+			format: (val, all) => val && toRouter(all) // Boolean|String
 		},
 		// TODO: Testing options
 		{
