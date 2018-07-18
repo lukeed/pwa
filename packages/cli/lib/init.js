@@ -114,5 +114,40 @@ module.exports = function (type, dir, opts) {
 		if (argv.exists && !argv.force) {
 			return console.log('[PWA] Refusing to overwrite existing directory. Please specify a different destination or use the `--force` flag.');
 		}
+
+		// Construct `package.json` file
+		let pkg = { private:true };
+		let deps = ['sirv-cli', argv.router].filter(Boolean);
+		let devdeps = ['@pwa/cli'].concat(argv.styles).filter(Boolean);
+
+		if (argv.swCustom) {
+			deps.push(argv.sw);
+		} else if (argv.sw) {
+			devdeps.push(argv.sw);
+		}
+
+		if (argv.preset) {
+			deps.push(argv.preset);
+			devdeps.push(`@pwa/preset-${argv.preset}`);
+		}
+
+		pkg.scripts = {
+			build: 'pwa build',
+			export: 'pwa export',
+			start: 'sirv build -s',
+			watch: 'pwa watch'
+		};
+
+		pkg.dependencies = {};
+		deps.sort().forEach(str => {
+			pkg.dependencies[str] = 'latest';
+		});
+
+		pkg.devDependencies = {};
+		devdeps.sort().forEach(str => {
+			pkg.devDependencies[str] = 'latest';
+		});
+
+		console.log(JSON.stringify(pkg, null, 2));
 	});
 }
