@@ -40,17 +40,31 @@ module.exports = function (type, dir, opts) {
 			name: 'styles',
 			message: 'Which CSS preprocessor?',
 			type: (_, all) => all.features.includes('css-preprocessor') && 'select',
-			choices: toChoices(['None', 'LESS', 'SASS/SCSS', 'Stylus'])
+			choices: toChoices(['None', 'LESS', 'SASS/SCSS', 'Stylus']),
+			format(val) {
+				if (val === 'none') return false;
+				if (val === 'sass/scss') return ['node-sass', 'sass-loader'];
+				return [val, `${val}-loader`];
+			}
 		}, {
 			name: 'linter',
 			message: 'Which linter / formatter do you like?',
 			type: (_, all) => all.features.includes('linter-or-formatter') && 'select',
-			choices: toChoices(['None', 'ESLint', 'Prettier', 'TSLint'])
+			choices: toChoices(['None', 'ESLint', 'Prettier', 'TSLint']),
+			format: val => val === 'none' ? false : val
 		}, {
 			name: 'sw',
 			message: 'Which Service Worker library?',
 			type: (_, all) => all.features.includes('service-worker') && 'select',
-			choices: toChoices(['None', 'Custom', 'Offline Plugin', 'SW Precache', 'SW Workbox'])
+			choices: toChoices(['None', 'Custom', 'Offline Plugin', 'SW Precache', 'SW Workbox']),
+			format(val, all) {
+				all.swCustom = val == 'custom';
+				if (val === 'none') return false;
+				if (val === 'custom') return 'register-service-worker';
+				if (val === 'sw-workbox') return 'workbox-webpack-plugin';
+				if (val === 'sw-precache') return 'sw-precache-webpack-plugin';
+				return val;
+			}
 		}, {
 			initial: true,
 			name: 'router',
