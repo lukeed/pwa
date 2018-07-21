@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@pwa/core": "*",
+    "mkdirp": "^0.5.1",
     "prompts": "^0.1.11",
     "sade": "^1.4.1",
     "webpack-dev-server": "^3.1.4",
