@@ -159,5 +159,7 @@ module.exports = function (type, dir, opts) {
 
 		let file = path.join(dest, 'package.json');
 		writer(file).end(JSON.stringify(pkg, null, 2));
+
+		console.log('[TODO] scaffold template files');
 	});
 }
