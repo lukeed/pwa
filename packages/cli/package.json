@@ -1,6 +1,6 @@
 {
   "name": "@pwa/cli",
-  "version": "0.0.0",
+  "version": "0.0.1-0",
   "bin": {
     "pwa": "bin.js"
   },
@@ -12,7 +12,7 @@
     "node": ">=6"
   },
   "dependencies": {
-    "@pwa/core": "*",
+    "@pwa/core": "^0.0.1-0",
     "mkdirp": "^0.5.1",
     "prompts": "^0.1.11",
     "sade": "^1.4.1",
