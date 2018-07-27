@@ -1,7 +1,42 @@
-<h1>Hello {name}!</h1>
+<Nav />
+
+<main>
+	<svelte:component this={ route } />
+</main>
 
 <style>
-	h1 {
-		color: purple;
+	main {
+		position: relative;
+		max-width: 56em;
+		background-color: white;
+		padding: 2em;
+		margin: 0 auto;
+		box-sizing: border-box;
 	}
 </style>
+
+<script>
+	import Navaid from './navaid';
+	import Nav from '@components/Nav';
+
+	let router = new Navaid();
+
+	export default {
+		data() {
+			return {
+				route: null
+			}
+		},
+
+		components: { Nav },
+
+		oncreate() {
+			let draw = m => this.set({ route:m.default });
+
+			router
+				.on('/', () => import('@pages/index').then(draw))
+				.on('/about', () => import('@pages/about').then(draw))
+				.listen();
+		}
+	};
+</script>
