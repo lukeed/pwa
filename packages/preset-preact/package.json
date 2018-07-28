@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@pwa/preset-preact",
   "version": "0.0.1-0",
   "files": [
