@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@pwa/core": "^0.0.1-0",
+    "kleur": "^2.0.1",
     "mkdirp": "^0.5.1",
     "prompts": "^0.1.11",
     "sade": "^1.4.1",
