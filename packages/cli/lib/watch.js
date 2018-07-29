@@ -1,7 +1,10 @@
 const { join } = require('path');
+const log = require('../log');
 const { HOST, PORT } = process.env;
 
 module.exports = function (src, opts) {
+	opts.logger = log.logger;
+
 	let c = require('@pwa/core')(src, opts);
 	let Server = require('webpack-dev-server');
 

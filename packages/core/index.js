@@ -6,6 +6,7 @@ const $ = require('./util');
 
 module.exports = function (src, opts) {
 	let cwd = opts.cwd = resolve(opts.cwd || '.');
+	let logger = opts.logger || console.log;
 	opts.production = !!opts.production;
 	delete opts._; // useless
 
@@ -19,7 +20,7 @@ module.exports = function (src, opts) {
 		// apply any presets first, then plugins
 		['preset', 'plugin'].forEach(type => {
 			devs.filter(x => x.indexOf(`@pwa/${type}`) == 0).forEach(str => {
-				console.log(`[PWA] Applying ${type} :: \`${str}\``);
+				logger(`Applying ${type}: ${str}`);
 				customs.push( require(rr.resolve(str, cwd)) ); // allow throw
 			});
 		});
@@ -27,7 +28,7 @@ module.exports = function (src, opts) {
 
 	// Determine if custom config exists (always last)
 	if (tmp = $.load('pwa.config.js', cwd)) {
-		console.log('[PWA] Loading custom config');
+		logger('Loading custom config');
 		customs.push(tmp);
 	}
 
