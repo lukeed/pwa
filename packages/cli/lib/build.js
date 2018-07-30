@@ -50,5 +50,8 @@ module.exports = function (src, opts) {
 
 		log.success(out + '\n');
 		log.success(`Build complete!\nYour ${colors.bold.italic.green('build')} directory is ready for deployment 🎉`);
+
+		if (opts.export) {
+		}
 	});
 }

@@ -2,7 +2,6 @@
 const sade = require('sade');
 const build = require('./lib/build');
 const { version } = require('./package');
-const static = require('./lib/export');
 const watch = require('./lib/watch');
 const init = require('./lib/init');
 
@@ -21,7 +20,10 @@ sade('pwa')
 
 	.command('export [src]')
 	.describe('Export pre-rendered pages')
-	.action(static)
+	.action((src, opts) => {
+		opts.export = true;
+		build(src, opts);
+	})
 
 	.command('watch [src]')
 	.describe('Start development server')

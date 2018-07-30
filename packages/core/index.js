@@ -59,9 +59,5 @@ module.exports = function (src, opts) {
 		wconfig.plugins.push( new BundleAnalyzerPlugin() );
 	}
 
-	if (opts.export) {
-		// wconfig.push Prerender anywhere
-	}
-
 	return webpack(wconfig);
 }
