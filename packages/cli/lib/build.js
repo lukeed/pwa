@@ -13,7 +13,9 @@ const rpad = (str, max) => str + _.repeat(max - str.length);
 module.exports = function (src, opts) {
 	opts.production = true;
 	opts.logger = log.logger;
-	require('@pwa/core')(src, opts).run((err, stats) => {
+	let ctx = require('@pwa/core')(src, opts);
+
+	ctx.run((err, stats) => {
 		let msgs = require('webpack-format-messages')(stats);
 		// console.log(msgs.errors, msgs.warnings);
 
@@ -52,6 +54,23 @@ module.exports = function (src, opts) {
 		log.success(`Build complete!\nYour ${colors.bold.italic.green('build')} directory is ready for deployment 🎉`);
 
 		if (opts.export) {
+			console.log(); // newline
+			const sirv = require('sirv');
+			const { createServer } = require('http');
+			const { launch } = require('chrome-launcher');
+
+			// TODO: get routes from structure
+
+			let onNoMatch = res => fn({ path:'/' }, res, r => (r.statusCode=404,r.end()));
+			let fn = sirv(ctx.options.output.path, { onNoMatch });
+			let server = createServer(fn).listen();
+
+			// let chromeFlags = ['--headless', '--disable-gpu'];
+			let startingUrl = 'http://localhost:' + server.address().port;
+			log.log(`Started local server on ${ colors.white.bold.underline(startingUrl) }`);
+
+			launch({ startingUrl }).then(proc => {
+			});
 		}
 	});
 }
