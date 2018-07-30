@@ -1,5 +1,5 @@
 const { join } = require('path');
-const log = require('../log');
+const log = require('./util/log');
 const { HOST, PORT } = process.env;
 
 module.exports = function (src, opts) {

@@ -1,4 +1,5 @@
-const log = require('../log');
+const log = require('./util/log');
+
 module.exports = function (src, opts) {
 	opts.export = opts.production = true;
 	opts.logger = log.logger;
