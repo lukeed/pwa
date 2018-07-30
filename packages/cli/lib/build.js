@@ -37,7 +37,7 @@ module.exports = function (src, opts) {
 
 		// spacing
 		max.file += 4;
-		max.size += 8;
+		max.size += 4;
 
 		// table headers
 		out += ('\n\n' + th(rpad('Filename', max.file)) + gutter + th(lpad('Filesize', max.size)) + _ + _ + colors.dim.bold.italic(lpad('(gzip)', max.gzip)));
@@ -49,6 +49,6 @@ module.exports = function (src, opts) {
 		});
 
 		log.success(out + '\n');
-		log.success(`Build complete!\nYour ${colors.bold.italic.green('build')} directory is ready for deployment 🎉\n`);
+		log.success(`Build complete!\nYour ${colors.bold.italic.green('build')} directory is ready for deployment 🎉`);
 	});
 }
