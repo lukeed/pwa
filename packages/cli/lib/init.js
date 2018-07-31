@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const mkdirp = require('mkdirp');
+const { existsSync } = require('fs');
+const { join, resolve } = require('path');
+const { writer } = require('./util/fs');
 
 let BULLETS = [];
 let toLower = x => (x || '').toLowerCase();
@@ -21,12 +21,6 @@ function setValue(key, val) {
 
 function toRouter(obj) {
 	return /react|vue/.test(obj.preset) ? `${obj.preset}-router` : 'navaid';
-}
-
-function writer(file, data) {
-	file = path.normalize(file);
-	mkdirp.sync(path.dirname(file));
-	return fs.createWriteStream(file);
 }
 
 module.exports = function (type, dir, opts) {
@@ -84,20 +78,20 @@ module.exports = function (type, dir, opts) {
 			name: 'dir',
 			type: 'text',
 			message: 'Directory to use',
-			format: x => path.resolve('.', x)
+			format: x => resolve('.', x)
 		}, {
 			name: 'cwd',
-			type: dir => dir === path.resolve('.') && 'confirm',
+			type: dir => dir === resolve('.') && 'confirm',
 			message: 'Are you sure you want to write into the current directory?'
 		}, {
 			name: 'dir', // repeat/overwrite
-			format: x => path.resolve('.', x),
+			format: x => resolve('.', x),
 			type: x => x === false && 'text',
 			message: 'OK. Please provide another directory.'
 		}, {
 			name: 'force',
 			message: 'Force destination overwrite?',
-			type: (_, all) => fs.existsSync(all.dir) && 'confirm',
+			type: (_, all) => existsSync(all.dir) && 'confirm',
 			format: (x, all) => (all.exists=1,x) // bcuz it ran
 		}
 	];
@@ -157,7 +151,7 @@ module.exports = function (type, dir, opts) {
 			pkg.devDependencies[str] = 'latest';
 		});
 
-		let file = path.join(dest, 'package.json');
+		let file = join(dest, 'package.json');
 		writer(file).end(JSON.stringify(pkg, null, 2));
 
 		console.log('[TODO] scaffold template files');
