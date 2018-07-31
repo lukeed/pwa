@@ -37,7 +37,6 @@ exports.webpack = function (config, opts) {
 			options: {
 				emitCss: true,
 				hotReload: true,
-				hydratable: true,
 				skipIntroByDefault: true,
 				nestedTransitions: true,
 			}
