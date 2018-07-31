@@ -56,10 +56,16 @@ module.exports = function (src, opts) {
 		if (opts.export) {
 			console.log(); // newline
 			const sirv = require('sirv');
+			const glob = require('tiny-glob/sync');
 			const { createServer } = require('http');
 			const { launch } = require('chrome-launcher');
 
-			// TODO: get routes from structure
+			// Get routes from file structure
+			let src = ctx.options.resolve.alias['@pages'];
+			let routes = glob('**/*', { cwd:src }).map(str => {
+				str = str.substring(0, str.indexOf('.')).replace('index', '');
+				return '/' + (str.endsWith('/') ? str.slice(0, -1) : str);
+			}).filter(x => x !== '/').concat('/'); // root always last
 
 			let onNoMatch = res => fn({ path:'/' }, res, r => (r.statusCode=404,r.end()));
 			let fn = sirv(ctx.options.output.path, { onNoMatch });
