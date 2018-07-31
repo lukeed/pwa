@@ -1,11 +1,14 @@
-const { join } = require('path');
 const { readdirSync } = require('fs');
+const { join, relative } = require('path');
+
+const fallback = join(__dirname, 'template.html');
 
 module.exports = function (src, opts) {
 	let config = {};
+
 	let rgx = /index\.(html|hbs|ejs)$/;
 	let template = opts.template || readdirSync(src).find(x => rgx.test(x));
-	config.template = template || join(__dirname, 'template.html');
+	config.template = template || relative(src, fallback);
 
 	config.minify = opts.production && {
 		removeComments: true,
