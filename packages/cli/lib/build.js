@@ -67,9 +67,9 @@ module.exports = function (src, opts) {
 				return '/' + (str.endsWith('/') ? str.slice(0, -1) : str);
 			}).filter(x => x !== '/').concat('/'); // root always last
 
+			let fn, dest=ctx.options.output.path;
 			let onNoMatch = res => fn({ path:'/' }, res, r => (r.statusCode=404,r.end()));
-			let fn = sirv(ctx.options.output.path, { onNoMatch });
-			let server = createServer(fn).listen();
+			let server = createServer(fn=sirv(dest, { onNoMatch })).listen();
 
 			// let chromeFlags = ['--headless', '--disable-gpu'];
 			let startingUrl = 'http://localhost:' + server.address().port;
