@@ -85,6 +85,7 @@ module.exports = function (src, opts) {
 			const sirv = require('sirv');
 			const glob = require('tiny-glob/sync');
 			const { createServer } = require('http');
+			const { minify } = require('html-minifier');
 			const { launch } = require('chrome-launcher');
 			const remote = require('chrome-remote-interface');
 
@@ -103,8 +104,11 @@ module.exports = function (src, opts) {
 			let base = 'http://localhost:' + server.address().port;
 			log.log(`Started local server on ${ colors.white.bold.underline(base) }`);
 
+			let toHTML = x => x.constructor.name === 'HtmlWebpackPlugin';
+			let minify_opts = ctx.options.plugins.find(toHTML).options.minify;
+
 			function print(obj) {
-				fs.writer(join(dest, obj.file)).end(obj.html);
+				fs.writer(join(dest, obj.file)).end(minify(obj.html, minify_opts));
 				log.info(`Wrote file: ${colors.bold.magenta(obj.file)}`);
 			}
 
