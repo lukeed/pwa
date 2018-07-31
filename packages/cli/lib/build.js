@@ -23,7 +23,7 @@ function chain(arr) {
 
 const expression = 'document.documentElement.outerHTML';
 
-function dump(chrome, dest, base, pathname) {
+function dump(chrome, base, pathname) {
 	let url = base + pathname;
 	let { Page, Runtime } = chrome;
 	let file = join(pathname, 'index.html');
@@ -31,8 +31,7 @@ function dump(chrome, dest, base, pathname) {
 	return Page.navigate({ url }).then(() => {
 		return Page.loadEventFired().then(() => {
 			return Runtime.evaluate({ expression }).then(r => {
-				log.info(`Wrote file: ${colors.bold.magenta(file)}`);
-				return fs.writer(join(dest, file)).end(r.result.value);
+				return { file, html:r.result.value };
 			});
 		});
 	});
@@ -94,7 +93,7 @@ module.exports = function (src, opts) {
 			let routes = glob('**/*', { cwd:src }).map(str => {
 				str = str.substring(0, str.indexOf('.')).replace('index', '');
 				return '/' + (str.endsWith('/') ? str.slice(0, -1) : str);
-			}).filter(x => x !== '/').concat('/'); // root always last
+			});
 
 			let fn, dest=ctx.options.output.path;
 			let onNoMatch = res => fn({ path:'/' }, res, r => (r.statusCode=404,r.end()));
@@ -104,15 +103,21 @@ module.exports = function (src, opts) {
 			let base = 'http://localhost:' + server.address().port;
 			log.log(`Started local server on ${ colors.white.bold.underline(base) }`);
 
+			function print(obj) {
+				fs.writer(join(dest, obj.file)).end(obj.html);
+				log.info(`Wrote file: ${colors.bold.magenta(obj.file)}`);
+			}
+
 			launch({ chromeFlags }).then(proc => {
 				return remote({ port:proc.port }).then(chrome => {
 					let { Page, Network, DOM } = chrome;
-					let scrape = dump.bind(null, chrome, dest, base);
+					let scrape = dump.bind(null, chrome, base);
 					return Promise.all([Page, Network, DOM].map(x => x.enable())).then(() => {
 						return chain(routes.map(x => () => scrape(x))).then(arr => {
 							proc.kill();
 							chrome.close();
 							server.close();
+							arr.forEach(print);
 							log.log('Shutdown local server\n');
 							let sfx = arr.length > 1 ? 's' : '';
 							let num = colors.italic.bold.green(arr.length);
