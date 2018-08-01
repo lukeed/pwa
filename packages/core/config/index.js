@@ -1,5 +1,6 @@
 exports.babel = {
 	babelrc: false,
+	// cacheDirectory: true, // TODO: needed?
 	presets: [
 		['env', {
 			loose: true,
