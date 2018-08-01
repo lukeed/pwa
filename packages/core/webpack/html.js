@@ -1,7 +1,7 @@
 const { readdirSync } = require('fs');
 const { join, relative } = require('path');
 
-const fallback = join(__dirname, 'template.html');
+const fallback = join(__dirname, 'template.ejs');
 
 module.exports = function (src, opts) {
 	let config = {};
