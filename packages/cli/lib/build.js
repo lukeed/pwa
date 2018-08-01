@@ -94,7 +94,7 @@ module.exports = function (src, opts) {
 			let routes = glob('**/*', { cwd:src }).map(str => {
 				str = str.substring(0, str.indexOf('.')).replace('index', '');
 				return '/' + (str.endsWith('/') ? str.slice(0, -1) : str);
-			});
+			}).sort(); // by length
 
 			let fn, dest=ctx.options.output.path;
 			let onNoMatch = res => fn({ path:'/' }, res, r => (r.statusCode=404,r.end()));
