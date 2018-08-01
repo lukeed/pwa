@@ -1,5 +1,6 @@
 {
-  "name": "@pwa/preset-react",
+  "private": true,
+  "name": "@pwa/plugin-typescript",
   "version": "0.0.2-0",
   "files": [
     "index.js"
@@ -8,6 +9,7 @@
     "node": ">=6"
   },
   "dependencies": {
-    "babel-preset-react-app": "^3.1.2"
+    "ts-loader": "^4.4.2",
+    "typescript": "^2.9.2"
   }
 }

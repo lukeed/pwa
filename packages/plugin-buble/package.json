@@ -1,5 +1,6 @@
 {
-  "name": "@pwa/preset-react",
+  "private": true,
+  "name": "@pwa/plugin-buble",
   "version": "0.0.2-0",
   "files": [
     "index.js"
@@ -8,6 +9,7 @@
     "node": ">=6"
   },
   "dependencies": {
-    "babel-preset-react-app": "^3.1.2"
+    "buble": "^0.19.3",
+    "buble-loader": "^0.5.1"
   }
 }
