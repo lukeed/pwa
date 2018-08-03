@@ -92,7 +92,7 @@ module.exports = function (src, opts) {
 			// Get routes from file structure
 			let src = ctx.options.resolve.alias['@pages'];
 			let routes = glob('**/*', { cwd:src }).map(str => {
-				str = str.substring(0, str.indexOf('.')).replace('index', '');
+				str = str.substring(0, str.indexOf('.')).toLowerCase().replace('index', '');
 				return '/' + (str.endsWith('/') ? str.slice(0, -1) : str);
 			}).sort(); // by length
 
