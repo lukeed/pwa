@@ -1,5 +1,6 @@
 const colors = require('kleur');
-const { join, relative } = require('path');
+const { existsSync } = require('fs');
+const { join, relative, resolve } = require('path');
 const pretty = require('./util/pretty');
 const log = require('./util/log');
 
@@ -24,7 +25,20 @@ module.exports = function (src, opts) {
 		protocol = 'https';
 
 		if (key && cert) {
-			opts.https = { key, cert, ca:cacert };
+			key = resolve(cwd, key);
+			cert = resolve(cwd, cert);
+			cacert = cacert && resolve(cwd, cacert);
+			if (existsSync(key) && existsSync(cert)) {
+				opts.https = { key, cert, ca:cacert };
+			} else {
+				let gutter = ' '.repeat(4);
+				let space = opts.cacert ? ' '.repeat(2) : '';
+				let out = 'Certificate component(s) not found at locations provided!\n';
+				out += colors.bold.white('--key ') + space + gutter + colors.italic.dim(key) + '\n';
+				out += colors.bold.white('--cert') + space + gutter + colors.italic.dim(cert);
+				if (opts.cacert) out += '\n' + colors.bold.white('--cacert') + gutter + colors.italic.dim(cacert);
+				return log.error(out);
+			}
 		} else {
 			opts.https = true;
 			log.warn('Relying on self-signed certificate from `webpack-dev-server` internals');
