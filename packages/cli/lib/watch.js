@@ -3,7 +3,7 @@ const { join, relative } = require('path');
 const pretty = require('./util/pretty');
 const log = require('./util/log');
 
-const { HOST, PORT } = process.env;
+const { HOST, PORT, HTTPS } = process.env;
 
 module.exports = function (src, opts) {
 	opts.logger = log.logger;
@@ -15,11 +15,21 @@ module.exports = function (src, opts) {
 	src = c.options.context; // src vs root
 	let publicPath = c.options.output.publicPath;
 
-	// TODO https flag
-	// TODO key, cert, cacert flags ~> object
+	let protocol = 'http';
 	let port = PORT || opts.port || 8080;
 	let hostname = HOST || opts.host || 'localhost';
-	let protocol = opts.https ? 'https' : 'http';
+
+	if (opts.https || HTTPS) {
+		let { key, cert, cacert } = opts;
+		protocol = 'https';
+
+		if (key && cert) {
+			opts.https = { key, cert, ca:cacert };
+		} else {
+			opts.https = true;
+			log.warn('Relying on self-signed certificate from `webpack-dev-server` internals');
+		}
+	}
 
 	if (!opts.quiet) {
 		let uri = require('url').format({ protocol, hostname, port });
@@ -50,7 +60,6 @@ module.exports = function (src, opts) {
 
 	let server = new Server(c, {
 		port,
-		// https, // TODO
 		hot: true,
 		publicPath,
 		quiet: true,
@@ -60,6 +69,7 @@ module.exports = function (src, opts) {
 		contentBase: src,
 		historyApiFallback: true,
 		disableHostCheck: true,
+		https: opts.https,
 		stats: 'minimal',
 		host: hostname,
 		watchOptions: {
