@@ -1,5 +1,6 @@
 const { join } = require('path');
 const log = require('./util/log');
+
 const { HOST, PORT } = process.env;
 
 module.exports = function (src, opts) {
@@ -12,7 +13,10 @@ module.exports = function (src, opts) {
 	src = c.options.context; // src vs root
 	let publicPath = c.options.output.publicPath;
 
+	let port = PORT || opts.port || 8080;
+	let hostname = HOST || opts.host || 'localhost';
 	let server = new Server(c, {
+		port,
 		hot: true,
 		publicPath,
 		quiet: true,
@@ -23,6 +27,7 @@ module.exports = function (src, opts) {
 		historyApiFallback: true,
 		disableHostCheck: true,
 		stats: 'minimal',
+		host: hostname,
 		watchOptions: {
 			ignored: [
 				join(cwd, 'build'),
@@ -31,7 +36,8 @@ module.exports = function (src, opts) {
 		}
 	});
 
-	server.listen(PORT || opts.port, HOST || opts.host, err => {
-		console.log('> err?', err);
+	server.listen(port, hostname, err => {
+		if (err) {
+		}
 	});
 }
