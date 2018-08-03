@@ -27,8 +27,13 @@ sade('pwa')
 
 	.command('watch [src]')
 	.describe('Start development server')
-	.option('-H, --host', 'hostname', 'localhost')
-	.option('-p, --port', 'port', 8080)
+	.option('-H, --host', 'A hostname on which to start the application', 'localhost')
+	.option('-p, --port', 'A port number on which to start the application', 8080)
+	.option('-q, --quiet', 'Disable logging to terminal, including errors and warnings')
+	.option('--https', 'Run the application over HTTP/2 with HTTPS')
+	.option('--key', 'Path to custom SSL certificate key')
+	.option('--cert', 'Path to custom SSL certificate')
+	.option('--cacert', 'Path to custom CA certificate override')
 	.action(watch)
 
 	.parse(process.argv);
