@@ -15,6 +15,8 @@ module.exports = function (src, opts) {
 	src = c.options.context; // src vs root
 	let publicPath = c.options.output.publicPath;
 
+	// TODO https flag
+	// TODO key, cert, cacert flags ~> object
 	let port = PORT || opts.port || 8080;
 	let hostname = HOST || opts.host || 'localhost';
 	let protocol = opts.https ? 'https' : 'http';
@@ -48,6 +50,7 @@ module.exports = function (src, opts) {
 
 	let server = new Server(c, {
 		port,
+		// https, // TODO
 		hot: true,
 		publicPath,
 		quiet: true,
