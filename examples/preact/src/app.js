@@ -1,6 +1,6 @@
 import Router from 'preact-router';
 import About from '@pages/about';
-import Home from '@pages/home';
+import Home from '@pages/index';
 import Nav from '@tags/nav';
 
 export default function (props) {

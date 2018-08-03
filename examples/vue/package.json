@@ -1,17 +1,18 @@
 {
   "scripts": {
-    "build": "pwa build",
+    "build": "pwa export",
     "start": "sirv build -s",
     "watch": "pwa watch"
   },
   "dependencies": {
-    "sirv-cli": "^0.1.4",
-    "vue": "latest",
-    "vue-router": "latest"
+    "register-service-worker": "^1.4.1",
+    "sirv-cli": "^0.1.5",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
-    "@pwa/cli": "^0.0.1-0",
-    "@pwa/preset-vue": "^0.0.1-0",
+    "@pwa/cli": "^0.0.2",
+    "@pwa/preset-vue": "^0.0.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2"
   }

@@ -1,7 +1,17 @@
-// module.exports = function (config, opts) {
-// 	console.log('> hi', opts.production);
-// }
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 exports.browsers = [
-	'last 1 Chrome version'
+	'last 2 Chrome version'
 ]
+
+// TEMP
+exports.webpack = function (config, env) {
+	if (env.production) {
+		config.plugins.push(
+			new CopyWebpackPlugin([{
+				from: 'assets',
+				to: 'assets'
+			}])
+		);
+	}
+}

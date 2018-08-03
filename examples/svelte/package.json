@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "pwa build",
+    "build": "pwa export",
     "start": "sirv build -s",
     "watch": "pwa watch"
   },
@@ -8,9 +8,9 @@
     "sirv-cli": "^0.1.5"
   },
   "devDependencies": {
-    "@pwa/cli": "^0.0.1-0",
-    "@pwa/preset-svelte": "^0.0.1-0",
+    "@pwa/cli": "^0.0.2",
+    "@pwa/preset-svelte": "^0.0.2",
     "copy-webpack-plugin": "^4.5.2",
-    "svelte": "^2.9.1"
+    "svelte": "^2.9.9"
   }
 }

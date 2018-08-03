@@ -2,9 +2,8 @@ import { h, render } from 'preact';
 import App from './app';
 import './index.css';
 
-let elem = document.body;
-let root = elem.firstElementChild;
-root = render(<App/>, elem, root);
+let elem = document.querySelector('#app');
+let root = render(<App/>, elem, elem.firstElementChild);
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
 	module.hot.accept('./app.js', New => {
