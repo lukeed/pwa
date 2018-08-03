@@ -1,4 +1,5 @@
 const { join } = require('path');
+const colors = require('kleur');
 const log = require('./util/log');
 
 const { HOST, PORT } = process.env;
@@ -38,6 +39,9 @@ module.exports = function (src, opts) {
 
 	server.listen(port, hostname, err => {
 		if (err) {
+			server.close();
+			log.error('Error starting development server!\n' + err.message);
+			process.exit(1);
 		}
 	});
 }
