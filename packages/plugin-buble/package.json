@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@pwa/plugin-buble",
-  "version": "0.0.2-0",
+  "version": "0.0.2",
   "files": [
     "index.js"
   ],
