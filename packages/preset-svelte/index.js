@@ -3,14 +3,10 @@ const { join } = require('path');
 exports.webpack = function (config, opts) {
 	let isProd = opts.production;
 
-	if (config.resolve.extensions) {
-		config.resolve.extensions.push('.html', '.svelte');
-	} else {
-		config.resolve.extensions = ['.wasm', '.mjs', '.js', '.json', '.html', '.svelte'];
-	}
+	config.resolve.extensions.push('.html', '.svelte');
 
 	if (config.resolve.mainFields) {
-		config.resolve.mainFields.push('svelte');
+		config.resolve.mainFields.unshift('svelte');
 	} else {
 		config.resolve.mainFields = ['svelte', 'browser', 'module', 'main'];
 	}
