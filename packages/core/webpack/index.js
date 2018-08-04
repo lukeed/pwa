@@ -33,7 +33,7 @@ module.exports = function (src, config, opts) {
 		entry: { bundle },
 		output: {
 			publicPath: '/',
-			path: join(opts.cwd, 'build'),
+			path: join(opts.cwd, opts.dest || 'build'),
 			filename: isProd ? '[name].[hash:8].js' : '[name].js',
 			chunkFilename: isProd ? '[name].chunk.[chunkhash:5].js' : '[name].chunk.js'
 		},

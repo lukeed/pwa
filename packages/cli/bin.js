@@ -16,10 +16,12 @@ sade('pwa')
 	.command('build [src]')
 	.describe('Build production assets')
 	.option('--analyze', 'Launch interactive Analyzer to inspect production bundle(s)')
+	.option('--dest', 'Path to output directory', 'build')
 	.action(build)
 
 	.command('export [src]')
 	.describe('Export pre-rendered pages')
+	.option('--dest', 'Path to output directory', 'build')
 	.action((src, opts) => {
 		opts.export = true;
 		build(src, opts);
