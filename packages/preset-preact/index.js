@@ -2,6 +2,7 @@ exports.babel = function (config, opts) {
 	let pragma = 'h';
 	config.plugins = (config.plugins || []).concat([
 		require.resolve('babel-plugin-transform-react-constant-elements'),
+		require.resolve('babel-plugin-transform-object-rest-spread'),
 		require.resolve('babel-plugin-transform-decorators-legacy'),
 		require.resolve('babel-plugin-transform-class-properties'),
 		[require.resolve('babel-plugin-transform-react-jsx'), { pragma }]
