@@ -10,6 +10,7 @@ module.exports = function (src, config, opts) {
 	let bundle = ['./index.js'];
 
 	let { babel, browsers, postcss, uglify } = config;
+	let extns = ['.wasm', '.mjs', '.js', '.json']; // webpack defaults
 
 	// Apply "browserlist" to Babel config
 	babel.presets = babel.presets.map(x => {
@@ -47,7 +48,8 @@ module.exports = function (src, config, opts) {
 				'@components': join(src, 'components'),
 				'@static': join(src, 'static'),
 				'@pages': join(src, 'pages'),
-			}
+			},
+			extensions: extns.concat('.jsx')
 		},
 		node: {
 			process: false,
