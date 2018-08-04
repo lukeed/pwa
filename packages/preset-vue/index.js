@@ -25,11 +25,7 @@ exports.uglify = {
 }
 
 exports.webpack = function (config, opts) {
-	if (config.resolve.extensions) {
-		config.resolve.extensions.push('.vue');
-	} else {
-		config.resolve.extensions = ['.wasm', '.mjs', '.js', '.json', '.vue'];
-	}
+	config.resolve.extensions.push('.vue');
 
 	Object.assign(config.resolve.alias, {
 		'vue$': 'vue/dist/vue.esm.js'
