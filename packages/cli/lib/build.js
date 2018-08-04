@@ -43,8 +43,21 @@ module.exports = function (src, opts) {
 	let ctx = require('@pwa/core')(src, opts);
 
 	ctx.run((err, stats) => {
-		let msgs = require('webpack-format-messages')(stats);
-		// console.log(msgs.errors, msgs.warnings);
+		let { errors, warnings } = require('webpack-format-messages')(stats);
+
+		if (errors.length > 0) {
+			let sfx = errors.length > 1 ? 's' : '';
+			let out = `Failed to compile! Found ${ colors.red.bold(errors.length) } error${sfx}:`;
+			errors.forEach(x => (out += '\n' + x));
+			return log.error(out);
+		}
+
+		if (warnings.length > 0) {
+			let sfx = warnings.length > 1 ? 's' : '';
+			let tmp = `Compiled with ${ colors.yellow.bold(warnings.length) } warning${sfx}:`;
+			warnings.forEach(x => (tmp += '\n' + x));
+			log.warn(tmp);
+		}
 
 		let out = `Compiled in ${pretty.time(stats.endTime - stats.startTime)}`;
 
