@@ -49,7 +49,7 @@ module.exports = function (src, config, opts) {
 				'@static': join(src, 'static'),
 				'@pages': join(src, 'pages'),
 			},
-			extensions: extns.concat('.jsx')
+			extensions: extns.concat('.jsx', styles.extns)
 		},
 		node: {
 			process: false,

@@ -10,7 +10,7 @@ module.exports = function (browsers, postcss, opts) {
 	let isProd = !!opts.production;
 	let fn = generate.bind(null, isProd);
 	let plugins=[], rules=[], paths=['node_modules'];
-	let ext, filename, chunkFilename;
+	let ext, filename, chunkFilename, extns=[];
 
 	let obj = {
 		css: [],
@@ -73,6 +73,7 @@ module.exports = function (browsers, postcss, opts) {
 	arr.push(fn('postcss', postcss)); // postcss-loader
 
 	for (ext in obj) {
+		extns.push('.'+ext);
 		rules.push({
 			test: new RegExp(`\\.${ext}$`),
 			use: arr.concat(obj[ext])
@@ -83,5 +84,5 @@ module.exports = function (browsers, postcss, opts) {
 		new ExtractCSS({ filename, chunkFilename })
 	);
 
-	return { rules, plugins };
+	return { extns, rules, plugins };
 }
