@@ -76,16 +76,17 @@ module.exports = function (src, opts) {
 		});
 	}
 
-	let server = new Server(c, {
-		port,
-		hot: true,
+	let server = new Server(c, Object.assign(c.options.devServer, {
 		publicPath,
-		quiet: true,
 		inline: true,
 		contentBase: src,
 		https: opts.https,
 		host: hostname,
-	});
+		noInfo: true,
+		quiet: true,
+		port: port,
+		hot: true
+	}));
 
 	server.listen(port, hostname, err => {
 		if (err) {
