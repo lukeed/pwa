@@ -102,12 +102,19 @@ module.exports = function (src, opts) {
 			const { launch } = require('chrome-launcher');
 			const remote = require('chrome-remote-interface');
 
-			// Get routes from file structure
-			let src = ctx.options.resolve.alias['@pages'];
-			let routes = glob('**/*', { cwd:src }).map(str => {
-				str = str.substring(0, str.indexOf('.')).toLowerCase().replace('index', '');
-				return '/' + (str.endsWith('/') ? str.slice(0, -1) : str);
-			}).sort(); // by length
+			let routes = opts.routes || ctx.PWA_CONFIG.routes;
+			let slashes = x => '/' + x.replace(/^\/|\/$/g, '');
+
+			if (Array.isArray(routes)) {
+				routes = routes.map(slashes);
+			} else if (routes) {
+				routes = routes.split(',').map(slashes);
+			} else {
+				// Get routes from file structure
+				let cwd = ctx.options.resolve.alias['@pages'];
+				let fmt = x => x.substring(0, x.indexOf('.')).toLowerCase().replace('index', '');
+				routes = glob('**/*', { cwd }).map(fmt).map(slashes).sort(); // by length
+			}
 
 			let fn, dest=ctx.options.output.path;
 			let onNoMatch = res => fn({ path:'/' }, res, r => (r.statusCode=404,r.end()));

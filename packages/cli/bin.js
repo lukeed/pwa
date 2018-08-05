@@ -22,6 +22,7 @@ sade('pwa')
 	.command('export [src]')
 	.describe('Export pre-rendered pages')
 	.option('-o, --dest', 'Path to output directory', 'build')
+	.option('-r, --routes', 'Comma-delimited list of routes to export')
 	.action((src, opts) => {
 		opts.export = true;
 		build(src, opts);
