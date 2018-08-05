@@ -59,5 +59,7 @@ module.exports = function (src, opts) {
 		wconfig.plugins.push( new BundleAnalyzerPlugin() );
 	}
 
-	return webpack(wconfig);
+	let ctx = webpack(wconfig);
+	ctx.PWA_CONFIG = tmp;
+	return ctx;
 }
