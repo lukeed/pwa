@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "pwa export",
+    "build": "pwa export --wait 1e3",
     "start": "sirv build -s",
     "watch": "pwa watch"
   },
