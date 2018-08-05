@@ -78,7 +78,7 @@ module.exports = function (src, config, opts) {
 				loader: 'raw-loader'
 			}].concat(styles.rules)
 		},
-		devtool: isProd && 'source-map',
+		devtool: isProd ? 'source-map' : 'inline-source-map',
 		plugins: [
 			// new webpack.NoEmitOnErrorsPlugin(),
 			new HTML(toHTMLConfig(src, opts))
