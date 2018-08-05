@@ -22,16 +22,19 @@ function chain(arr) {
 }
 
 const expression = 'document.documentElement.outerHTML';
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-function dump(chrome, base, pathname) {
+function dump(chrome, delay, base, pathname) {
 	let url = base + pathname;
 	let { Page, Runtime } = chrome;
 	let file = join(pathname, 'index.html');
 
 	return Page.navigate({ url }).then(() => {
 		return Page.loadEventFired().then(() => {
-			return Runtime.evaluate({ expression }).then(r => {
-				return { file, html:r.result.value };
+			return sleep(delay).then(() => {
+				return Runtime.evaluate({ expression }).then(r => {
+					return { file, html:r.result.value };
+				});
 			});
 		});
 	});
@@ -135,7 +138,7 @@ module.exports = function (src, opts) {
 			launch({ chromeFlags }).then(proc => {
 				return remote({ port:proc.port }).then(chrome => {
 					let { Page, Network, DOM } = chrome;
-					let scrape = dump.bind(null, chrome, base);
+					let scrape = dump.bind(null, chrome, opts.wait, base);
 					return Promise.all([Page, Network, DOM].map(x => x.enable())).then(() => {
 						return chain(routes.map(x => () => scrape(x))).then(arr => {
 							proc.kill();
