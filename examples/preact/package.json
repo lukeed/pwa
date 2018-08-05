@@ -12,6 +12,5 @@
   "devDependencies": {
     "@pwa/cli": "^0.0.2",
     "@pwa/preset-preact": "^0.0.2",
-    "copy-webpack-plugin": "^4.5.2"
   }
 }
