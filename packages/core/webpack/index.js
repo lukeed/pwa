@@ -94,6 +94,18 @@ module.exports = function (src, config, opts) {
 				new UglifyJS(uglify),
 				new OptimizeCSS({})
 			]
+		},
+		devServer: {
+			overlay: true,
+			compress: true,
+			historyApiFallback: true,
+			disableHostCheck: true,
+			watchOptions: {
+				ignored: [
+					join(opts.cwd, 'build'),
+					join(opts.cwd, 'node_modules')
+				]
+			}
 		}
 	};
 }

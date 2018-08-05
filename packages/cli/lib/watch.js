@@ -1,6 +1,6 @@
 const colors = require('kleur');
 const { existsSync } = require('fs');
-const { join, relative, resolve } = require('path');
+const { relative, resolve } = require('path');
 const pretty = require('./util/pretty');
 const log = require('./util/log');
 
@@ -82,20 +82,9 @@ module.exports = function (src, opts) {
 		publicPath,
 		quiet: true,
 		inline: true,
-		overlay: true,
-		compress: true,
 		contentBase: src,
-		historyApiFallback: true,
-		disableHostCheck: true,
 		https: opts.https,
-		stats: 'minimal',
 		host: hostname,
-		watchOptions: {
-			ignored: [
-				join(cwd, 'build'),
-				join(cwd, 'node_modules')
-			]
-		}
 	});
 
 	server.listen(port, hostname, err => {
