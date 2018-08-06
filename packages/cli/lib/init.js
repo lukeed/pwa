@@ -31,7 +31,8 @@ module.exports = function (type, dir, opts) {
 			name: 'preset',
 			type: 'select',
 			message: 'Which framework would you like to use?',
-			choices: toChoices(['None'].concat(presets))
+			choices: toChoices(['None'].concat(presets)),
+			format: val => val !== 'none' && val
 		}, {
 			name: 'features',
 			type: 'multiselect',
