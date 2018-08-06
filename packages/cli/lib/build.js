@@ -140,11 +140,10 @@ module.exports = function (src, opts) {
 					let { Page, Network, DOM } = chrome;
 					let scrape = dump.bind(null, chrome, opts.wait, base);
 					return Promise.all([Page, Network, DOM].map(x => x.enable())).then(() => {
-						return chain(routes.map(x => () => scrape(x))).then(arr => {
+						return chain(routes.map(x => () => scrape(x).then(print))).then(arr => {
 							proc.kill();
 							chrome.close();
 							server.close();
-							arr.forEach(print);
 							log.log('Shutdown local server\n');
 							let sfx = arr.length > 1 ? 's' : '';
 							let num = colors.italic.bold.green(arr.length);
