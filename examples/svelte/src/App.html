@@ -1,7 +1,11 @@
 <Nav />
 
 <main>
-	<svelte:component this={ route } />
+	{#if route}
+		<svelte:component this={ route } />
+	{:else}
+		<Error404 {uri} />
+	{/if}
 </main>
 
 <style>
@@ -18,8 +22,7 @@
 <script>
 	import Navaid from 'navaid';
 	import Nav from '@components/Nav';
-
-	let router = new Navaid();
+	import Error404 from '@components/Error404';
 
 	export default {
 		data() {
@@ -28,9 +31,13 @@
 			}
 		},
 
-		components: { Nav },
+		components: { Nav, Error404 },
 
 		oncreate() {
+			let router = Navaid('/', uri => {
+				this.set({ route:null, uri });
+			});
+
 			let draw = m => this.set({ route:m.default });
 
 			router
