@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "@pwa/plugin-critters",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "critters-webpack-plugin": "^1.1.0"
+  }
+}
