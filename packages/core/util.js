@@ -19,6 +19,10 @@ exports.merge = function (old, nxt, args) {
 			old[k] = nxt[k] || old[k];
 		}
 	}
+	for (let k in nxt) {
+		if (k === 'webpack') continue;
+		old[k] = old[k] || nxt[k];
+	}
 }
 
 exports.isEmpty = function (mix) {
