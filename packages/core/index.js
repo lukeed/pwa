@@ -52,7 +52,7 @@ module.exports = function (src, opts) {
 
 	// Apply presets' & custom webpack changes
 	opts.webpack = webpack; // pass down to presets
-	handlers.forEach(fn => fn(wconfig, opts));
+	handlers.forEach(fn => fn(wconfig, opts, config));
 
 	if (opts.production && opts.analyze) {
 		let { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
