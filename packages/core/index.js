@@ -1,10 +1,11 @@
-const webpack = require('webpack');
 const { resolve } = require('path');
 const rr = require('require-relative');
 const toConfig = require('./webpack');
 const $ = require('./util');
 
 module.exports = function (src, opts) {
+	const webpack = require('webpack');
+
 	let cwd = opts.cwd = resolve(opts.cwd || '.');
 	let logger = opts.logger || console.log;
 	opts.production = !!opts.production;
@@ -48,10 +49,10 @@ module.exports = function (src, opts) {
 	src = $.isDir(src) ? src : cwd;
 
 	// Build Webpack's Config for 1st time
+	opts.webpack = webpack; // pass it down
 	let wconfig = toConfig(src, config, opts);
 
 	// Apply presets' & custom webpack changes
-	opts.webpack = webpack; // pass down to presets
 	handlers.forEach(fn => fn(wconfig, opts, config));
 
 	if (opts.production && opts.analyze) {

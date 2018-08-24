@@ -1,11 +1,12 @@
 const { join } = require('path');
-const webpack = require('webpack');
 const OptimizeCSS = require('optimize-css-assets-webpack-plugin');
 const UglifyJS = require('uglifyjs-webpack-plugin');
 const HTML = require('html-webpack-plugin');
 const toHTMLConfig = require('./html');
 
 module.exports = function (src, config, opts) {
+	const webpack = opts.webpack;
+
 	let isProd = opts.production;
 	let bundle = ['./index.js'];
 
