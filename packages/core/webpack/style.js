@@ -33,6 +33,7 @@ module.exports = function (browsers, postcss, opts) {
 		fallback = ExtractCSS.loader; // prepare extraction
 		chunkFilename = '[id].chunk.[contenthash:5].css';
 		filename = '[name].[contenthash:5].css';
+		css.localIdentName = '[hash:base64:5]';
 	}
 
 	arr.push(fallback); // add initial
