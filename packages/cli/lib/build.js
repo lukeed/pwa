@@ -1,10 +1,11 @@
+const fs = require('fs');
 const del = require('rimraf');
 const colors = require('kleur');
 const { join } = require('path');
 const { gzipSync } = require('zlib');
 const pretty = require('./util/pretty');
+const { writer } = require('./util/fs');
 const log = require('./util/log');
-const fs = require('./util/fs');
 
 const _ = ' ';
 const gutter = _.repeat(4);
@@ -120,8 +121,19 @@ module.exports = function (src, opts) {
 			} else {
 				// Get routes from file structure
 				let cwd = ctx.options.resolve.alias['@pages'];
-				let fmt = x => x.substring(0, x.indexOf('.')).toLowerCase().replace('index', '');
-				routes = glob('**/*', { cwd }).map(fmt).map(slashes).sort(); // by length
+				if (fs.existsSync(cwd)) {
+					let fmt = x => x.substring(0, x.indexOf('.')).toLowerCase().replace('index', '');
+					routes = glob('**/*', { cwd }).map(fmt).map(slashes).sort(); // by length
+				}
+			}
+
+			if (!routes) {
+				let msg = 'Aborting export!\nNo routes found or specified:';
+				msg += `\n– Your ${colors.bold.italic('@pages')} directory is empty.`;
+				if (ctx.PWA_CONFIG) msg += `\n– Your ${colors.bold.magenta('pwa.config.js')} is missing a "${colors.bold('routes')}" key.`;
+				msg += `\n– Your ${colors.dim('$ pwa export')} is missing the ${colors.cyan('--routes')} argument.`;
+				msg += `\n  Please run ${colors.dim('$ pwa export --help')} for more info`;
+				return log.error(msg);
 			}
 
 			let fn;
@@ -136,7 +148,7 @@ module.exports = function (src, opts) {
 			let minify_opts = ctx.options.plugins.find(toHTML).options.minify;
 
 			function print(obj) {
-				fs.writer(join(dest, obj.file)).end(minify(obj.html, minify_opts));
+				writer(join(dest, obj.file)).end(minify(obj.html, minify_opts));
 				log.info(`Wrote file: ${colors.bold.magenta(obj.file)}`);
 			}
 
