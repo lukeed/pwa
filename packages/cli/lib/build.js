@@ -128,12 +128,13 @@ module.exports = function (src, opts) {
 			}
 
 			if (!routes) {
-				let msg = 'Aborting export!\nNo routes found or specified:';
+				routes = ['/'];
+				let msg = `Exporting the "${colors.bold.yellow('/')}" route only!\nNo other routes found or specified:`;
 				msg += `\n– Your ${colors.bold.italic('@pages')} directory is empty.`;
-				if (ctx.PWA_CONFIG) msg += `\n– Your ${colors.bold.magenta('pwa.config.js')} is missing a "${colors.bold('routes')}" key.`;
+				if (ctx.PWA_CONFIG) msg += `\n– Your ${colors.underline.magenta('pwa.config.js')} is missing a "${colors.bold('routes')}" key.`;
 				msg += `\n– Your ${colors.dim('$ pwa export')} is missing the ${colors.cyan('--routes')} argument.`;
-				msg += `\n  Please run ${colors.dim('$ pwa export --help')} for more info`;
-				return log.error(msg);
+				msg += `\n  Please run ${colors.dim('$ pwa export --help')} for more info\n`;
+				log.warn(msg);
 			}
 
 			let fn;
