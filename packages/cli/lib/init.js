@@ -124,8 +124,13 @@ module.exports = function (type, dir, opts) {
 		let devdeps = ['@pwa/cli'].concat(argv.styles).filter(Boolean);
 		let deps = ['sirv-cli', 'ganalytics'];
 
+		let template = argv.preset || 'vanilla';
+		let styleDir = argv.styles || 'css';
+
 		if (argv.router) {
 			deps.push(argv.router);
+			template += '-router';
+			styleDir += '-router';
 		}
 
 		if (argv.swCustom) {
