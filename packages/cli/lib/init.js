@@ -1,6 +1,9 @@
-const { existsSync } = require('fs');
-const { join, resolve } = require('path');
+const templite = require('templite');
+const { existsSync, readFileSync } = require('fs');
+const { format, join, parse, resolve } = require('path');
 const { writer } = require('./util/fs');
+
+const templates = join(__dirname, '..', 'templates');
 
 let BULLETS = [];
 let toLower = x => (x || '').toLowerCase();
@@ -118,6 +121,7 @@ module.exports = function (type, dir, opts) {
 		// Construct `package.json` file
 		let pkg = { private:true };
 		let deps = ['sirv-cli', 'ganalytics'];
+		let isSFC = /svelte|vue/.test(argv.preset);
 		let devdeps = ['@pwa/cli']
 
 		let template = argv.preset || 'vanilla';
@@ -162,8 +166,38 @@ module.exports = function (type, dir, opts) {
 			pkg.devDependencies[str] = 'latest';
 		});
 
+		// Write "package.json" file
 		let file = join(dest, 'package.json');
 		writer(file).end(JSON.stringify(pkg, null, 2));
+
+		// Loop: Read ~> Inject ~> Write
+		const glob = require('tiny-glob/sync');
+
+		let order = [template];
+		isSFC || order.push(styleDir);
+
+		let data = {
+			style: styleDir
+		};
+
+		// working w/ "src" files only now
+		dest = join(dest, 'src');
+
+		function toFilename(str, dir) {
+			if (isSFC || /index/i.test(str)) return join(dir, str);
+			let { name, ext } = parse(str);
+			name = join(name, 'index');
+			return format({ dir, name, ext });
+		}
+
+		order.forEach(dir => {
+			let cwd = join(templates, dir);
+			glob('**/*.*', { cwd }).forEach(x => {
+				let file = toFilename(x, dest);
+				let src = readFileSync(join(cwd, x), 'utf8');
+				writer(file).end(templite(src, data));
+			});
+		});
 
 		console.log('[TODO] scaffold template files');
 	});
