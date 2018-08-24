@@ -121,8 +121,12 @@ module.exports = function (type, dir, opts) {
 
 		// Construct `package.json` file
 		let pkg = { private:true };
-		let deps = ['sirv-cli', argv.router].filter(Boolean);
 		let devdeps = ['@pwa/cli'].concat(argv.styles).filter(Boolean);
+		let deps = ['sirv-cli', 'ganalytics'];
+
+		if (argv.router) {
+			deps.push(argv.router);
+		}
 
 		if (argv.swCustom) {
 			deps.push(argv.sw);
