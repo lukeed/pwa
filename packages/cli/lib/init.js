@@ -147,8 +147,7 @@ module.exports = function (type, dir, opts) {
 		}
 
 		pkg.scripts = {
-			build: 'pwa build',
-			export: 'pwa export',
+			build: 'pwa export',
 			start: 'sirv build -s',
 			watch: 'pwa watch'
 		};
