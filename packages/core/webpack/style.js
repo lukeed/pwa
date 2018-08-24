@@ -26,13 +26,13 @@ module.exports = function (browsers, postcss, opts) {
 	chunkFilename = '[id].chunk.css';
 	filename = '[name].css';
 
+	css.minimize = css.modules = css.importLoaders = true;
+	css.localIdentName = '[local]';
+
 	if (isProd) {
 		fallback = ExtractCSS.loader; // prepare extraction
 		chunkFilename = '[id].chunk.[contenthash:5].css';
 		filename = '[name].[contenthash:5].css';
-		// TODO: is this prod only?
-		css.minimize = css.modules = css.importLoaders = true;
-		css.localIdentName = '[local]';
 	}
 
 	arr.push(fallback); // add initial
