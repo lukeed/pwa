@@ -1,3 +1,4 @@
+const del = require('rimraf');
 const colors = require('kleur');
 const { join } = require('path');
 const { gzipSync } = require('zlib');
@@ -44,6 +45,10 @@ module.exports = function (src, opts) {
 	opts.production = true;
 	opts.logger = log.logger;
 	let ctx = require('@pwa/core')(src, opts);
+	let dest = ctx.options.output.path;
+
+	del.sync(dest);
+	log.log(`Deleted existing ${colors.bold.italic(opts.dest)} directory`);
 
 	ctx.run((err, stats) => {
 		let { errors, warnings } = require('webpack-format-messages')(stats);
@@ -119,7 +124,7 @@ module.exports = function (src, opts) {
 				routes = glob('**/*', { cwd }).map(fmt).map(slashes).sort(); // by length
 			}
 
-			let fn, dest=ctx.options.output.path;
+			let fn;
 			let onNoMatch = res => fn({ path:'/' }, res, r => (r.statusCode=404,r.end()));
 			let server = createServer(fn=sirv(dest, { onNoMatch })).listen();
 
