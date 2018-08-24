@@ -43,11 +43,7 @@ module.exports = function (type, dir, opts) {
 			message: 'Which CSS preprocessor?',
 			type: (_, all) => all.features.includes('css-preprocessor') && 'select',
 			choices: toChoices(['None', 'LESS', 'SASS/SCSS', 'Stylus']),
-			format(val) {
-				if (val === 'none') return false;
-				if (val === 'sass/scss') return ['node-sass', 'sass-loader'];
-				return [val, `${val}-loader`];
-			}
+			format: val => val === 'none' ? false : val.includes('sass') ? 'sass' : val
 		}, {
 			name: 'linter',
 			message: 'Which linter / formatter do you like?',
@@ -121,11 +117,17 @@ module.exports = function (type, dir, opts) {
 
 		// Construct `package.json` file
 		let pkg = { private:true };
-		let devdeps = ['@pwa/cli'].concat(argv.styles).filter(Boolean);
 		let deps = ['sirv-cli', 'ganalytics'];
+		let devdeps = ['@pwa/cli']
 
 		let template = argv.preset || 'vanilla';
 		let styleDir = argv.styles || 'css';
+
+		if (styleDir === 'sass') {
+			devdeps.push('node-sass', 'sass-loader');
+		} else if (styleDir !== 'css') {
+			devdeps.push(styleDir, `${styleDir}-loader`);
+		}
 
 		if (argv.router) {
 			deps.push(argv.router);
