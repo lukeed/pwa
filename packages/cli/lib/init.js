@@ -183,10 +183,11 @@ module.exports = function (type, dir, opts) {
 		// working w/ "src" files only now
 		dest = join(dest, 'src');
 
-		function toFilename(str, dir) {
-			if (isSFC || /index/i.test(str)) return join(dir, str);
-			let { name, ext } = parse(str);
-			name = join(name, 'index');
+		function toFilename(str, dest) {
+			if (isSFC || /index/i.test(str)) return join(dest, str);
+			let { dir, name, ext } = parse(str);
+			dir = join(dest, dir, name);
+			name = 'index';
 			return format({ dir, name, ext });
 		}
 
