@@ -112,7 +112,14 @@ module.exports = function (type, dir, opts) {
 		prompts.inject({ force:true });
 	}
 
-	return prompts(BULLETS).then(argv => {
+	let ok = true;
+	let onCancel = () => ok=false;
+	return prompts(BULLETS, { onCancel }).then(argv => {
+		if (!ok) {
+			log.info(`Received ${colors.cyan.underline('CTRL+C')} command`);
+			return log.log(`Exited ${colors.dim('$ pwa init')} setup`);
+		}
+
 		console.log(argv);
 		if (argv.exists && !argv.force) {
 			return log.error(`Refusing to overwrite existing directory.\nPlease specify a different destination or use the ${colors.cyan('--force')} flag.`);
