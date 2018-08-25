@@ -1,7 +1,9 @@
+const colors = require('kleur');
 const templite = require('templite');
 const { existsSync, readFileSync } = require('fs');
 const { format, join, parse, resolve } = require('path');
 const { writer } = require('./util/fs');
+const log = require('./util/log');
 
 const templates = join(__dirname, '..', 'templates');
 
@@ -106,14 +108,14 @@ module.exports = function (type, dir, opts) {
 	}
 
 	if (opts.force) {
-		console.log('[PWA] Detected `--force` flag; target directory will be overwritten!');
+		log.warn(`Detected ${colors.cyan('--force')} flag; target directory will be overwritten!`);
 		prompts.inject({ force:true });
 	}
 
 	return prompts(BULLETS).then(argv => {
 		console.log(argv);
 		if (argv.exists && !argv.force) {
-			return console.log('[PWA] Refusing to overwrite existing directory. Please specify a different destination or use the `--force` flag.');
+			return log.error(`Refusing to overwrite existing directory.\nPlease specify a different destination or use the ${colors.cyan('--force')} flag.`);
 		}
 
 		let dest = argv.dir;
