@@ -1,5 +1,6 @@
 const colors = require('kleur');
 const templite = require('templite');
+const glob = require('tiny-glob/sync');
 const { existsSync, readFileSync } = require('fs');
 const { format, join, parse, resolve } = require('path');
 const { writer } = require('./util/fs');
@@ -26,6 +27,35 @@ function setValue(key, val) {
 
 function toRouter(obj) {
 	return /react|vue/.test(obj.preset) ? `${obj.preset}-router` : 'navaid';
+}
+
+/**
+ * Convert "App.{ext}" ~> "App/index.{ext}"
+ * @param  {String} str   The original filename
+ * @param  {String} dest  The (absolute) target directory
+ * @return {String}
+ */
+function toAppFile(str, dest) {
+	let { dir, name, ext } = parse(str);
+	dir = join(dest, dir, name);
+	name = 'index';
+	return format({ dir, name, ext });
+}
+
+/**
+ * Copy `templates/{dir}/**` ~> `${dest}/**`
+ * @param  {String} dir   The "templates" dirname
+ * @param  {String} dest  The target destination
+ * @param  {Object} data  The data to inject
+ */
+function copyDir(dir, dest, data) {
+	let cwd = join(templates, dir);
+	let isRaw = /svelte|vue|assets/i.test(cwd);
+	glob('**/*.*', { cwd }).forEach(x => {
+		let file = (isRaw || /index/i.test(x)) ? join(dest, x) : toAppFile(x, dest);
+		let src = readFileSync(join(cwd, x), 'utf8');
+		writer(file).end(templite(src, data));
+	});
 }
 
 module.exports = function (type, dir, opts) {
@@ -130,7 +160,6 @@ module.exports = function (type, dir, opts) {
 		// Construct `package.json` file
 		let pkg = { private:true };
 		let deps = ['sirv-cli', 'ganalytics'];
-		let isSFC = /svelte|vue/.test(argv.preset);
 		let devdeps = ['@pwa/cli']
 
 		let template = argv.preset || 'vanilla';
@@ -179,35 +208,23 @@ module.exports = function (type, dir, opts) {
 		let file = join(dest, 'package.json');
 		writer(file).end(JSON.stringify(pkg, null, 2));
 
-		// Loop: Read ~> Inject ~> Write
-		const glob = require('tiny-glob/sync');
-
-		let order = [template];
-		isSFC || order.push(styleDir);
-
-		let data = {
-			style: styleDir
-		};
-
 		// working w/ "src" files only now
 		dest = join(dest, 'src');
 
-		function toFilename(str, dest) {
-			if (isSFC || /index/i.test(str)) return join(dest, str);
-			let { dir, name, ext } = parse(str);
-			dir = join(dest, dir, name);
-			name = 'index';
-			return format({ dir, name, ext });
+		// The injectable template data
+		let data = { style:styleDir };
+
+		// Copy "templates/{preset}" files
+		copyDir(template, dest, data);
+
+		if (/svelte|vue/.test(template)) {
+			// TODO: (SFCs) Inject "styleDir" content
+		} else {
+			copyDir(styleDir, dest, data);
 		}
 
-		order.forEach(dir => {
-			let cwd = join(templates, dir);
-			glob('**/*.*', { cwd }).forEach(x => {
-				let file = toFilename(x, dest);
-				let src = readFileSync(join(cwd, x), 'utf8');
-				writer(file).end(templite(src, data));
-			});
-		});
+		// Copy "templates/assets" over
+		copyDir('assets', join(dest, 'assets'));
 
 		console.log('[TODO] scaffold template files');
 	});
