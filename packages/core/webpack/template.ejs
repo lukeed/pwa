@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-  	<div id="app"></div>
-  </body>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="mobile-web-app-capable" content="yes"/>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title><%= htmlWebpackPlugin.options.title %></title>
+		<link rel="shortcut icon" href="/assets/favicon.ico"/>
+		<link rel="manifest" href="/assets/manifest.json"/>
+	</head>
+	<body>
+		<div id="app"></div>
+	</body>
 </html>
