@@ -220,6 +220,9 @@ module.exports = function (type, dir, opts) {
 		// The injectable template data
 		let data = { style:styleExt };
 
+		// Copy `index.html` to start us off
+		copyFile(templates, dest, 'index.html');
+
 		// Copy "templates/assets" over
 		copyDir('assets', join(dest, 'assets'));
 
@@ -231,7 +234,7 @@ module.exports = function (type, dir, opts) {
 			let ext = template.includes('vue') ? 'vue' : 'html';
 			let rgx = new RegExp(`\\.${ext}$`);
 
-			// Copy `index` style to start off
+			// Copy `index` style (no pair below)
 			copyFile(styl, dest, `index.${styleExt}`);
 
 			// Copy over SFCs, injecting styles
