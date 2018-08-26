@@ -163,7 +163,8 @@ module.exports = function (type, dir, opts) {
 		let devdeps = ['@pwa/cli']
 
 		let template = argv.preset || 'vanilla';
-		let styleDir = argv.styles || 'css';
+		let styleExt = argv.styles || 'css';
+		let styleDir = styleExt;
 
 		if (styleDir === 'sass') {
 			devdeps.push('node-sass', 'sass-loader');
@@ -212,7 +213,7 @@ module.exports = function (type, dir, opts) {
 		dest = join(dest, 'src');
 
 		// The injectable template data
-		let data = { style:styleDir };
+		let data = { style:styleExt };
 
 		// Copy "templates/{preset}" files
 		copyDir(template, dest, data);
