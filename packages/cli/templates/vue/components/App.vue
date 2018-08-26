@@ -3,9 +3,9 @@
 		<Intro />
 		<Nav />
 		<section :class="$style.features">
-			<div>Feature 1</div>
-			<div>Feature 2</div>
-			<div>Feature 3</div>
+			<Feat />
+			<Feat />
+			<Feat />
 		</section>
 	</div>
 </template>

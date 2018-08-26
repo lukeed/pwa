@@ -1,17 +1,13 @@
 <template>
-	<nav :class="$style.nav">hero</nav>
+	<nav :class="[$style.nav, { [$style.stuck]: stuck }]">links</nav>
 </template>
 
 <script>
 	export default {
-		data: {
-			stuck: false
-		},
-		computed: {
-			classes() {
-				console.log(this);
-				return 'hello';
-			}
+		data() {
+			return {
+				stuck: false
+			};
 		},
 		mounted() {
 			document.addEventListener('scroll', ev => {
