@@ -10,6 +10,7 @@
     "node": ">=6"
   },
   "dependencies": {
+    "@pwa/webpack-assets": "*",
     "autoprefixer": "^8.6.4",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",

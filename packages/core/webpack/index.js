@@ -1,4 +1,5 @@
 const { join } = require('path');
+const CopyAssets = require('@pwa/webpack-assets');
 const OptimizeCSS = require('optimize-css-assets-webpack-plugin');
 const UglifyJS = require('uglifyjs-webpack-plugin');
 const HTML = require('html-webpack-plugin');
@@ -84,6 +85,7 @@ module.exports = function (src, config, opts) {
 			// new webpack.NoEmitOnErrorsPlugin(),
 			new HTML(toHTMLConfig(src, opts))
 		].concat(styles.plugins, isProd ? [
+			new CopyAssets(src),
 			new webpack.HashedModuleIdsPlugin(),
 			new webpack.LoaderOptionsPlugin({ minimize:true })
 		] : [
