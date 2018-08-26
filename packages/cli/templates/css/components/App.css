@@ -1,4 +1,7 @@
 .app {
-	background: blue;
-	color: purple;
+	position: relative;
+}
+
+.features {
+	display: grid;
 }

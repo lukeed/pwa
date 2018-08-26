@@ -1,0 +1,31 @@
+<nav ref:nav class={classes}>
+	<p>links</p>
+</nav>
+
+<script>
+	export default {
+		data() {
+			return {
+				stuck: false
+			};
+		},
+		computed: {
+			classes: ({ stuck }) => {
+				let c = 'nav';
+				if (stuck) c += ' stuck';
+				return c;
+			}
+		},
+		oncreate() {
+			let nav = this.refs.nav;
+			document.addEventListener('scroll', ev => {
+				let stuck = nav.getBoundingClientRect().top === 0;
+				this.set({ stuck });
+			}, { passive:true });
+		}
+	}
+</script>
+
+<style lang="{{style}}">
+	%%__styles__%%
+</style>

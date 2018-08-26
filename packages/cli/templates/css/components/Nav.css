@@ -1,0 +1,12 @@
+.nav {
+	position: sticky;
+	border-bottom: 1px solid #eaecef;
+	background: #FFF;
+	height: 56px;
+	width: 100%;
+	top: 0;
+}
+
+.stuck {
+	box-shadow: 0 2px 4px;
+}

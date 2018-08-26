@@ -1,12 +1,14 @@
-<div class="app">
-	<Intro />
-	<Nav />
-	<section class="features">
-		<Feat />
-		<Feat />
-		<Feat />
-	</section>
-</div>
+<template>
+	<div :class="$style.app">
+		<Intro />
+		<Nav />
+		<section :class="$style.features">
+			<div>Feature 1</div>
+			<div>Feature 2</div>
+			<div>Feature 3</div>
+		</section>
+	</div>
+</template>
 
 <script>
 	import Intro from '@components/Intro';
@@ -22,6 +24,6 @@
 	}
 </script>
 
-<style lang="{{style}}">
+<style module lang="{{style}}">
 	%%__styles__%%
 </style>

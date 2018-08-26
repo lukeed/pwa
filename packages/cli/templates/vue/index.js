@@ -1,9 +1,13 @@
+import Vue from 'vue';
 import GAnalytics from 'ganalytics';
-import App from '@components/App.html';
+import App from '@components/App';
 import './index.{{style}}';
 
-window.app = new App({
-	target: document.querySelector('#app')
+Vue.config.productionTip = false;
+
+new Vue({
+	el: '#app',
+	render: h => h(App)
 });
 
 if (process.env.NODE_ENV === 'production') {
