@@ -8,6 +8,7 @@
     "node": ">=6"
   },
   "dependencies": {
-    "svelte-loader": "^2.9.1"
+    "svelte-loader": "^2.9.1",
+    "svelte-preprocess": "^2.2.4"
   }
 }
