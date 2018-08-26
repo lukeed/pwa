@@ -1,0 +1,13 @@
+{
+  "name": "@pwa/webpack-assets",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "tiny-glob": "^0.2.2"
+  }
+}
