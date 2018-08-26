@@ -1,7 +1,7 @@
+const fs = require('fs');
 const colors = require('kleur');
 const templite = require('templite');
 const glob = require('tiny-glob/sync');
-const { existsSync, readFileSync } = require('fs');
 const { format, join, parse, resolve } = require('path');
 const { writer } = require('./util/fs');
 const log = require('./util/log');
@@ -53,7 +53,7 @@ function copyDir(dir, dest, data) {
 	let isRaw = /svelte|vue|assets/i.test(cwd);
 	glob('**/*.*', { cwd }).forEach(x => {
 		let file = (isRaw || /index/i.test(x)) ? join(dest, x) : toAppFile(x, dest);
-		let src = readFileSync(join(cwd, x), 'utf8');
+		let src = fs.readFileSync(join(cwd, x), 'utf8');
 		writer(file).end(templite(src, data));
 	});
 }
@@ -123,7 +123,7 @@ module.exports = function (type, dir, opts) {
 		}, {
 			name: 'force',
 			message: 'Force destination overwrite?',
-			type: (_, all) => existsSync(all.dir) && 'confirm',
+			type: (_, all) => fs.existsSync(all.dir) && 'confirm',
 			format: (x, all) => (all.exists=1,x) // bcuz it ran
 		}
 	];
