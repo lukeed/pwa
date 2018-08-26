@@ -58,6 +58,11 @@ function copyDir(dir, dest, data) {
 	});
 }
 
+function copyFile(src, tar, name) {
+	let rr = fs.createReadStream(join(src, name));
+	return rr.pipe(writer(join(tar, name)));
+}
+
 module.exports = function (type, dir, opts) {
 	let prompts = require('prompts');
 
@@ -215,17 +220,41 @@ module.exports = function (type, dir, opts) {
 		// The injectable template data
 		let data = { style:styleExt };
 
-		// Copy "templates/{preset}" files
-		copyDir(template, dest, data);
-
-		if (/svelte|vue/.test(template)) {
-			// TODO: (SFCs) Inject "styleDir" content
-		} else {
-			copyDir(styleDir, dest, data);
-		}
-
 		// Copy "templates/assets" over
 		copyDir('assets', join(dest, 'assets'));
+
+		// (SFCs) Inject "styleDir" content
+		if (/vue|svelte/.test(template)) {
+			let tmpl = join(templates, template);
+			let styl = join(templates, styleDir);
+
+			let ext = template.includes('vue') ? 'vue' : 'html';
+			let rgx = new RegExp(`\\.${ext}$`);
+
+			// Copy `index` style to start off
+			copyFile(styl, dest, `index.${styleExt}`);
+
+			// Copy over SFCs, injecting styles
+			glob('**/*.*', { cwd:tmpl }).forEach(x => {
+				let src = fs.readFileSync(join(tmpl, x), 'utf8');
+				let out = writer(join(dest, x));
+				let tmp = templite(src, data);
+
+				if (/index/.test(x)) {
+					out.end(tmp);
+				} else {
+					// find Component's paired stylesheet
+					let css = join(styl, x.replace(rgx, `.${styleExt}`));
+					css = fs.readFileSync(css, 'utf8').trim().replace(/\n/g, '\n\t');
+					out.end(tmp.replace('%%__styles__%%', css));
+				}
+			});
+		} else {
+			// Copy files as they are
+			// ~> w/ filename transforms
+			copyDir(template, dest, data);
+			copyDir(styleDir, dest, data);
+		}
 
 		console.log('[TODO] scaffold template files');
 	});
