@@ -33,8 +33,21 @@ exports.postcss = {
 	plugins: ['autoprefixer']
 }
 
-// Empty ~> no customization
-exports.uglify = {}
+// Basic config
+// TODO: configure `sourceMap` (globally)
+exports.uglify = {
+	cache: true,
+	parallel: true,
+	sourceMap: true,
+	uglifyOptions: {
+		mangle: true,
+		compress: true,
+		sourceMap: true,
+		output: {
+			comments: false
+		}
+	}
+}
 
 // Leave this commented out -- is visual docs
 // exports.webpack = function (config, opts) {}
