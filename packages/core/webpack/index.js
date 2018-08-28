@@ -69,6 +69,7 @@ module.exports = function (src, config, opts) {
 		},
 		module: {
 			rules: [{
+				include: src,
 				test: /\.jsx?$/,
 				loader: 'babel-loader',
 				options: babel
