@@ -215,13 +215,16 @@ module.exports = function (type, dir, opts) {
 		let file = join(dest, 'package.json');
 		writer(file).end(JSON.stringify(pkg, null, 2));
 
+		// Copy `.gitignore` to start us off
+		copyFile(templates, dest, '.gitignore');
+
 		// working w/ "src" files only now
 		dest = join(dest, 'src');
 
 		// The injectable template data
 		let data = { style:styleExt };
 
-		// Copy `index.html` to start us off
+		// Copy over `index.html` template
 		copyFile(templates, dest, 'index.html');
 
 		// Copy "templates/assets" over
