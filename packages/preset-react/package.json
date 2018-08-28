@@ -2,12 +2,13 @@
   "name": "@pwa/preset-react",
   "version": "0.0.6",
   "files": [
-    "index.js"
+    "*.js"
   ],
   "engines": {
     "node": ">=6"
   },
   "dependencies": {
-    "babel-preset-react-app": "^3.1.2"
+    "babel-preset-react-app": "^3.1.2",
+    "react-hot-loader": "^4.3.5"
   }
 }
