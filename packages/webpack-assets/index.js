@@ -1,3 +1,4 @@
+const { parse } = require('url');
 const { relative } = require('path');
 const { readFileSync } = require('fs');
 const glob = require('tiny-glob/sync');
@@ -23,8 +24,11 @@ class CopyAssets {
 		function toPurge(mod, filename) {
 			let m = mod.resource;
 			if (m && m.startsWith(dir)) {
-				if (filename) set.delete(filename);
-				set.delete(m);
+				// webpack will add `?query` to files sometimes
+				set.delete(parse(m).pathname);
+				if (filename && typeof filename === 'string') {
+					set.delete(filename);
+				}
 			}
 		}
 
