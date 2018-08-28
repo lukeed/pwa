@@ -1,6 +1,6 @@
 {
   "name": "@pwa/core",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "files": [
     "*.js",
     "config",
@@ -10,7 +10,7 @@
     "node": ">=6"
   },
   "dependencies": {
-    "@pwa/webpack-assets": "*",
+    "@pwa/webpack-assets": "^0.0.7",
     "autoprefixer": "^8.6.4",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",

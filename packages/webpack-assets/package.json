@@ -1,6 +1,6 @@
 {
   "name": "@pwa/webpack-assets",
-  "version": "0.0.0",
+  "version": "0.0.7",
   "files": [
     "index.js"
   ],
