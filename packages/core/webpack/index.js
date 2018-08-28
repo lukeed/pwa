@@ -100,6 +100,7 @@ module.exports = function (src, config, opts) {
 			]
 		},
 		devServer: {
+			stats: false, // quiet
 			overlay: true,
 			compress: true,
 			historyApiFallback: true,
