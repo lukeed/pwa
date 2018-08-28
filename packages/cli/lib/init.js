@@ -155,7 +155,8 @@ module.exports = function (type, dir, opts) {
 			return log.log(`Exited ${colors.dim('$ pwa init')} setup`);
 		}
 
-		console.log(argv);
+		// console.log(argv);
+
 		if (argv.exists && !argv.force) {
 			return log.error(`Refusing to overwrite existing directory.\nPlease specify a different destination or use the ${colors.cyan('--force')} flag.`);
 		}
@@ -259,6 +260,30 @@ module.exports = function (type, dir, opts) {
 			copyDir(styleDir, dest, data);
 		}
 
-		console.log('[TODO] scaffold template files');
+		let dir = parse(argv.dir).base;
+		let txt = argv.preset ? (colors.magenta.underline(argv.preset) + ' ') : '';
+		let msg = `Created a new ${txt}project within ${ colors.green.bold(dir) } 🎉\n`;
+
+		msg += '\nInside this directory, you may:\n';
+		msg += '\n – Develop within a live-reload server:';
+		msg += `\n    ${colors.dim('$ pwa watch')}\n`;
+		msg += '\n – Build your application for production:';
+		msg += `\n    ${colors.dim('$ pwa build')}\n`;
+		msg += '\n – Export routes\' HTML for static hosting:';
+		msg += `\n    ${colors.dim('$ pwa export')}\n`;
+		msg += '\n – Start a production HTTP file server:';
+		msg += `\n    ${colors.dim('$ npm start')}\n`;
+
+		msg += `\nThese commands have been added to your ${colors.white.underline('package.json')} already.`;
+		msg += '\nWe suggest you begin by typing:\n';
+		msg += '\n  ' + colors.dim(`$ cd ${dir}`);
+		msg += `\n  ${colors.dim('$ npm install')}`;
+		msg += `\n  ${colors.dim('$ npm run watch')}`;
+
+		// TODO
+		msg += `\n\nDocumentation can be found at ${colors.white.bold.underline('https://foobar.com')}`;
+
+		log.success(msg);
+		log.success('Enjoy! 😍');
 	});
 }
