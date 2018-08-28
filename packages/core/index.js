@@ -33,6 +33,11 @@ module.exports = function (src, opts) {
 		customs.push(tmp);
 	}
 
+	// use root if "/src" is missing
+	src = resolve(cwd, src || 'src');
+	src = $.isDir(src) ? src : cwd;
+	opts.src = src; // share this
+
 	// Mutate config w/ custom values
 	// ~> defer webpack-related changes for later
 	customs.forEach(mix => {
@@ -43,10 +48,6 @@ module.exports = function (src, opts) {
 			mix.webpack && handlers.push(mix.webpack);
 		}
 	});
-
-	// use root if "/src" is missing
-	src = resolve(cwd, src || 'src');
-	src = $.isDir(src) ? src : cwd;
 
 	// Build Webpack's Config for 1st time
 	opts.webpack = webpack; // pass it down
