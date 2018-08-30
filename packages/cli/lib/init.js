@@ -26,8 +26,8 @@ function setValue(key, val) {
 	}
 }
 
-function toRouter(obj) {
-	return /react|vue/.test(obj.preset) ? `${obj.preset}-router` : 'navaid';
+function toRouter(preset) {
+	return /react|vue/.test(preset) ? `${preset}-router` : 'navaid';
 }
 
 /**
@@ -104,12 +104,6 @@ module.exports = function (type, dir, opts) {
 				if (val === 'sw-precache') return 'sw-precache-webpack-plugin';
 				return val;
 			}
-		}, {
-			initial: true,
-			name: 'router',
-			type: (_, all) => all.features.includes('router') && 'confirm',
-			message: (_, all) => `Accept \`${toRouter(all)}\` as your application router?`,
-			format: (val, all) => val && toRouter(all) // Boolean|String
 		},
 		// TODO: Testing options
 		{
@@ -179,8 +173,8 @@ module.exports = function (type, dir, opts) {
 			devdeps.push(styleDir, `${styleDir}-loader`);
 		}
 
-		if (argv.router) {
-			deps.push(argv.router);
+		if (argv.features.includes('router')) {
+			deps.push(toRouter(argv.preset));
 			template += '-router';
 			styleDir += '-router';
 		}
