@@ -23,10 +23,10 @@
 ## Features
 
 * **Framework Agnostic**<br>
-  _Build with your preferred framework or with none at all! Official presets for Preact, React, Vue, and Svelte._
+  _Build with your preferred framework or with none at all!<br>Official presets for Preact, React, Vue, and Svelte._
 
 * **Plug 'n Play**<br>
-  _Don't worry about configuration, unless you want to. Presets and plugins are automatically applied. Just install and go!_
+  _Don't worry about configuration, unless you want to.<br>Presets and plugins are automatically applied. Just install and go!_
 
 * **Fully Extensible**<br>
   _Includes a plugin system that allows for easy, fine-grain control of your configuration... when needed._
@@ -35,10 +35,10 @@
   _Supports Babel, Bublé, Browserlist, TypeScript, PostCSS, ESLint, Prettier, and Service Workers out of the box!_
 
 * **Instant Prototyping**<br>
-  _Quickly scaffold new projects with your preferred view library and toolkit. Kick it off with a perfect Lighthouse score!_
+  _Quickly scaffold new projects with your preferred view library and toolkit.<br>Kick it off with a perfect Lighthouse score!_
 
 * **Static Site Generator**<br>
-  _Export your routes as "pre-rendered" HTML, which is great for SEO and works on any static hosting service._
+  _Export your routes as "pre-rendered" HTML.<br>Great for SEO and works on any static hosting service._
 
 
 ## Concepts
@@ -47,7 +47,7 @@
 
 ### Presets
 
-Presets are collections of plugins that are tailored for a particular framework.
+Presets are collections of [plugins](#plugins) that are tailored for a particular framework.
 
 While there may be "official" presets, this **does not** mean that PWA can only support these candidates! The current options are:
 
@@ -56,7 +56,7 @@ While there may be "official" presets, this **does not** mean that PWA can only 
 * [`@pwa/preset-svelte`](/packages/preset-svelte)
 * [`@pwa/preset-vue`](/packages/preset-vue)
 
-These packages are auto-loaded during PWA's initialization and are applied _first_, before any [Plugins](#plugins) or [custom configuration](#customizing). This means that you always have the option to override a value or setting in the Preset.
+These packages are auto-loaded during PWA's initialization and are applied _first_, before any [Plugins](#plugins) or [custom configuration](#customizing). This means that you always have the option to override a value or setting shipped within the Preset.
 
 ### Plugins
 
@@ -106,7 +106,7 @@ Instead of `--routes`, you may define a `routes` array within [`pwa.config.js`](
 
 If no routes are defined in either location, PWA will traverse your `"@pages"`-aliased directory (default: `src/pages/**`) and attempt to infer URL patterns from the file structure.
 
-In the event that no files exist within that directory, PWA will show a warning but still traverse the index (`"/"`) route.
+In the event that no files exist within that directory, PWA will show a warning but still scrape the index (`"/"`) route.
 
 ```
 $ pwa export --help
@@ -161,14 +161,14 @@ This is ideal for SEO, PWA behavior, and all-around performance purposes, as you
 
 The generated HTML pages will be placed in your `build` directory. A `/login` route will be exported as `build/login/index.html` &mdash; this makes it compatible with even the "dumbest" of static hosting services!
 
-**Note:** Running `export` will automatically run `build` before scraping.
+> **Note:** Running `export` will automatically run `build` before scraping.
 
 
 ## Configuration
 
 ### Overview
 
-All configuration within the PWA network is ***mutable***! [Presets](#presets), [Plugins](#plugins), and your [custom config](#customizing) file write into the same object(s). This is great for composability and extensibility, but _be warned_ that your custom config _may_ break the build if you're not careful.
+All configuration within the PWA tree is ***mutable***! [Presets](#presets), [Plugins](#plugins), and your [custom config](#customizing) file write into the same object(s). This is great for composability and extensibility, but _be warned_ that your custom config _may_ break the build if you're not careful.
 
 > :bulb: Official presets & plugins are controlled releases and are ensured to play nicely with one another.
 
@@ -181,7 +181,10 @@ The config object(s) for your project are assembled in this sequence:
 5) **Plugins:** The `webpack` config key, if any
 6) **Custom:** The `webpack` config key, if any
 
-Because the final config object is passed to Webpack, the `webpack` key **must always be a function** as it composes & moves everything into its relevant loaders, plugins, etc.
+Because the final config object is passed to Webpack, internally, the `webpack` key always runs last as it composes & moves everything into its relevant loaders, plugins, etc.
+
+> **Important:** When defining a [custom `webpack` key](#webpack) it **must always be a function**!
+
 
 ### Mutations
 
@@ -309,6 +312,9 @@ exports.postcss = function (config) {
   );
 };
 
+// Expor these pages during "pwa export" command
+exports.routes = ['/login', '/register', '/articles/hello-world'];
+
 // Update Webpack config; ENV-dependent
 exports.webpack = function (config, env) {
   let { production, webpack } = env;
@@ -321,6 +327,7 @@ exports.webpack = function (config, env) {
       })
     );
   } else {
+    config.devServer.https = true;
     config.plugins.push(
       new webpack.DefinePlugin({
         MY_API: JSON.stringify('http://staging.example.com')
