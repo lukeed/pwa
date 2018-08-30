@@ -8,22 +8,6 @@ exports.babel = function (config, opts) {
 	]);
 }
 
-exports.uglify = {
-	cache: true,
-	parallel: true,
-	sourceMap: true,
-	uglifyOptions: {
-		sourceMap: true,
-		output: {
-			comments: false
-		},
-		mangle: true,
-		compress: {
-			warnings: false
-		}
-	}
-}
-
 exports.webpack = function (config, opts) {
 	config.resolve.extensions.push('.vue');
 
