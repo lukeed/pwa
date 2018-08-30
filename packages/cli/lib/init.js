@@ -10,7 +10,8 @@ const templates = join(__dirname, '..', 'templates');
 
 let BULLETS = [];
 let toLower = x => (x || '').toLowerCase();
-let presets = ['Angular', 'Preact', 'React', 'Svelte', 'Vue'];
+let presets = ['Preact', 'React', 'Svelte', 'Vue'];
+// TODO: Angular, Polymer
 
 function toChoices(arr, isMulti) {
 	return arr.map((title, idx) => {
