@@ -17,9 +17,11 @@
 	min-height: 200px;
 	max-height: 416px;
 	border-radius: 4px;
+	transform: translateZ(0);
 	top: var(--window-overlap);
 	box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);
-	animation: window 750ms 100ms forwards;
+	animation: window 750ms 250ms forwards;
+	will-change: transform, opacity;
 	/*padding-right: 120px;*/
 	background: #1c1c1c;
 	position: relative;
