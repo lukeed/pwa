@@ -1,0 +1,39 @@
+{
+  "hosting": {
+    "public": "build",
+    "ignore": [
+      "**/.*",
+      "firebase.json",
+      "**/node_modules/**"
+    ],
+    "rewrites": [{
+      "source": "/robots.txt",
+      "destination": "/assets/robots.txt"
+    }, {
+      "source": "**",
+      "destination": "/index.html"
+    }],
+    "trailingSlash": false,
+    "headers": [
+      {
+        "source": "/sw.js",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "private, no-cache"
+        }]
+      }, {
+        "source": "/*.@(png|svg)",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }]
+      }, {
+        "source": "/bundle.*.@(js|css)",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000"
+        }]
+      }
+    ]
+  }
+}
