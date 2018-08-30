@@ -191,8 +191,8 @@ module.exports = function (type, dir, opts) {
 		}
 
 		if (argv.preset) {
-			deps.push(argv.preset);
 			devdeps.push(`@pwa/preset-${argv.preset}`);
+			(/svelte/.test(argv.preset) ? devdeps : deps).push(argv.preset);
 		}
 
 		pkg.scripts = {
