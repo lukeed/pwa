@@ -278,8 +278,7 @@ module.exports = function (type, dir, opts) {
 		msg += `\n  ${colors.dim('$ npm install')}`;
 		msg += `\n  ${colors.dim('$ npm run watch')}`;
 
-		// TODO
-		msg += `\n\nDocumentation can be found at ${colors.white.bold.underline('https://foobar.com')}`;
+		msg += `\n\nDocumentation can be found at ${colors.white.bold.underline('https://pwa.cafe/docs')}`;
 
 		log.success(msg);
 		log.success('Enjoy! 😍');
