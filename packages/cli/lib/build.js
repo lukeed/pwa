@@ -149,7 +149,7 @@ module.exports = function (src, opts) {
 			let minify_opts = ctx.options.plugins.find(toHTML).options.minify;
 
 			function print(obj) {
-				writer(join(dest, obj.file)).end(minify(obj.html, minify_opts));
+				writer(join(dest, obj.file)).end('<!DOCTYPE html>' + minify(obj.html, minify_opts));
 				log.info(`Wrote file: ${colors.bold.magenta(obj.file)}`);
 			}
 
