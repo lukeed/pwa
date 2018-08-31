@@ -1,0 +1,13 @@
+{
+  "name": "@pwa/plugin-eslint",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "eslint-loader": "^2.1.0"
+  }
+}
