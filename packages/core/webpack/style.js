@@ -27,7 +27,7 @@ module.exports = function (browsers, postcss, opts) {
 	filename = '[name].css';
 
 	css.minimize = css.modules = css.importLoaders = true;
-	css.localIdentName = '[local]';
+	css.localIdentName = '[local]__[hash:base64:5]';
 
 	if (isProd) {
 		fallback = ExtractCSS.loader; // prepare extraction
