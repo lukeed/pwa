@@ -10,5 +10,8 @@
   "dependencies": {
     "prettier": "^1.14.2",
     "prettier-loader": "^2.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
