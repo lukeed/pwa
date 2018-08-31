@@ -1,13 +1,13 @@
-exports.eslint = {
-	cache: true
+exports.prettier = {
+	// @see https://prettier.io/docs/en/options.html
 }
 
 exports.webpack = function (config, env, opts) {
 	config.module.rules.unshift({
-    test: /\.jsx$/,
     enforce: 'pre',
+    test: /\.jsx?$/,
     include: env.src,
-    loader: 'eslint-loader',
-    options: opts.eslint
+    loader: 'prettier-loader',
+    options: opts.prettier
   });
 }
