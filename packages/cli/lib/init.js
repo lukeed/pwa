@@ -224,7 +224,8 @@ module.exports = function (type, dir, opts) {
 		copyFile(templates, dest, 'index.html');
 
 		// Copy "templates/assets" over
-		copyDir('assets', join(dest, 'assets'));
+		let copyAsset = copyFile.bind(null, templates, dest);
+		glob('assets/**/*.*', { cwd:templates }).forEach(copyAsset);
 
 		// (SFCs) Inject "styleDir" content
 		if (/vue|svelte/.test(template)) {
