@@ -8,6 +8,8 @@
     "node": ">=6"
   },
   "dependencies": {
+    "babel-eslint": "^9.0.0",
+    "eslint": "^5.4.0",
     "eslint-loader": "^2.1.0"
   }
 }

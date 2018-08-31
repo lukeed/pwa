@@ -4,10 +4,8 @@
 
 ## Install
 
-> You must install `eslint` and your rules separately
-
 ```sh
-$ npm install --save-dev @pwa/plugin-eslint eslint
+$ npm install --save-dev @pwa/plugin-eslint
 ```
 
 ## Usage
@@ -18,15 +16,20 @@ _None – recognized by and attached to `@pwa/core` automatically!_
 
 Configurable via the `eslint` key on your `pwa.config.js` file.
 
+You may also define or use existing `.eslintrc.*` files in your project. You may also provide a custom `configFile` path.
+
 ***Default Config:***
 
 ```js
 exports.eslint = {
-  cache: true
+  cache: true,
+  parserOptions: {
+    parser: 'babel-eslint'
+  }
 }
 ```
 
 ***Available Options:***
 
-See [Options](https://github.com/webpack-contrib/eslint-loader#options) for `eslint-loader`.
+See [Options](https://github.com/webpack-contrib/eslint-loader#options) for `eslint-loader` and [ESLint's Options](https://eslint.org/docs/developer-guide/nodejs-api#cliengine) too.
 

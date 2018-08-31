@@ -1,5 +1,8 @@
 exports.eslint = {
-	cache: true
+	cache: true,
+	parserOptions: {
+		parser: 'babel-eslint'
+	}
 }
 
 exports.webpack = function (config, env, opts) {
