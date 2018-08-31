@@ -1,5 +1,11 @@
 <template>
-	<nav :class="[$style.nav, { [$style.stuck]: stuck }]">links</nav>
+	<nav :class="[$style.nav, { [$style.stuck]: stuck }]">
+		<span />
+		<ul>
+			<li><a href="https://github.com/lukeed/pwa" :class="$style.link_external">GitHub</a></li>
+			<li><a href="https://github.com/lukeed/pwa" :class="$style.link_external">Documentation</a></li>
+		</ul>
+	</nav>
 </template>
 
 <script>
@@ -10,8 +16,8 @@
 			};
 		},
 		mounted() {
-			document.addEventListener('scroll', ev => {
-				this.stuck = this.$el.getBoundingClientRect().top === 0;
+			addEventListener('scroll', ev => {
+				this.stuck = window.pageYOffset > 0;
 			}, { passive:true });
 		}
 	}

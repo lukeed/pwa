@@ -1,0 +1,22 @@
+<div class="features">
+	{#each items as item (item.title)}
+		<div class="item">
+			<h3>{item.title}</h3>
+			<p>{item.text}</p>
+		</div>
+	{/each}
+</div>
+
+<script>
+	import items from '@assets/features.json';
+
+	export default {
+		data() {
+			return { items };
+		}
+	}
+</script>
+
+<style lang="{{style}}">
+	%%__styles__%%
+</style>

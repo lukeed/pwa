@@ -1,4 +1,4 @@
-:root {
+&:root {
 	--offwhite: #F8F8FA;
 	--transition-duration: 300ms;
 	--font-header: 'Montserrat';
@@ -35,12 +35,13 @@
 * {
 	margin: 0;
 	padding: 0;
-}
-
-*,
-*:after,
-*:before {
 	box-sizing: border-box;
+	&:after {
+		box-sizing: border-box;
+	}
+	&:before {
+		box-sizing: border-box;
+	}
 }
 
 body {
@@ -53,12 +54,10 @@ body {
 a {
 	color: rgb(0,100,200);
 	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-a:visited {
-	color: rgb(0,80,160);
+	&:hover {
+		text-decoration: underline;
+	}
+	&:visited {
+		color: rgb(0,80,160);
+	}
 }

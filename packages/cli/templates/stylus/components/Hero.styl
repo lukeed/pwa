@@ -1,0 +1,62 @@
+.hero
+	position relative
+	background-color var(--offwhite)
+	border-bottom 2px solid #1E88E5
+	max-height 600px
+	min-height 300px
+	height 45vh
+
+.shapes
+	width 100%
+	position absolute
+	transform translateZ(0)
+	overflow hidden
+	bottom 0
+	top 0
+
+.titles
+	height 0
+	z-index 2
+	position relative
+	font-family var(--font-header), var(--font-list)
+	text-transform uppercase
+	top calc(30% - 56px)
+	text-align center
+	h1
+		font-size 2.875em
+		font-weight 800
+		line-height 1
+	h3
+		line-height 2
+		font-weight 200
+		letter-spacing 2px
+		font-size 1.25em
+		color #5e7283
+
+.shape
+	--size 30px
+	position absolute
+	will-change transform
+	background transparent no-repeat center
+	background-size contain
+	height var(--size)
+	width var(--size)
+
+:global(.penta)
+	background-image url("@assets/shapes/penta.svg")
+
+:global(.point)
+	background-image url("@assets/shapes/point.svg")
+
+:global(.square)
+	background-image url("@assets/shapes/square.svg")
+
+:global(.cross)
+	background-image url("@assets/shapes/cross.svg")
+
+:global(.circle)
+	background-image url("@assets/shapes/circle.svg")
+
+@media screen and (max-width: 421px)
+	.shape
+		--size 20px

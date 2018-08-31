@@ -1,5 +1,9 @@
-<nav ref:nav class={classes}>
-	<p>links</p>
+<nav class={classes}>
+	<span />
+	<ul>
+		<li><a href="https://github.com/lukeed/pwa" class="link_external">GitHub</a></li>
+		<li><a href="https://github.com/lukeed/pwa" class="link_external">Documentation</a></li>
+	</ul>
 </nav>
 
 <script>
@@ -17,9 +21,8 @@
 			}
 		},
 		oncreate() {
-			let nav = this.refs.nav;
-			document.addEventListener('scroll', ev => {
-				let stuck = nav.getBoundingClientRect().top === 0;
+			addEventListener('scroll', ev => {
+				let stuck = window.pageYOffset > 0;
 				this.set({ stuck });
 			}, { passive:true });
 		}

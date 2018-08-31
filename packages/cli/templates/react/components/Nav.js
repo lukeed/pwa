@@ -1,7 +1,7 @@
-import { Component } from 'preact';
+import React from 'react';
 import style from './index.{{style}}';
 
-export default class Nav extends Component {
+export default class Nav extends React.Component {
 	state = {
 		stuck: false,
 	};
@@ -18,16 +18,18 @@ export default class Nav extends Component {
 		return now.stuck !== nxt.stuck;
 	}
 
-	render(_, state) {
+	render() {
 		let cls = style.nav;
-		if (state.stuck) cls += ` ${style.stuck}`;
+		if (this.state.stuck) {
+			cls += ` ${style.stuck}`;
+		}
 
 		return (
-			<nav class={ cls }>
+			<nav className={ cls }>
 				<span />
 				<ul>
-					<li><a href="https://github.com/lukeed/pwa" class={ style.link_external }>GitHub</a></li>
-					<li><a href="https://github.com/lukeed/pwa" class={ style.link_external }>Documentation</a></li>
+					<li><a href="https://github.com/lukeed/pwa" className={ style.link_external }>GitHub</a></li>
+					<li><a href="https://github.com/lukeed/pwa" className={ style.link_external }>Documentation</a></li>
 				</ul>
 			</nav>
 		);
