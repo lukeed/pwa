@@ -78,7 +78,7 @@ module.exports = function (type, dir, opts) {
 			name: 'features',
 			type: 'multiselect',
 			message: 'Select features needed for your project:',
-			choices: toChoices(['CSS Preprocessor', 'Linter or Formatter', 'TypeScript', 'Router', 'Service Worker', 'E2E Testing', 'Unit Testing'], true)
+			choices: toChoices(['CSS Preprocessor', 'Linter or Formatter (TODO)', 'TypeScript (TODO)', 'Router', 'Service Worker (TODO)', 'E2E Testing (TODO)', 'Unit Testing (TODO)'], true)
 		}, {
 			name: 'styles',
 			message: 'Which CSS preprocessor?',
@@ -87,14 +87,14 @@ module.exports = function (type, dir, opts) {
 			format: val => val === 'none' ? false : val.includes('sass') ? 'sass' : val
 		}, {
 			name: 'linter',
-			message: 'Which linter / formatter do you like?',
-			type: (_, all) => all.features.includes('linter-or-formatter') && 'select',
+			message: '(TODO) Which linter / formatter do you like?',
+			type: (_, all) => all.features.some(x => /linter-or-formatter/.test(x)) && 'select',
 			choices: toChoices(['None', 'ESLint', 'Prettier', 'TSLint']),
 			format: val => val === 'none' ? false : val
 		}, {
 			name: 'sw',
-			message: 'Which Service Worker library?',
-			type: (_, all) => all.features.includes('service-worker') && 'select',
+			message: '(TODO) Which Service Worker library?',
+			type: (_, all) => all.features.some(x => /service-worker/.test(x)) && 'select',
 			choices: toChoices(['None', 'Custom', 'Offline Plugin', 'SW Precache', 'SW Workbox']),
 			format(val, all) {
 				all.swCustom = val == 'custom';
