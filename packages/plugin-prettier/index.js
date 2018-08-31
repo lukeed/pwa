@@ -1,5 +1,5 @@
 exports.prettier = {
-	// @see https://prettier.io/docs/en/options.html
+	parser: 'babylon'
 }
 
 exports.webpack = function (config, env, opts) {

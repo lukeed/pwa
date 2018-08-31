@@ -4,10 +4,8 @@
 
 ## Install
 
-> You must install `prettier` separately
-
 ```sh
-$ npm install --save-dev @pwa/plugin-prettier prettier
+$ npm install --save-dev @pwa/plugin-prettier
 ```
 
 ## Usage
@@ -29,7 +27,11 @@ By default, Prettier's [configuration files](https://prettier.io/docs/en/configu
 
 ***Default Config:***
 
-_None_
+```js
+exports.prettier = {
+  parser: 'babylon'
+}
+```
 
 ***Available Options:***
 
