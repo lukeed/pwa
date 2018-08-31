@@ -163,9 +163,9 @@ module.exports = function (type, dir, opts) {
 		let deps = ['sirv-cli', 'ganalytics'];
 		let devdeps = ['@pwa/cli']
 
+		let styleDir = argv.styles || 'css';
 		let template = argv.preset || 'vanilla';
-		let styleExt = argv.styles || 'css';
-		let styleDir = styleExt;
+		let styleExt = styleDir.replace('us', '');
 
 		if (styleDir === 'sass') {
 			devdeps.push('node-sass', 'sass-loader');
