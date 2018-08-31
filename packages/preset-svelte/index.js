@@ -12,6 +12,13 @@ exports.webpack = function (config, opts) {
 		config.resolve.mainFields = ['svelte', 'browser', 'module', 'main'];
 	}
 
+	// disable CSS module renaming
+	config.module.rules.forEach(obj => {
+		if (!Array.isArray(obj.use)) return;
+		let css = obj.use.find(o => o.loader && o.loader === 'css-loader');
+		if (css) css.options.localIdentName = '[local]';
+	});
+
 	// turn off "raw-loader" on *.html files
 	config.module.rules.forEach(obj => {
 		if (obj.test.test('index.html')) {
