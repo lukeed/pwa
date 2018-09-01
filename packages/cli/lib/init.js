@@ -211,8 +211,9 @@ module.exports = function (type, dir, opts) {
 		let file = join(dest, 'package.json');
 		writer(file).end(JSON.stringify(pkg, null, 2));
 
-		// Copy `.gitignore` to start us off
-		copyFile(templates, dest, '.gitignore');
+		// Copy `.gitignore` to start us off (TODO: yuck)
+		let ignore = fs.readFileSync(join(templates, '_gitignore'));
+		writer(join(dest, '.gitignore')).end(ignore);
 
 		// working w/ "src" files only now
 		dest = join(dest, 'src');
