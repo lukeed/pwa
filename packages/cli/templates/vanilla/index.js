@@ -15,9 +15,13 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 } else if (process.env.NODE_ENV === 'production') {
 	window.ga = new GAnalytics('UA-XXXXXXXX-X');
 
-	root.appendChild(App());
+	let nxt = App();
+	let prev = root.firstElementChild;
 
-	if ('serviceWorker' in navigator) {
-		navigator.serviceWorker.register('/sw.js');
+	// Check for matching DOM (`export`)
+	if (prev && prev.isEqualNode(nxt)) {
+		root.replaceChild(nxt, prev);
+	} else {
+		root.appendChild(nxt);
 	}
 }
