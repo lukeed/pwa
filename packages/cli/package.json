@@ -6,7 +6,8 @@
   },
   "files": [
     "*.js",
-    "lib"
+    "lib",
+    "templates"
   ],
   "engines": {
     "node": ">=6"
