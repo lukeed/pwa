@@ -1,5 +1,4 @@
 const { join } = require('path');
-const preprocess = require('svelte-preprocess')();
 
 exports.webpack = function (config, opts) {
 	let isProd = opts.production;
@@ -39,12 +38,18 @@ exports.webpack = function (config, opts) {
 		use: {
 			loader: 'svelte-loader',
 			options: {
-				preprocess,
 				emitCss: true,
 				hotReload: true,
 				hydratable: true,
-				skipIntroByDefault: true,
 				nestedTransitions: true,
+				skipIntroByDefault: true,
+				preprocess: require('svelte-preprocess')({
+					transformers: {
+						sass: {
+							indentedSyntax: true
+						}
+					}
+				})
 			}
 		}
 	});
