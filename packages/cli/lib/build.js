@@ -52,7 +52,16 @@ module.exports = function (src, opts) {
 	log.log(`Deleted existing ${colors.bold.italic(opts.dest)} directory`);
 
 	ctx.run((err, stats) => {
-		let { errors, warnings } = require('webpack-format-messages')(stats);
+		let errors = [];
+		let warnings = [];
+
+		if (err) {
+			errors.push(err);
+		} else {
+			let tmp = require('webpack-format-messages')(stats);
+			warnings = tmp.warnings;
+			errors = tmp.errors;
+		}
 
 		if (errors.length > 0) {
 			let sfx = errors.length > 1 ? 's' : '';
