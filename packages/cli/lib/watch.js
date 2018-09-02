@@ -89,6 +89,7 @@ module.exports = function (src, opts) {
 		contentBase: src,
 		https: opts.https,
 		host: hostname,
+		// @see webpack-dev-server/pull/1486
 		// noInfo: true,
 		quiet: true,
 		port: port,
