@@ -24,4 +24,6 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 	} else {
 		root.appendChild(nxt);
 	}
+
+	{{registration}}
 }

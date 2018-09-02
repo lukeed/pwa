@@ -16,4 +16,6 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 	});
 } else if (process.env.NODE_ENV === 'production') {
 	window.ga = new GAnalytics('UA-XXXXXXXX-X');
+
+	{{registration}}
 }

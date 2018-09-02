@@ -78,7 +78,7 @@ module.exports = function (type, dir, opts) {
 			name: 'features',
 			type: 'multiselect',
 			message: 'Select features needed for your project:',
-			choices: toChoices(['CSS Preprocessor', 'Linter or Formatter (TODO)', 'TypeScript (TODO)', 'Router', 'Service Worker (TODO)', 'E2E Testing (TODO)', 'Unit Testing (TODO)'], true)
+			choices: toChoices(['CSS Preprocessor', 'Linter or Formatter (TODO)', 'TypeScript (TODO)', 'Router', 'Service Worker', 'E2E Testing (TODO)', 'Unit Testing (TODO)'], true)
 		}, {
 			name: 'styles',
 			message: 'Which CSS preprocessor?',
@@ -93,16 +93,15 @@ module.exports = function (type, dir, opts) {
 			format: val => val === 'none' ? false : val
 		}, {
 			name: 'sw',
-			message: '(TODO) Which Service Worker library?',
-			type: (_, all) => all.features.some(x => /service-worker/.test(x)) && 'select',
-			choices: toChoices(['None', 'Custom', 'Offline Plugin', 'SW Precache', 'SW Workbox']),
+			message: 'Which Service Worker library?',
+			type: (_, all) => all.features.includes('service-worker') && 'select',
+			choices: toChoices(['None', 'Offline Plugin', 'SW Precache', 'SW Workbox']),
 			format(val, all) {
-				all.swCustom = val == 'custom';
 				if (val === 'none') return false;
-				if (val === 'custom') return 'register-service-worker';
-				if (val === 'sw-workbox') return 'workbox-webpack-plugin';
-				if (val === 'sw-precache') return 'sw-precache-webpack-plugin';
-				return val;
+				// if (val === 'custom') return (all.swCustom=true,false); TODO
+				if (val === 'offline-plugin') return '@pwa/plugin-offline';
+				if (val === 'sw-precache') return '@pwa/plugin-sw-precache';
+				if (val === 'sw-workbox') return '@pwa/plugin-sw-workbox';
 			}
 		},
 		// TODO: Testing options
@@ -159,6 +158,8 @@ module.exports = function (type, dir, opts) {
 		let dest = argv.dir;
 
 		// Construct `package.json` file
+		// ---
+
 		let pkg = { private:true };
 		let deps = ['sirv-cli', 'ganalytics'];
 		let devdeps = ['@pwa/cli']
@@ -179,9 +180,7 @@ module.exports = function (type, dir, opts) {
 			styleDir += '-router';
 		}
 
-		if (argv.swCustom) {
-			deps.push(argv.sw);
-		} else if (argv.sw) {
+		if (argv.sw) {
 			devdeps.push(argv.sw);
 		}
 
@@ -207,6 +206,9 @@ module.exports = function (type, dir, opts) {
 			pkg.devDependencies[str] = 'latest';
 		});
 
+		// Scaffold new files in `dest` target
+		// ---
+
 		// Write "package.json" file
 		let file = join(dest, 'package.json');
 		writer(file).end(JSON.stringify(pkg, null, 2));
@@ -220,6 +222,15 @@ module.exports = function (type, dir, opts) {
 
 		// The injectable template data
 		let data = { style:styleExt };
+
+		// Service Worker Attachment
+		if (argv.sw) {
+			// TODO: `swCustom` handling; scaffold empty-vs-template file?
+			data.registration = '// Service Worker registration\n\t';
+			data.registration += /offline/.test(argv.sw) ? `require('offline-plugin/runtime').install();` : `if ('serviceWorker' in navigator) {\n\t\tnavigator.serviceWorker.register('/sw.js');\n\t}`;
+		} else {
+			data.registration = '// Additional production-specific code...';
+		}
 
 		// Copy over `index.html` template
 		copyFile(templates, dest, 'index.html');
@@ -264,6 +275,9 @@ module.exports = function (type, dir, opts) {
 			copyDir(template, dest, data);
 			copyDir(styleDir, dest, data);
 		}
+
+		// Sign off message
+		// ---
 
 		let dir = parse(argv.dir).base;
 		let txt = argv.preset ? (colors.magenta.underline(argv.preset) + ' ') : '';
