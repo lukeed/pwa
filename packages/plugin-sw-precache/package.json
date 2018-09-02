@@ -1,0 +1,13 @@
+{
+  "name": "@pwa/plugin-sw-precache",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "sw-precache-webpack-plugin": "^0.11.5"
+  }
+}
