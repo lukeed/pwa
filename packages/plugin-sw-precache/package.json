@@ -9,5 +9,8 @@
   },
   "dependencies": {
     "sw-precache-webpack-plugin": "^0.11.5"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

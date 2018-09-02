@@ -1,4 +1,4 @@
-# @pwa/plugin-precache
+# @pwa/plugin-sw-precache
 
 > [`PWA`](https://pwa.cafe/) plugin for [SW Precache](https://github.com/GoogleChromeLabs/sw-precache)
 
