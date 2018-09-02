@@ -50,19 +50,26 @@ module.exports = function (src, opts) {
 		let uri = require('url').format({ protocol, hostname, port });
 		log.log(`Starting development server on ${ colors.white.bold.underline(uri) }`);
 
+		function onError(arr) {
+			arr = [].concat(arr || []);
+			let sfx = arr.length > 1 ? 's' : '';
+			let out = `Failed to compile! Found ${ colors.red.bold(arr.length) } error${sfx}:`;
+			arr.forEach(x => (out += '\n' + x));
+			return log.error(out);
+		}
+
 		c.hooks.invalid.tap('PWA', file => {
 			file = relative(cwd, file);
 			log.info(`File changed: ${ colors.white.bold(file) }`);
 		});
 
+		c.hooks.failed.tap('PWA', onError);
+
 		c.hooks.done.tap('PWA', stats => {
 			let { errors, warnings } = format(stats);
 
 			if (errors.length > 0) {
-				let sfx = errors.length > 1 ? 's' : '';
-				let out = `Failed to compile! Found ${ colors.red.bold(errors.length) } error${sfx}:`;
-				errors.forEach(x => (out += '\n' + x));
-				return log.error(out);
+				return onError(errors);
 			}
 
 			if (warnings.length > 0) {
@@ -82,7 +89,7 @@ module.exports = function (src, opts) {
 		contentBase: src,
 		https: opts.https,
 		host: hostname,
-		noInfo: true,
+		// noInfo: true,
 		quiet: true,
 		port: port,
 		hot: true
