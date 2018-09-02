@@ -19,7 +19,9 @@ $ npm install --save-dev @pwa/plugin-sw-workbox
 
 ## Usage
 
-The plugin is recognized by and attached to `@pwa/core` automatically; however, you must manually include the generated `sw.js` file into your bundle!
+The plugin is recognized by and attached to `@pwa/core` automatically.
+
+However, you must manually include the generated `sw.js` file into your bundle!
 
 ```js
 if (process.env.NODE_ENV === 'production') {

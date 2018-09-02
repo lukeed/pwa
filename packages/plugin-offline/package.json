@@ -1,0 +1,16 @@
+{
+  "name": "@pwa/plugin-offline",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "offline-plugin": "^5.0.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
