@@ -1,0 +1,16 @@
+{
+  "name": "@pwa/plugin-sw-workbox",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "workbox-webpack-plugin": "^3.4.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
