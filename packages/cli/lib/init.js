@@ -262,9 +262,10 @@ module.exports = function (type, dir, opts) {
 					// find Component's paired stylesheet
 					let css = join(styl, x.replace(rgx, `.${styleExt}`));
 					css = fs.readFileSync(css, 'utf8').trim().replace(/\n/g, '\n\t');
-					if (template === 'svelte') {
+					if (/svelte/.test(template)) {
 						let esc = styleExt === 'less' ? '&' : (styleExt === 'sass' ? '\\' : '');
 						css = css.replace(/\.shape(\s|\n)/g, esc + ':global(.shape)$1');
+						css = css.replace(/\.intro(\s|\n)/g, esc + ':global(.intro)$1');
 					}
 					out.end(tmp.replace('%%__styles__%%', css));
 				}
