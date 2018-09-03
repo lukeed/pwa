@@ -195,6 +195,7 @@ module.exports = function (type, dir, opts) {
 		if (argv.features.includes('router')) {
 			template += '-router';
 			styleDir += '-router';
+			pkg.scripts.build += ' --routes /about,/blog,/';
 			deps.push(toRouter(argv.preset));
 			if (argv.preset === 'react') {
 				deps.push('react-loadable');
