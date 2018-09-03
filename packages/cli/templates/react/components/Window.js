@@ -6,7 +6,7 @@ export default function (props) {
 	return (
 		<div className={ style.window_wrap }>
 			<div className={ style.window }>
-				<img src={ VIDEO } alt="recording" />
+				<object data={ VIDEO } type="image/svg+xml" />
 			</div>
 		</div>
 	);

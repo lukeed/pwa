@@ -9,11 +9,11 @@ export default function () {
 	div.className = style.window;
 	wrap.appendChild(div);
 
-	let img = document.createElement('img');
-	img.alt = 'recording';
-	img.src = VIDEO;
+	let obj = document.createElement('object');
+	obj.type = 'image/svg+xml';
+	obj.data = VIDEO;
 
-	div.appendChild(img);
+	div.appendChild(obj);
 
 	return wrap;
 }

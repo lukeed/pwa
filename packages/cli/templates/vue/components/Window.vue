@@ -1,7 +1,7 @@
 <template>
 	<div :class="$style.window_wrap">
 		<div :class="$style.window">
-			<img :src="video" alt="recording" />
+			<object :data="video" type="image/svg+xml" />
 		</div>
 	</div>
 </template>
