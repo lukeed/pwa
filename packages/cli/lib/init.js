@@ -27,7 +27,9 @@ function setValue(key, val) {
 }
 
 function toRouter(preset) {
-	return /react|vue/.test(preset) ? `${preset}-router` : 'navaid';
+	let str = /react|vue/.test(preset) ? `${preset}-router` : 'navaid';
+	if (preset === 'react') str += '-dom';
+	return str;
 }
 
 /**
@@ -174,12 +176,6 @@ module.exports = function (type, dir, opts) {
 			devdeps.push(styleDir, `${styleDir}-loader`);
 		}
 
-		if (argv.features.includes('router')) {
-			deps.push(toRouter(argv.preset));
-			template += '-router';
-			styleDir += '-router';
-		}
-
 		if (argv.sw) {
 			devdeps.push(argv.sw);
 		}
@@ -195,6 +191,15 @@ module.exports = function (type, dir, opts) {
 			start: 'sirv build -s',
 			watch: 'pwa watch'
 		};
+
+		if (argv.features.includes('router')) {
+			template += '-router';
+			styleDir += '-router';
+			deps.push(toRouter(argv.preset));
+			if (argv.preset === 'react') {
+				deps.push('react-loadable');
+			}
+		}
 
 		pkg.dependencies = {};
 		deps.sort().forEach(str => {
