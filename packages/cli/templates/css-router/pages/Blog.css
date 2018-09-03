@@ -17,9 +17,11 @@
 }
 
 .blog_item {
-	border-radius: var(--radius);
-	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	cursor: pointer;
+}
+
+.blog_item:hover {
+	text-decoration: none;
 }
 
 .blog_item strong {
@@ -30,10 +32,6 @@
 .blog_item em {
 	font-size: 85%;
 	line-height: 1;
-}
-
-.blog_item a:hover {
-	text-decoration: none;
 }
 
 .callout {

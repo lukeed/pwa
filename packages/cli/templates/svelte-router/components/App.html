@@ -1,0 +1,57 @@
+<div class="app">
+	<Hero />
+
+	<main class="wrapper">
+		<svelte:component this={ route } {params} />
+	</main>
+
+	<Footer />
+</div>
+
+<script>
+	import Navaid from 'navaid';
+	import Footer from '@components/Footer';
+	import Hero from '@components/Hero';
+
+	export default {
+		data() {
+			return {
+				route: null,
+				params: {},
+			}
+		},
+
+		components: {
+			Footer,
+			Hero
+		},
+
+		oncreate() {
+			const draw = (m, params) => {
+				params = params || {};
+				this.set({ route:m.default, params });
+			}
+
+			function track(obj) {
+				if (window.ga) {
+					ga.send('pageview', { dp:obj.uri });
+				}
+			}
+
+			addEventListener('replacestate', track);
+			addEventListener('pushstate', track);
+			addEventListener('popstate', track);
+
+			Navaid('/')
+				.on('/', () => import('@pages/Home').then(draw))
+				.on('/blog', () => import('@pages/Blog').then(draw))
+				.on('/blog/:title', obj => import('@pages/Article').then(m => draw(m, obj)))
+				.on('/about', () => import('@pages/About').then(draw))
+				.listen();
+		}
+	};
+</script>
+
+<style lang="{{style}}">
+	%%__styles__%%
+</style>

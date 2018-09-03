@@ -1,0 +1,39 @@
+<nav class={classes}>
+	<ul class="links">
+		<li><a href="/">Home</a></li>
+		<li><a href="/blog">Blog</a></li>
+		<li><a href="/about">About</a></li>
+	</ul>
+
+	<ul>
+		<li><a href="https://github.com/lukeed/pwa" class="link_external">GitHub</a></li>
+		<li><a href="https://github.com/lukeed/pwa" class="link_external">Documentation</a></li>
+	</ul>
+</nav>
+
+<script>
+	export default {
+		data() {
+			return {
+				stuck: false
+			};
+		},
+		computed: {
+			classes: ({ stuck }) => {
+				let c = 'nav';
+				if (stuck) c += ' stuck';
+				return c;
+			}
+		},
+		oncreate() {
+			addEventListener('scroll', ev => {
+				let stuck = window.pageYOffset > 0;
+				this.set({ stuck });
+			}, { passive:true });
+		}
+	}
+</script>
+
+<style lang="{{style}}">
+	%%__styles__%%
+</style>

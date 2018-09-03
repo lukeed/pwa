@@ -1,0 +1,23 @@
+<pre class={classes}>
+	{#if label}
+		<span class="comment"># {label}</span>
+	{/if}
+	<span class="text"># {text}</span>
+</pre>
+
+<script>
+	export default {
+		props: ['offset', 'label', 'text'],
+		computed: {
+			classes: ({ offset }) => {
+				let c = 'pre';
+				if (offset) c += ' offset';
+				return c;
+			}
+		},
+	}
+</script>
+
+<style lang="{{style}}">
+	%%__styles__%%
+</style>
