@@ -256,7 +256,7 @@ module.exports = function (type, dir, opts) {
 				let out = writer(join(dest, x));
 				let tmp = templite(src, data);
 
-				if (/index/.test(x)) {
+				if (/index|router/.test(x)) {
 					out.end(tmp);
 				} else {
 					// find Component's paired stylesheet
