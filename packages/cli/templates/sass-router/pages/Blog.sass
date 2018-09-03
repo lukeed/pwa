@@ -1,0 +1,35 @@
+.blog
+	margin-top: -64px
+
+.indent
+	opacity: 0.85
+	font-style: italic
+	border-left: 4px solid var(--blue)
+	padding: 4px 16px
+
+.blog_grid
+	display: grid
+	grid-gap: 16px
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+	margin-bottom: 32px
+
+.blog_item
+	border-radius: var(--radius)
+	transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+	strong
+		display: block
+		margin-bottom: 8px
+	em
+		font-size: 85%
+		line-height: 1
+	a:hover
+		text-decoration: none
+
+.callout
+	box-shadow: none
+	font-weight: 800
+	text-transform: uppercase
+	font-family: var(--font-header)
+	text-shadow: 2px 2px 0 rgb(255,210,23), 4px 4px 0 rgb(90,199,255)
+	padding-right: 4px

@@ -1,0 +1,13 @@
+.features
+	display grid
+	grid-gap 32px
+	grid-template-columns repeat(auto-fit, minmax(260px, 1fr))
+	padding-bottom 64px
+
+.item
+	h3
+		margin-bottom 8px
+
+@media screen and (min-width: 1200px)
+	.features
+		grid-template-columns repeat(3, 1fr)

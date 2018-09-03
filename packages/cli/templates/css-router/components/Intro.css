@@ -1,0 +1,20 @@
+.intro {
+	padding: 24px;
+	background: var(--white);
+	border-radius: var(--radius);
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	margin-bottom: 32px;
+}
+
+.intro h1 {
+	margin-bottom: 16px;
+}
+
+.intro p {
+	margin-bottom: 12px;
+	line-height: 1.35;
+}
+
+.intro p:last-of-type {
+	margin-bottom: 0;
+}
