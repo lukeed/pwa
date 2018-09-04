@@ -30,7 +30,7 @@
 	opacity: 0;
 }
 
-.window img {
+.window object {
 	height: 100%;
 	max-width: 100%;
 	pointer-events: none;
