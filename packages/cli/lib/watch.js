@@ -17,11 +17,18 @@ module.exports = function (src, opts) {
 	let publicPath = c.options.output.publicPath;
 
 	let protocol = 'http';
-	let port = PORT || opts.port || 8080;
-	let hostname = HOST || opts.host || 'localhost';
+	let port = PORT || opts.port;
+	let hostname = HOST || opts.host;
+	let dev = c.options.devServer;
 
-	if (opts.https || HTTPS) {
-		let { key, cert, cacert } = opts;
+	// use custom configs if KEY === default
+	port = port === 8080 && dev.port || port;
+	hostname = hostname === 'localhost' && dev.host || hostname;
+
+	if (opts.https || HTTPS || dev.https) {
+		let tmp = Object.assign({}, dev.https, opts);
+		let { key, cert, cacert } = tmp;
+		let hasCA = Boolean(cacert);
 		protocol = 'https';
 
 		if (key && cert) {
@@ -29,18 +36,18 @@ module.exports = function (src, opts) {
 			cert = resolve(cwd, cert);
 			cacert = cacert && resolve(cwd, cacert);
 			if (existsSync(key) && existsSync(cert)) {
-				opts.https = { key, cert, ca:cacert };
+				dev.https = { key, cert, ca:cacert };
 			} else {
 				let gutter = ' '.repeat(4);
-				let space = opts.cacert ? ' '.repeat(2) : '';
+				let space = hasCA ? ' '.repeat(2) : '';
 				let out = 'Certificate component(s) not found at locations provided!\n';
 				out += colors.bold.white('--key ') + space + gutter + colors.italic.dim(key) + '\n';
 				out += colors.bold.white('--cert') + space + gutter + colors.italic.dim(cert);
-				if (opts.cacert) out += '\n' + colors.bold.white('--cacert') + gutter + colors.italic.dim(cacert);
+				if (hasCA) out += '\n' + colors.bold.white('--cacert') + gutter + colors.italic.dim(cacert);
 				return log.error(out);
 			}
 		} else {
-			opts.https = true;
+			dev.https = true;
 			log.warn('Relying on self-signed certificate from `webpack-dev-server` internals');
 		}
 	}
@@ -83,11 +90,10 @@ module.exports = function (src, opts) {
 		});
 	}
 
-	let server = new Server(c, Object.assign(c.options.devServer, {
+	let server = new Server(c, Object.assign(dev, {
 		publicPath,
 		inline: true,
 		contentBase: src,
-		https: opts.https,
 		host: hostname,
 		// @see webpack-dev-server/pull/1486
 		// noInfo: true,
