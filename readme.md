@@ -41,6 +41,33 @@
   _Export your routes as "pre-rendered" HTML.<br>Great for SEO and works on any static hosting service._
 
 
+## Installation
+
+PWA is split up into two main components ([`core`](/packages/core) and [`cli`](/packages/cli)) in addition to its list of [presets](#presets) and [plugins](#plugins).
+
+> While most will opt for the CLI, the `core` module handles all configuration and can be used as a standalone module.
+
+Please refer to each package for installation, API, and Usage information.
+
+#### Quick Start
+
+```sh
+# Install globally
+$ npm install --global @pwa/cli
+# OR
+$ yarn global add @pwa/cli
+
+# Display CLI's help text
+$ pwa --help
+
+# Generate new project
+$ pwa init
+```
+
+> **Note:** The `global` modifiers are only required for _global_ command-line usage!<br>
+Local `devDependency` installation will also work, but then `pwa` usage is limited to the project.
+
+
 ## Concepts
 
 > Please read about [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/) if the term is unfamiliar to you.
@@ -64,9 +91,12 @@ Plugins are (typically) individual features or chunks of configuration that are 
 
 While there may be "official" plugins, this **does not** mean that PWA can only support these functionalities! The current plugins include:
 
-* [`@pwa/plugin-buble`](/packages/buble)
-* [`@pwa/plugin-critters`](/packages/critters)
-* [`@pwa/plugin-typescript`](/packages/typescript)
+* [`@pwa/plugin-critters`](/packages/plugin-critters)
+* [`@pwa/plugin-eslint`](/packages/plugin-eslint)
+* [`@pwa/plugin-offline`](/packages/plugin-offline)
+* [`@pwa/plugin-prettier`](/packages/plugin-prettier)
+* [`@pwa/plugin-sw-precache`](/packages/plugin-sw-precache)
+* [`@pwa/plugin-sw-workbox`](/packages/plugin-sw-workbox)
 
 These packages are auto-loaded during PWA's initialization and are applied _second_, after any [Presets](#presets) and before [custom configuration](#customizing). This allows Plugins to override settings from Presets.
 
@@ -76,7 +106,7 @@ Plugins may (sometimes) expose a new [key](#config-keys) on the config tree and 
 
 ## Commands
 
-> This section applies to `@pwa/cli` specifically.
+> This section applies to [`@pwa/cli`](/packages/cli) specifically.
 
 ### Build
 
