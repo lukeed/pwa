@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@pwa/cli": "^0.0.8",
-    "@pwa/preset-preact": "latest",
-    "sw-precache-webpack-plugin": "^0.11.5"
+    "@pwa/plugin-sw-precache": "^0.2.0",
+    "@pwa/preset-preact": "latest"
   }
 }
