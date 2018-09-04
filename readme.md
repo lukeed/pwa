@@ -45,6 +45,14 @@
 
 > Please read about [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/) if the term is unfamiliar to you.
 
+## Installation
+
+```
+$ npm install --global @pwa/cli
+# OR
+$ yarn global add @pwa/cli
+```
+
 ### Presets
 
 Presets are collections of [plugins](#plugins) that are tailored for a particular framework.
