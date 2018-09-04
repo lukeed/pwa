@@ -3,4 +3,5 @@ node_modules
 *.lock
 *.log
 
+*.yaml
 build
