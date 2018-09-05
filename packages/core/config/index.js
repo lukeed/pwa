@@ -11,7 +11,7 @@ exports.babel = {
 			},
 			exclude: [
 				'transform-regenerator',
-				'transform-es2015-typeof-symbol'
+				'transform-typeof-symbol'
 			]
 		}]
 	],
