@@ -16,7 +16,7 @@ module.exports = function (src, config, opts) {
 
 	// Apply "browserlist" to Babel config
 	babel.presets = babel.presets.map(x => {
-		if (!Array.isArray(x) || x[0] !== 'env') return x;
+		if (!Array.isArray(x) || x[0] !== '@babel/preset-env') return x;
 		x[1].targets = Object.assign({ browsers }, x[1].targets);
 		return x;
 	});

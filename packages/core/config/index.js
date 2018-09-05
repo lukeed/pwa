@@ -2,7 +2,7 @@ exports.babel = {
 	babelrc: false,
 	cacheDirectory: true,
 	presets: [
-		['env', {
+		['@babel/preset-env', {
 			loose: true,
 			modules: false,
 			targets: {
