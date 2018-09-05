@@ -342,7 +342,7 @@ exports.postcss = function (config) {
   );
 };
 
-// Expor these pages during "pwa export" command
+// Export these pages during "pwa export" command
 exports.routes = ['/login', '/register', '/articles/hello-world'];
 
 // Update Webpack config; ENV-dependent
@@ -374,7 +374,7 @@ A **huge** thank-you to [Jimmy Moon](https://github.com/ragingwind) for donating
 
 **Incredible thanks to the giants whose shoulders this project stands on~!** :heart:
 
-PWA was originally conceieved in [2016](https://github.com/lukeed/pwa/commit/8b1c671134a5e8f64081fa2afafebcdd3f392583) but at that time, it wasn't yet possible to build it with the featureset I had in mind. Since then, an amazing amount of work has been done on [Webpack](https://webpack.js.org/) and its ecosystem, which now makes the project goals feasible.
+PWA was originally conceived in [2016](https://github.com/lukeed/pwa/commit/8b1c671134a5e8f64081fa2afafebcdd3f392583) but at that time, it wasn't yet possible to build it with the feature set I had in mind. Since then, an amazing amount of work has been done on [Webpack](https://webpack.js.org/) and its ecosystem, which now makes the project goals feasible.
 
 There's no question that PWA takes inspiration from popular CLI applications, like [Preact CLI](https://github.com/developit/preact-cli), [Vue CLI](https://cli.vuejs.org/), and [Create React App](https://github.com/facebook/create-react-app). They _most definitely_ paved the way. I've used, learned from, and refined my wishlist over years while using these tools. Despite their greatness, I still found a need for a universal, framework-agnostic PWA builder that could unify all these great libraries.
 
