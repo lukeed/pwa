@@ -7,6 +7,7 @@ const toHTMLConfig = require('./html');
 
 module.exports = function (src, config, opts) {
 	const webpack = opts.webpack;
+	opts.log = opts.log || console;
 
 	let isProd = opts.production;
 	let bundle = ['./index.js'];
@@ -17,7 +18,12 @@ module.exports = function (src, config, opts) {
 	// Apply "browserlist" to Babel config
 	babel.presets = babel.presets.map(x => {
 		if (!Array.isArray(x) || x[0] !== '@babel/preset-env') return x;
-		x[1].targets = Object.assign({ browsers }, x[1].targets);
+		let tars = x[1].targets;
+		if (tars && tars.esmodules) {
+			opts.log.warn('Babel ignores `browsers` when `esmodules` are targeted');
+		} else {
+			x[1].targets = Object.assign({ browsers }, x[1].targets);
+		}
 		return x;
 	});
 
