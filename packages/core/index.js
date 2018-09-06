@@ -7,7 +7,7 @@ module.exports = function (src, opts) {
 	const webpack = require('webpack');
 
 	let cwd = opts.cwd = resolve(opts.cwd || '.');
-	let logger = opts.logger || console.log;
+	let logger = opts.log ? opts.log.logger : console.log;
 	opts.production = !!opts.production;
 	delete opts._; // useless
 

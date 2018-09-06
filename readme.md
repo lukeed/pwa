@@ -264,7 +264,7 @@ Type: `Object`
 Will be the _environmental_ values for this command.<br>
 This is passed from [`@pwa/core`](https://github.com/lukeed/pwa/tree/master/packages/core#coresrc-opts)'s options.
 
-The `env.cwd`, `env.src`, `env.dest`, `env.logger`, `env.production` and `env.webpack` keys are always defined.<br>Anything else is contextual information for the current command being run.
+The `env.cwd`, `env.src`, `env.dest`, `env.log`, `env.production` and `env.webpack` keys are always defined.<br>Anything else is contextual information for the current command being run.
 
 #### opts
 Type: `Object`

@@ -43,8 +43,8 @@ function dump(chrome, delay, base, pathname) {
 }
 
 module.exports = function (src, opts) {
+	opts.log = log;
 	opts.production = true;
-	opts.logger = log.logger;
 	let ctx = require('@pwa/core')(src, opts);
 	let dest = ctx.options.output.path;
 
