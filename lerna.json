@@ -4,5 +4,10 @@
   "npmClient": "yarn",
   "packages": [
     "packages/*"
-  ]
+  ],
+  "command": {
+    "bootstrap": {
+      "npmClientArgs": ["--ignore-engines"]
+    }
+  }
 }

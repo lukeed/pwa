@@ -5,6 +5,10 @@ node_js:
   - 8
   - 6
 
+git:
+  depth: 1
+
 cache:
+  yarn: true
   directories:
     - "node_modules"
