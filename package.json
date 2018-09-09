@@ -1,9 +1,16 @@
 {
   "private": true,
   "scripts": {
-    "pretest": "lerna bootstrap"
+    "pretest": "lerna bootstrap",
+    "test": "tape -r module-alias/register test/**/*.js | tap-spec"
   },
   "devDependencies": {
-    "lerna": "^2.11.0"
+    "lerna": "^2.11.0",
+    "module-alias": "^2.1.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.9.1"
+  },
+  "_moduleAliases": {
+    "@": "packages"
   }
 }
