@@ -7,9 +7,11 @@ exports.precache = {
 	navigateFallbackWhitelist: [/^(?!\/__).*/],
 	staticFileGlobsIgnorePatterns: [
 		/\.git/,
+		/\.DS_Store/,
+		/manifest\.json$/,
+		/\.gz(ip)?$/,
 		/\.map$/,
-		/.DS_Store/,
-		/manifest\.json$/
+		/\.br$/
 	]
 }
 

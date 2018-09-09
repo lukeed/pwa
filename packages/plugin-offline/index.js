@@ -3,6 +3,7 @@ const Offline = require('offline-plugin');
 exports.offline = {
 	externals: [],
 	appShell: '/index.html',
+	excludes: ['**/.*', '**/*.map', '**/*.gz', '**/*.gzip', '**/*.br'],
 	ServiceWorker: {
 		output: 'sw.js',
 		events: true

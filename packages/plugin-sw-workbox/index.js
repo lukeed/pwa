@@ -10,8 +10,10 @@ exports.workbox = {
 	exclude: [
 		/\.git/,
 		/\.map$/,
-		/.DS_Store/,
+		/\.DS_Store/,
 		/^manifest.*\.js(?:on)?$/
+		/\.gz(ip)?$/,
+		/\.br$/
 	]
 }
 
