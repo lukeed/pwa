@@ -134,7 +134,7 @@ module.exports = function (type, dir, opts) {
 
 	if (type=toLower(type)) {
 		let idx = presets.map(toLower).indexOf(type);
-		if (idx === -1) return console.log('[TODO] Unknown framework:', type);
+		if (idx === -1) return log.error(`Unknown preset "${colors.red(type)}" provided!\nPlease run ${colors.dim('$ pwa init --help')} for info`);
 		setValue('preset', ++idx);
 	}
 
