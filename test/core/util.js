@@ -2,7 +2,7 @@ const test = require('tape');
 const util = require('@/core/util');
 
 test('(core) util/merge', t => {
-	t.plan(11);
+	t.plan(13);
 	let fn = util.merge;
 
 	let foo = { a:1, b:2 };
@@ -36,6 +36,11 @@ test('(core) util/merge', t => {
 
 	t.not(foo.a, 'hello', '~> return values from functions are ignored');
 	t.not(foo.c, 'ignored', '~> return values from functions are ignored');
+
+	foo = { a:1, b:2, c:3 };
+	fn(foo, { a:7, b:8, c:9, webpack:123 });
+	f.is(foo.webpack, undefined, 'ignores `webpack` key on `nxt` (at this stage)');
+	t.same(foo, { a:7, b:8, c:9 });
 });
 
 test('(core) util/isEmpty', t => {
