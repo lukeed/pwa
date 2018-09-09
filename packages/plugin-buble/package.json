@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@pwa/plugin-buble",
   "version": "0.1.0",
   "files": [
@@ -9,6 +8,7 @@
     "node": ">=6"
   },
   "dependencies": {
+    "browserslist": "^4.1.1",
     "buble": "^0.19.3",
     "buble-loader": "^0.5.1"
   }
