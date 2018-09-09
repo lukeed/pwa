@@ -39,7 +39,7 @@ test('(core) util/merge', t => {
 
 	foo = { a:1, b:2, c:3 };
 	fn(foo, { a:7, b:8, c:9, webpack:123 });
-	f.is(foo.webpack, undefined, 'ignores `webpack` key on `nxt` (at this stage)');
+	t.is(foo.webpack, undefined, 'ignores `webpack` key on `nxt` (at this stage)');
 	t.same(foo, { a:7, b:8, c:9 });
 });
 
