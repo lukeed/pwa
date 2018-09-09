@@ -1,0 +1,17 @@
+{
+  "name": "@pwa/plugin-gzip",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "compression-webpack-plugin": "^2.0.0",
+    "iltorb": "^2.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
