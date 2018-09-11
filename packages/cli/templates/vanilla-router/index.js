@@ -3,19 +3,19 @@ import GAnalytics from 'ganalytics';
 import App from '@components/App';
 import './index.{{style}}';
 
-let main;
+let main, elem;
 let root = document.querySelector('#app');
 
 function init() {
-	let nxt = App();
+	elem = App();
+	main = elem._main;
 	let prev = root.firstElementChild;
-	main = nxt._main;
 
 	// Check for matching DOM (`export`)
 	if (prev) {
-		root.replaceChild(nxt, prev);
+		root.replaceChild(elem, prev);
 	} else {
-		root.appendChild(nxt);
+		root.appendChild(elem);
 	}
 
 	Navaid('/')

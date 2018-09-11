@@ -6,7 +6,6 @@ const SHAPES = ['point', 'square', 'penta', 'circle', 'cross'];
 function toParticles(div) {
 	const ww = div.clientWidth;
 	const wh = div.clientHeight;
-	const offset = div.offsetTop;
 	const steps = wh / 2;
 
 	function Particle() {

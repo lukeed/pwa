@@ -15,7 +15,7 @@ export default new Router({
 		}, {
 			path: '/blog',
 			component: () => import('@pages/Blog')
-		}, , {
+		}, {
 			path: '/blog/:title',
 			component: () => import('@pages/Article')
 		}

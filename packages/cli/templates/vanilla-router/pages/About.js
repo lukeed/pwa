@@ -5,10 +5,10 @@ export default function () {
 	let div = document.createElement('div');
 	div.className = style.about;
 
-	let foo, bar;
 	let header = Intro();
 	div.appendChild(header);
 
+	let foo;
 	(foo = document.createElement('h1')).innerText = 'About Page';
 	header.appendChild(foo);
 

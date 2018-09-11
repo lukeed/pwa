@@ -8,7 +8,7 @@ export default class Nav extends React.Component {
 	};
 
 	componentDidMount() {
-		addEventListener('scroll', ev => {
+		addEventListener('scroll', () => {
 			let stuck = window.pageYOffset > 0;
 			this.setState({ stuck });
 		}, { passive:true });

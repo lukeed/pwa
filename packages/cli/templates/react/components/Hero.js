@@ -13,7 +13,6 @@ export default class Hero extends React.Component {
 		const elem = this.shapes;
 		const ww = elem.clientWidth;
 		const wh = elem.clientHeight;
-		const offset = elem.offsetTop;
 		const steps = wh / 2;
 
 		function Particle() {
