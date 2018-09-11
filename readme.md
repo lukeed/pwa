@@ -91,6 +91,7 @@ Plugins are (typically) individual features or chunks of configuration that are 
 
 While there may be "official" plugins, this **does not** mean that PWA can only support these functionalities! The current plugins include:
 
+* [`@pwa/plugin-buble`](/packages/plugin-buble)
 * [`@pwa/plugin-brotli`](/packages/plugin-brotli)
 * [`@pwa/plugin-critters`](/packages/plugin-critters)
 * [`@pwa/plugin-eslint`](/packages/plugin-eslint)
