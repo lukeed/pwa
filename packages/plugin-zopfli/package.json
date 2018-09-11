@@ -1,5 +1,5 @@
 {
-  "name": "@pwa/plugin-gzip",
+  "name": "@pwa/plugin-zopfli",
   "version": "0.0.0",
   "files": [
     "index.js"
