@@ -7,9 +7,9 @@ function generate(isProd, name, options) {
 }
 
 module.exports = function (browsers, postcss, opts) {
-	let isProd = !!opts.production;
-	let fn = generate.bind(null, isProd);
-	let plugins=[], rules=[], paths=['node_modules'];
+	let { src, production } = opts;
+	let fn = generate.bind(null, production);
+	let test, plugins=[], rules=[], paths=['node_modules'];
 	let ext, filename, chunkFilename, extns=[];
 
 	let obj = {
@@ -22,32 +22,33 @@ module.exports = function (browsers, postcss, opts) {
 	};
 
 	// assume dev/HMR values initially
-	let css={}, arr=[], fallback='style-loader';
+	let css={}, fallback='style-loader';
 	chunkFilename = '[id].chunk.css';
 	filename = '[name].css';
 
-	css.minimize = css.modules = css.importLoaders = true;
 	css.localIdentName = '[local]__[hash:base64:5]';
+	css.importLoaders = 1;
+	css.modules = true;
 
-	if (isProd) {
+	if (production) {
 		fallback = ExtractCSS.loader; // prepare extraction
 		chunkFilename = '[id].chunk.[contenthash:5].css';
 		filename = '[name].[contenthash:5].css';
 		css.localIdentName = '[hash:base64:5]';
 	}
 
-	arr.push(fallback); // add initial
-	arr.push(fn('css', css)); // css-loader
+	plugins.push( new ExtractCSS({ filename, chunkFilename }) );
 
 	// PostCSS ~> Array, apply browserlist
-	let k, had, tmp=postcss.plugins, out=[], pfx='autoprefixer';
+	let k, had, tmp=postcss.plugins, pfx='autoprefixer';
+	postcss.plugins = [];
 
 	if (typeof tmp === 'function') {
 		throw new Error('Received unsupported `function` type for PostCSS "plugins" config');
 	} else if (isEmpty(tmp)) {
-		out.push( require(pfx)({ browsers }) );
+		postcss.plugins.push( require(pfx)({ browsers }) );
 	} else if (Array.isArray(tmp)) {
-		out = tmp.map(x => {
+		postcss.plugins = tmp.map(x => {
 			let type = typeof x;
 			if (type === 'string') {
 				had = had || x === pfx;
@@ -62,28 +63,22 @@ module.exports = function (browsers, postcss, opts) {
 	} else {
 		for (k in tmp) {
 			if (k === pfx) Object.assign(tmp[k], { browsers });
-			out.push( require(x)(tmp[k] || {}) );
+			postcss.plugins.push( require(x)(tmp[k] || {}) );
 		}
 	}
 
-	if (!had) {
-		out.push( require(pfx)({ browsers }) );
-	}
+	had || postcss.plugins.push( require(pfx)({ browsers }) );
+	postcss = fn('postcss', postcss); // loader
 
-	postcss.plugins = out;
-	arr.push(fn('postcss', postcss)); // postcss-loader
+	let user = [fallback, fn('css', css), postcss];
+	let vendor = [fallback, fn('css', { sourceMap:true }), postcss];
 
 	for (ext in obj) {
 		extns.push('.'+ext);
-		rules.push({
-			test: new RegExp(`\\.${ext}$`),
-			use: arr.concat(obj[ext])
-		});
+		test = new RegExp(`\\.${ext}$`);
+		rules.push({ test, include:[src], use:user.concat(obj[ext]) });
+		rules.push({ test, exclude:[src], use:vendor.concat(obj[ext]) });
 	}
-
-	plugins.push(
-		new ExtractCSS({ filename, chunkFilename })
-	);
 
 	return { extns, rules, plugins };
 }
