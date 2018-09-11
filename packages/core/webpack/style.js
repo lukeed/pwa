@@ -63,7 +63,7 @@ module.exports = function (browsers, postcss, opts) {
 	} else {
 		for (k in tmp) {
 			if (k === pfx) Object.assign(tmp[k], { browsers });
-			postcss.plugins.push( require(x)(tmp[k] || {}) );
+			postcss.plugins.push( require(k)(tmp[k] || {}) );
 		}
 	}
 

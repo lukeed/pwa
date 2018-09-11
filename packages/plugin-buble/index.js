@@ -6,7 +6,7 @@ exports.buble = {
 
 exports.webpack = function (config, env, opts) {
 	if (!opts.buble.target) {
-		let i=0, tar={}, key, ver, old;
+		let i=0, tar={}, key, ver;
 		let browsers = require('browserslist')(opts.browsers);
 		let supported = ['chrome', 'edge', 'ie', 'safari', 'firefox'];
 		for (; i < browsers.length; i++) {

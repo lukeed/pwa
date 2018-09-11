@@ -52,7 +52,7 @@ exports.workbox = {
     /\.git/,
     /\.map$/,
     /\.DS_Store/,
-    /^manifest.*\.js(?:on)?$/
+    /^manifest.*\.js(?:on)?$/,
     /\.gz(ip)?$/,
     /\.br$/
   ]

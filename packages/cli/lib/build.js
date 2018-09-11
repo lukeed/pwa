@@ -15,7 +15,7 @@ const lpad = (str, max) => _.repeat(max - str.length) + str;
 const rpad = (str, max) => str + _.repeat(max - str.length);
 
 function chain(arr) {
-	return new Promise((res, rej) => {
+	return new Promise(res => {
 		let out=[];
 		let run = fn => (fn.then ? Promise.resolve(fn) : fn()).then(x => out.push(x));
 		let next = () => (arr.length > 0) ? run(arr.shift()).then(next) : res(out);

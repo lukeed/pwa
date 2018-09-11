@@ -1,9 +1,7 @@
 const { join } = require('path');
 const preprocess = require('svelte-preprocess')();
 
-exports.webpack = function (config, opts) {
-	let isProd = opts.production;
-
+exports.webpack = function (config) {
 	config.resolve.extensions.push('.html', '.svelte');
 
 	if (config.resolve.mainFields) {

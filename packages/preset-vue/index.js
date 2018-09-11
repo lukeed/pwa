@@ -1,6 +1,6 @@
 const { VueLoaderPlugin } = require('vue-loader')
 
-exports.babel = function (config, opts) {
+exports.babel = function (config) {
 	config.plugins = (config.plugins || []).concat([
 		require.resolve('babel-plugin-transform-decorators-legacy'),
 		require.resolve('babel-plugin-transform-object-rest-spread'),

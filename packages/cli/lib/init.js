@@ -98,7 +98,7 @@ module.exports = function (type, dir, opts) {
 			message: 'Which Service Worker library?',
 			type: (_, all) => all.features.includes('service-worker') && 'select',
 			choices: toChoices(['None', 'Offline Plugin', 'SW Precache', 'SW Workbox']),
-			format(val, all) {
+			format(val) {
 				if (val === 'none') return false;
 				// if (val === 'custom') return (all.swCustom=true,false); TODO
 				if (val === 'offline-plugin') return '@pwa/plugin-offline';

@@ -8,7 +8,7 @@ exports.precache = {
 	staticFileGlobsIgnorePatterns: [
 		/\.git/,
 		/\.DS_Store/,
-		/^manifest.*\.js(?:on)?$/
+		/^manifest.*\.js(?:on)?$/,
 		/\.gz(ip)?$/,
 		/\.map$/,
 		/\.br$/
