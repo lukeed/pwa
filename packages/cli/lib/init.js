@@ -15,7 +15,7 @@ let presets = ['Preact', 'React', 'Svelte', 'Vue'];
 
 function toChoices(arr, isMulti) {
 	return arr.map((title, idx) => {
-		let value = (!isMulti && idx == 0) ? 'none' : title.replace(/\s+/g, '-').toLowerCase();
+		let value = (!isMulti && idx == 0) ? 'none' : title.replace('é', 'e').replace(/\s+/g, '-').toLowerCase();
 		return { title, value };
 	});
 }
@@ -80,7 +80,11 @@ module.exports = function (type, dir, opts) {
 			name: 'features',
 			type: 'multiselect',
 			message: 'Select features needed for your project:',
-			choices: toChoices(['CSS Preprocessor', 'Linter or Formatter (TODO)', 'TypeScript (TODO)', 'Router', 'Service Worker', 'E2E Testing (TODO)', 'Unit Testing (TODO)'], true)
+			choices(val) {
+				let arr = ['CSS Preprocessor', 'Linter or Formatter (TODO)', 'TypeScript (TODO)'];
+				val || arr.push('Bublé'); // only if no preset
+				return toChoices(arr.concat('Router', 'Service Worker', 'E2E Testing (TODO)', 'Unit Testing (TODO)'), true);
+			}
 		}, {
 			name: 'styles',
 			message: 'Which CSS preprocessor?',
