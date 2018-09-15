@@ -193,6 +193,7 @@ module.exports = function (type, dir, opts) {
 		if (argv.preset) {
 			devdeps.push(`@pwa/preset-${argv.preset}`);
 			(/svelte/.test(argv.preset) ? devdeps : deps).push(argv.preset);
+			if (argv.preset === 'preact') deps.push('preact-compat');
 			if (argv.preset === 'react') deps.push('react-dom');
 		}
 
