@@ -206,6 +206,10 @@ module.exports = function (type, dir, opts) {
 			}
 		}
 
+		if (argv.features.includes('buble')) {
+			devdeps.push('@pwa/plugin-buble');
+		}
+
 		pkg.dependencies = {};
 		deps.sort().forEach(str => {
 			pkg.dependencies[str] = 'latest';
