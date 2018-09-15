@@ -81,10 +81,16 @@ module.exports = function (type, dir, opts) {
 			type: 'multiselect',
 			message: 'Select features needed for your project:',
 			choices(val) {
-				let arr = ['CSS Preprocessor', 'Linter or Formatter (TODO)', 'TypeScript (TODO)'];
+				let arr = ['Compression', 'CSS Preprocessor', 'Linter or Formatter (TODO)', 'TypeScript (TODO)'];
 				val || arr.push('Bublé'); // only if no preset
 				return toChoices(arr.concat('Router', 'Service Worker', 'E2E Testing (TODO)', 'Unit Testing (TODO)'), true);
 			}
+		}, {
+			name: 'compress',
+			message: 'Which compression format?',
+			type: (_, all) => all.features.includes('compression') && 'select',
+			choices: toChoices(['None', 'Brotli', 'GZip', 'Zopfli']),
+			format: val => val !== 'none' && val
 		}, {
 			name: 'styles',
 			message: 'Which CSS preprocessor?',
@@ -96,7 +102,7 @@ module.exports = function (type, dir, opts) {
 			message: '(TODO) Which linter / formatter do you like?',
 			type: (_, all) => all.features.some(x => /linter-or-formatter/.test(x)) && 'select',
 			choices: toChoices(['None', 'ESLint', 'Prettier', 'TSLint']),
-			format: val => val === 'none' ? false : val
+			format: val => val !== 'none' && val
 		}, {
 			name: 'sw',
 			message: 'Which Service Worker library?',
@@ -208,6 +214,10 @@ module.exports = function (type, dir, opts) {
 
 		if (argv.features.includes('buble')) {
 			devdeps.push('@pwa/plugin-buble');
+		}
+
+		if (argv.compress) {
+			devdeps.push(`@pwa/plugin-${argv.compress}`);
 		}
 
 		pkg.dependencies = {};
