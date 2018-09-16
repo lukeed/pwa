@@ -64,4 +64,9 @@ exports.webpack = function (config, opts) {
 	let h = ['preact', 'h'];
 	let { ProvidePlugin } = opts.webpack;
 	config.plugins.push( new ProvidePlugin({ h }) );
+
+	// Attach `async!` loader
+	config.resolveLoader = config.resolveLoader || {};
+	config.resolveLoader.alias = config.resolveLoader.alias || {};
+	config.resolveLoader.alias.async = require.resolve('@preact/async-loader');
 }
