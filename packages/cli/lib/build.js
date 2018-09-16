@@ -111,7 +111,7 @@ module.exports = function (src, opts) {
 		log.success(out + '\n');
 		log.success(`Build complete!\nYour ${colors.bold.italic.green(opts.dest)} directory is ready for deployment 🎉`);
 
-		if (opts.export) {
+		if (opts.export && !opts.analyze) {
 			console.log(); // newline
 			const sirv = require('sirv');
 			const glob = require('tiny-glob/sync');
