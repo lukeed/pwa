@@ -150,7 +150,11 @@ module.exports = function (src, opts) {
 			let onNoMatch = res => fn({ path:'/' }, res, r => (r.statusCode=404,r.end()));
 			let server = createServer(fn=sirv(dest, { onNoMatch })).listen();
 
+			// Disable sandboxing (on command) for dead-simple CI/CD/Docker integrations
+			// @see https://developers.google.com/web/updates/2017/04/headless-chrome#faq
 			let chromeFlags = ['--headless', '--disable-gpu'];
+			if (opts.insecure) chromeFlags.push('--no-sandbox');
+
 			let base = 'http://localhost:' + server.address().port;
 			log.log(`Started local server on ${ colors.white.bold.underline(base) }`);
 
