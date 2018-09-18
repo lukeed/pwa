@@ -152,13 +152,14 @@ $ pwa export --help
     $ pwa export [src] [options]
 
   Options
-    -o, --dest      Path to output directory  (default build)
-    -w, --wait      Time (ms) to wait before scraping each route  (default 0)
-    -r, --routes    Comma-delimited list of routes to export
-    -h, --help      Displays this message
+    -o, --dest        Path to output directory  (default build)
+    -w, --wait        Time (ms) to wait before scraping each route  (default 0)
+    -r, --routes      Comma-delimited list of routes to export
+    -i, --insecure    Launch Chrome Headless without sandbox
+    -h, --help        Displays this message
 ```
 
-> **Important:** Using `export` requires a local version of Chrome installed! See [`chrome-launcher`](https://www.npmjs.com/package/chrome-launcher).
+> **Important:** Using `export` requires a local version of Chrome installed! See [`chrome-launcher`](https://www.npmjs.com/package/chrome-launcher).<br>Additionally, the `--insecure` flag launches Chrome without sandboxing. See [here](https://developers.google.com/web/updates/2017/04/headless-chrome#faq) and [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-fails-due-to-sandbox-issues) for help.
 
 
 ### Watch
