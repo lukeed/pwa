@@ -13,6 +13,6 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-transform-react-constant-elements": "^7.0.0",
     "@babel/plugin-transform-react-jsx": "^7.0.0",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.13"
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.16"
   }
 }
