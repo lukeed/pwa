@@ -12,6 +12,7 @@ exports.babel = function (config) {
 exports.webpack = function (config, env) {
 	config.resolve.alias.zak = join(env.src, 'lib/zak');
 	if (env.production) {
+		config.devtool = false;
 		let HTML = config.plugins[0];
 		HTML.options.inlineSource = /\.css$/;
 		config.plugins.push(new InlineSource());
