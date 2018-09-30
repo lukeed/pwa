@@ -1,3 +1,4 @@
+import { h } from 'zak';
 import style from './index.css';
 
 export default function (props) {

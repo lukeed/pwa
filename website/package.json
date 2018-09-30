@@ -13,6 +13,7 @@
   "devDependencies": {
     "@pwa/cli": "^0.3.2",
     "@pwa/plugin-sw-precache": "^0.3.1",
-    "@pwa/preset-preact": "^0.1.0"
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "html-webpack-inline-source-plugin": "^0.0.10"
   }
 }

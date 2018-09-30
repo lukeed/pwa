@@ -1,35 +1,21 @@
-import { Component } from 'preact';
+import { h, mount } from 'zak';
 import style from './index.css';
 
-export default class Nav extends Component {
-	state = {
-		stuck: false,
-	};
+export default function () {
+	let nav = h('nav', { className:style.nav });
 
-	componentDidMount() {
-		addEventListener('scroll', ev => {
-			let stuck = window.pageYOffset > 0;
-			this.setState({ stuck });
-		}, { passive:true });
-	}
+	mount(nav, [
+		<span />,
+		<ul>
+			<li><a class={ style.link_external } href="https://github.com/lukeed/pwa">GitHub</a></li>
+			<li><a class={ style.link_external } href="https://github.com/lukeed/pwa">Documentation</a></li>
+		</ul>
+	]);
 
-	shouldComponentUpdate(_, nxt) {
-		let now = this.state;
-		return now.stuck !== nxt.stuck;
-	}
+	addEventListener('scroll', () => {
+		let bool = window.pageYOffset > 0;
+		nav.classList.toggle(style.stuck, bool);
+	}, { passive:true });
 
-	render(_, state) {
-		let cls = style.nav;
-		if (state.stuck) cls += ` ${style.stuck}`;
-
-		return (
-			<nav class={ cls }>
-				<span />
-				<ul>
-					<li><a href="https://github.com/lukeed/pwa" class={ style.link_external }>GitHub</a></li>
-					<li><a href="https://pwa.cafe/docs" class={ style.link_external }>Documentation</a></li>
-				</ul>
-			</nav>
-		);
-	}
+	return nav;
 }
