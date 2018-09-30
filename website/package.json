@@ -11,8 +11,8 @@
     "sirv-cli": "latest"
   },
   "devDependencies": {
-    "@pwa/cli": "^0.0.8",
-    "@pwa/plugin-sw-precache": "^0.2.0",
-    "@pwa/preset-preact": "latest"
+    "@pwa/cli": "^0.3.2",
+    "@pwa/plugin-sw-precache": "^0.3.1",
+    "@pwa/preset-preact": "^0.1.0"
   }
 }
