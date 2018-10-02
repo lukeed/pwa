@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "ganalytics": "latest",
-    "preact": "latest",
     "sirv-cli": "latest"
   },
   "devDependencies": {
