@@ -8,7 +8,7 @@
     "node": ">=6"
   },
   "dependencies": {
-    "babel-preset-react-app": "next",
+    "babel-preset-react-app": "^5.0.2",
     "react-hot-loader": "^4.3.5"
   }
 }
