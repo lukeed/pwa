@@ -2,7 +2,7 @@ exports.babel = {
 	babelrc: false,
 	cacheDirectory: true,
 	presets: [
-		['env', {
+		['@babel/preset-env', {
 			loose: true,
 			modules: false,
 			targets: {
@@ -11,12 +11,12 @@ exports.babel = {
 			},
 			exclude: [
 				'transform-regenerator',
-				'transform-es2015-typeof-symbol'
+				'transform-typeof-symbol'
 			]
 		}]
 	],
 	plugins: [
-		require.resolve('babel-plugin-syntax-dynamic-import')
+		require.resolve('@babel/plugin-syntax-dynamic-import')
 	]
 }
 

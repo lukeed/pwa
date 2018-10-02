@@ -7,7 +7,7 @@ const log = require('./util/log');
 const { HOST, PORT, HTTPS } = process.env;
 
 module.exports = function (src, opts) {
-	opts.logger = log.logger;
+	opts.log = log;
 
 	let c = require('@pwa/core')(src, opts);
 	let Server = require('webpack-dev-server');
