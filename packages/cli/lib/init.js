@@ -101,10 +101,7 @@ module.exports = function (type, dir, opts) {
 			name: 'linter',
 			message: '(TODO) Which linter / formatter do you like?',
 			type: (_, all) => all.features.some(x => /linter-or-formatter/.test(x) || /typescript/.test(x)) && 'select',
-			choices: val => toChoices((!/typescript/.test(val) || /linter-or-formatter/.test(val)
-				? ['None', 'ESLint', 'Prettier']
-				: [])
-				.concat(['TSLint'])),
+			choices: val => toChoices((/linter-or-formatter/.test(val) ? ['None', 'ESLint', 'Prettier']	: []).concat(['TSLint'])),
 			format: val => val !== 'none' && val
 		}, {
 			name: 'sw',
