@@ -6,7 +6,7 @@ export default function (props) {
 	return (
 		<div className={ style.window_wrap }>
 			<div className={ style.window }>
-				<object data={ VIDEO } type="image/svg+xml" />
+				<object data={ VIDEO } type="image/svg+xml">pwa init</object>
 			</div>
 		</div>
 	);

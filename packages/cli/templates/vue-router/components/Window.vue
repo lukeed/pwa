@@ -1,7 +1,7 @@
 <template>
 	<div :class="$style.window_wrap">
 		<div :class="$style.window">
-			<object :data="video" type="image/svg+xml" />
+			<object :data="video" type="image/svg+xml">pwa init</object>
 		</div>
 	</div>
 </template>
