@@ -28,7 +28,7 @@ module.exports = function (src, config, opts) {
 	});
 
 	// Construct Style rules
-	let styles = require('./style')(browsers, postcss, opts);
+	let styles = require('./style')(postcss, opts);
 
 	if (!isProd) {
 		bundle.push(
