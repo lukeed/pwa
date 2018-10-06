@@ -46,7 +46,7 @@ module.exports = function (postcss, opts) {
 	);
 
 	postcss.plugins = postcss.plugins.map(str => {
-		return typeof str === 'string' ? require(str) : mix;
+		return typeof str === 'string' ? require(str) : str;
 	});
 
 	postcss = fn('postcss', postcss); //=> loader

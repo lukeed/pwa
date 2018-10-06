@@ -20,7 +20,7 @@ exports.babel = {
 }
 
 // Any PostCSS config
-// ~> "autoprefixer" will be replaced
+// ~> "strings" will be required
 exports.postcss = {
 	plugins: ['autoprefixer']
 }
