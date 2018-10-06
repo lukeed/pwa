@@ -8,7 +8,6 @@
     "node": ">=6"
   },
   "dependencies": {
-    "browserslist": "^4.1.1",
     "buble": "^0.19.3",
     "buble-loader": "^0.5.1"
   },
