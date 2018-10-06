@@ -232,8 +232,8 @@ module.exports = function (type, dir, opts) {
 		});
 
 		// Add "browserslist" key w/ defaults
-		// @see https://jamie.build/last-2-versions
-		pkg.browserslist = ['>0.25%', 'not ie 11', 'not op_mini all'];
+		// @see https://browserl.ist/?q=%3E+0.25%25%2C+last+1+version%2C+not+ie+11%2C+not+ie_mob+11%2C+not+dead
+		pkg.browserslist = ['>0.25%', 'last 1 version', 'not ie_mob 11', 'not ie 11', 'not dead'];
 
 		// Scaffold new files in `dest` target
 		// ---
