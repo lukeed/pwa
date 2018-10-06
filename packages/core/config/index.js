@@ -41,5 +41,5 @@ exports.uglify = {
 	}
 }
 
-// Leave this commented out -- is visual docs
-// exports.webpack = function (config, opts) {}
+// Leave this commented out -- visual docs
+// exports.webpack = function (config, opts, env) {}

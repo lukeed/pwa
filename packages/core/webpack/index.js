@@ -6,7 +6,7 @@ const HTML = require('html-webpack-plugin');
 const toHTMLConfig = require('./html');
 
 module.exports = function (src, config, opts) {
-	const webpack = opts.webpack;
+	const { cwd, webpack } = opts;
 	opts.log = opts.log || console;
 
 	let isProd = opts.production;
@@ -40,7 +40,7 @@ module.exports = function (src, config, opts) {
 		entry: { bundle },
 		output: {
 			publicPath: '/',
-			path: join(opts.cwd, opts.dest || 'build'),
+			path: join(cwd, opts.dest || 'build'),
 			filename: isProd ? '[name].[hash:8].js' : '[name].js',
 			chunkFilename: isProd ? '[name].chunk.[chunkhash:5].js' : '[name].chunk.js'
 		},
@@ -111,8 +111,8 @@ module.exports = function (src, config, opts) {
 			disableHostCheck: true,
 			watchOptions: {
 				ignored: [
-					join(opts.cwd, 'build'),
-					join(opts.cwd, 'node_modules')
+					join(cwd, 'build'),
+					join(cwd, 'node_modules')
 				]
 			}
 		}
