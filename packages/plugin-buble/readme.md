@@ -20,7 +20,7 @@ The use of Bublé is recommended for simpler, vanilla JS applications... and/or 
 
 Configurable via the `buble` key on your `pwa.config.js` file.
 
-> **Note:** Your [`Browserslist config`](https://github.com/browserslist/browserslist#queries) results will be transformed into a `target` object for Bublé!<br>
+> **Note:** Your [`Browserslist config`](https://github.com/lukeed/pwa#browserslist) results will be transformed into a `target` object for Bublé!<br>
 However, defining your own `buble.target` object will prevent this transformation.
 
 ***Default Config:***
