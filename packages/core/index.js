@@ -15,6 +15,9 @@ module.exports = function (src, opts) {
 	let config = require('./config');
 	let tmp, customs=[], handlers=[];
 
+	// Share parsed `browerslist` globally
+	opts.browsers = require('browerslist')();
+
 	// Parse configs from local "package.json"
 	if (tmp = $.load('package.json', cwd)) {
 		let devs = Object.keys(tmp.devDependencies || {});

@@ -16,6 +16,7 @@
     "@pwa/webpack-assets": "^0.1.0",
     "autoprefixer": "^8.6.4",
     "babel-loader": "^8.0.2",
+    "browserslist": "^4.2.0",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
