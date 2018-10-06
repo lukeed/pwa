@@ -7,7 +7,6 @@ exports.babel = {
 			modules: false,
 			targets: {
 				uglify: true,
-				// "browsers" are injected
 			},
 			exclude: [
 				'transform-regenerator',
