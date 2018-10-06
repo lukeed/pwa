@@ -231,6 +231,10 @@ module.exports = function (type, dir, opts) {
 			pkg.devDependencies[str] = 'latest';
 		});
 
+		// Add "browserslist" key w/ defaults
+		// @see https://jamie.build/last-2-versions
+		pkg.browserslist = ['>0.25%', 'not ie 11', 'not op_mini all'];
+
 		// Scaffold new files in `dest` target
 		// ---
 
