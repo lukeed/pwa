@@ -1,6 +1,6 @@
 {
   "name": "@pwa/cli",
-  "version": "0.3.2",
+  "version": "0.4.0-alpha.0",
   "bin": {
     "pwa": "bin.js"
   },
@@ -13,7 +13,7 @@
     "node": ">=6"
   },
   "dependencies": {
-    "@pwa/core": "^0.3.1",
+    "@pwa/core": "^0.4.0-alpha.0",
     "chrome-launcher": "^0.10.2",
     "chrome-remote-interface": "0.25.x",
     "kleur": "^2.0.1",
