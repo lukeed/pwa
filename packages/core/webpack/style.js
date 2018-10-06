@@ -45,6 +45,10 @@ module.exports = function (postcss, opts) {
 		new ExtractCSS({ filename, chunkFilename })
 	);
 
+	postcss.plugins = postcss.plugins.map(str => {
+		return typeof str === 'string' ? require(str) : mix;
+	});
+
 	postcss = fn('postcss', postcss); //=> loader
 	let user = [fallback, fn('css', css), postcss];
 	let vendor = [fallback, fn('css', { sourceMap:true }), postcss];
