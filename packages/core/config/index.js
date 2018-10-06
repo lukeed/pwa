@@ -7,7 +7,6 @@ exports.babel = {
 			modules: false,
 			targets: {
 				uglify: true,
-				// "browsers" are injected
 			},
 			exclude: [
 				'transform-regenerator',
@@ -19,13 +18,6 @@ exports.babel = {
 		require.resolve('@babel/plugin-syntax-dynamic-import')
 	]
 }
-
-// @see https://jamie.build/last-2-versions
-exports.browsers = [
-	'>0.25%',
-	'not ie 11',
-	'not op_mini all'
-]
 
 // Any PostCSS config
 // ~> "autoprefixer" will be replaced
@@ -49,5 +41,5 @@ exports.uglify = {
 	}
 }
 
-// Leave this commented out -- is visual docs
-// exports.webpack = function (config, opts) {}
+// Leave this commented out -- visual docs
+// exports.webpack = function (config, opts, env) {}

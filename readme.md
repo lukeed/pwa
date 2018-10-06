@@ -32,7 +32,7 @@
   _Includes a plugin system that allows for easy, fine-grain control of your configuration... when needed._
 
 * **Feature Rich**<br>
-  _Supports Babel, Bublé, Browserlist, TypeScript, PostCSS, ESLint, Prettier, and Service Workers out of the box!_
+  _Supports Babel, Bublé, Browserslist, TypeScript, PostCSS, ESLint, Prettier, and Service Workers out of the box!_
 
 * **Instant Prototyping**<br>
   _Quickly scaffold new projects with your preferred view library and toolkit.<br>Kick it off with a perfect Lighthouse score!_
@@ -291,12 +291,6 @@ Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/i
 
 Your Babel config object.
 
-#### `browsers`
-Type: `Array`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L24-L28)
-
-Your target [`browserlist`](https://github.com/browserslist/browserslist) &mdash; which is injected into PostCSS's [`autoprefixer`](https://github.com/postcss/autoprefixer) and Babel's [`env`](https://github.com/babel/babel/tree/master/packages/babel-preset-env) preset.
-
 #### `postcss`
 Type: `Array`<br>
 Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L32-L34)
@@ -315,6 +309,16 @@ Type: `Function`
 The main handler for ***all*** of PWA!<br>
 When you define a [custom](#customizing) `webpack`, you are not overriding this function. Instead, you are manipulating Webpack's config immediately before PWA executes the build.
 
+### Browserslist
+
+The preferred method for customizing your browser targets is thru the `browserslist` key within your `package.json` file.
+
+> **Note:** When creating a new project with `pwa init`, our recommended config is automatically added for you!
+
+You may choose to change the default values, or use [any configuration method that Browserslist accepts](https://github.com/browserslist/browserslist#queries).
+
+The resulting array of browser targets will be automatically applied to Autoprefixer, Babel, Bublé, PostCSS, Stylelint, ...etc.
+
 
 ### Customizing
 
@@ -331,9 +335,6 @@ Here is an example custom config file:
 ```js
 // pwa.config.js
 const OfflinePlugin = require('offline-plugin');
-
-// Override default browserlist
-exports.browsers = ['last 2 versions'];
 
 // Mutate "@pwa/plugin-eslint" config
 exports.eslint = function (config) {
