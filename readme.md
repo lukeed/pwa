@@ -291,12 +291,6 @@ Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/i
 
 Your Babel config object.
 
-#### `browsers`
-Type: `Array`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L24-L28)
-
-Your target [`browserlist`](https://github.com/browserslist/browserslist) &mdash; which is injected into PostCSS's [`autoprefixer`](https://github.com/postcss/autoprefixer) and Babel's [`env`](https://github.com/babel/babel/tree/master/packages/babel-preset-env) preset.
-
 #### `postcss`
 Type: `Array`<br>
 Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L32-L34)

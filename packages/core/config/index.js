@@ -20,13 +20,6 @@ exports.babel = {
 	]
 }
 
-// @see https://jamie.build/last-2-versions
-exports.browsers = [
-	'>0.25%',
-	'not ie 11',
-	'not op_mini all'
-]
-
 // Any PostCSS config
 // ~> "autoprefixer" will be replaced
 exports.postcss = {
