@@ -8,7 +8,7 @@ function generate(isProd, name, options) {
 module.exports = function (postcss, opts) {
 	// Throw if `postcss.plugin` is a fn
 	if (typeof postcss.plugins === 'function') {
-		throw new Error('Received unsupported `function` type for PostCSS "plugins" config');
+		throw new Error('PostCSS "plugins" config cannot be a function');
 	}
 
 	let { src, production } = opts;
