@@ -27,11 +27,11 @@ exports.postcss = {
 
 // Basic config
 // TODO: configure `sourceMap` (globally)
-exports.uglify = {
+exports.terser = {
 	cache: true,
 	parallel: true,
 	sourceMap: true,
-	uglifyOptions: {
+	terserOptions: {
 		mangle: true,
 		compress: true,
 		sourceMap: true,
