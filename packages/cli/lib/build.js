@@ -132,11 +132,13 @@ module.exports = function (src, opts) {
 				let cwd = ctx.options.resolve.alias['@pages'];
 				if (fs.existsSync(cwd)) {
 					let fmt = x => x.substring(0, x.indexOf('.')).toLowerCase().replace('index', '');
-					routes = glob('**/*', { cwd }).map(fmt).map(slashes).sort(); // by length
+					routes = glob('**/*', { cwd }).map(fmt).map(slashes);
 				}
 			}
 
-			if (!routes) {
+			if (routes) {
+				routes.sort((a, b) => b.length - a.length); // root is last (TODO)
+			} else {
 				routes = ['/'];
 				let msg = `Exporting the "${colors.bold.yellow('/')}" route only!\nNo other routes found or specified:`;
 				msg += `\n– Your ${colors.bold.italic('@pages')} directory is empty.`;
