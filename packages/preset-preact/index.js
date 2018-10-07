@@ -12,13 +12,15 @@ exports.babel = function (config, opts) {
 	);
 }
 
-exports.uglify = {
+exports.terser = {
 	cache: true,
 	parallel: true,
 	sourceMap: true,
-	uglifyOptions: {
+	terserOptions: {
 		sourceMap: true,
-		output: { comments:false },
+		output: {
+			comments: false
+		},
 		mangle: true,
 		compress: {
 			properties: true,
