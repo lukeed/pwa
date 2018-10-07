@@ -6,7 +6,7 @@ exports.babel = {
 			loose: true,
 			modules: false,
 			targets: {
-				uglify: true,
+				// placeholder
 			},
 			exclude: [
 				'transform-regenerator',
