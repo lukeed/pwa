@@ -13,6 +13,29 @@ let toLower = x => (x || '').toLowerCase();
 let presets = ['Preact', 'React', 'Svelte', 'Vue'];
 // TODO: Angular, Polymer
 
+// Things we scaffold
+const versions = {
+	'ganalytics': '^3.0.0',
+	'less': '^3.8.0',
+	'less-loader': '^4.1.0',
+	'navaid': '^1.0.0',
+	'node-sass': '^4.9.0',
+	'preact': '^8.3.0',
+	'preact-compat': '^3.18.0',
+	'react': '^16.5.0',
+	'react-dom': '^16.5.0',
+	'react-loadable': '^5.5.0',
+	'react-router': '^4.3.0',
+	'react-router-dom': '^4.3.0',
+	'sass-loader': '^7.1.0',
+	'sirv-cli': '^0.2.0',
+	'stylus': '^0.54.0',
+	'stylus-loader': '^3.0.0',
+	'svelte': '^2.13.0',
+	'vue': '^2.5.0',
+	'vue-router': '^3.0.0'
+};
+
 function toChoices(arr, isMulti) {
 	return arr.map((title, idx) => {
 		let value = (!isMulti && idx == 0) ? 'none' : title.replace('é', 'e').replace(/\s+/g, '-').toLowerCase();
@@ -223,12 +246,12 @@ module.exports = function (type, dir, opts) {
 
 		pkg.dependencies = {};
 		deps.sort().forEach(str => {
-			pkg.dependencies[str] = 'latest';
+			pkg.dependencies[str] = versions[str] || 'latest';
 		});
 
 		pkg.devDependencies = {};
 		devdeps.sort().forEach(str => {
-			pkg.devDependencies[str] = 'latest';
+			pkg.devDependencies[str] = versions[str] || 'latest';
 		});
 
 		// Add "browserslist" key w/ defaults
