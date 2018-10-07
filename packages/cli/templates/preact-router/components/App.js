@@ -3,10 +3,10 @@ import { Router } from 'preact-router';
 import Footer from '@components/Footer';
 import Hero from '@components/Hero';
 
-import Home from '@pages/Home';
-import About from '@pages/About';
-import Article from '@pages/Article';
-import Blog from '@pages/Blog';
+import Home from 'async!@pages/Home';
+import About from 'async!@pages/About';
+import Article from 'async!@pages/Article';
+import Blog from 'async!@pages/Blog';
 
 import style from './index.{{style}}';
 
