@@ -1,83 +1,74 @@
-import { Component } from 'preact';
+import { h } from 'zak';
 import Nav from '@components/Nav';
 import style from './index.css';
 
 const SHAPES = ['point', 'square', 'penta', 'circle', 'cross'];
 
-export default class Hero extends Component {
-	setShapes = elem => {
-		this.shapes = elem;
-	}
+function toParticles(div) {
+	const ww = div.clientWidth;
+	const wh = div.clientHeight;
+	const steps = wh / 2;
 
-	componentDidMount() {
-		const elem = this.shapes;
-		const ww = elem.clientWidth;
-		const wh = elem.clientHeight;
-		const offset = elem.offsetTop;
-		const steps = wh / 2;
+	function Particle() {
+		let y = wh;
+		let dir = Math.random() > 0.5 ? -1 : 1;
+		let fric = Math.random() * 3 + 1;
+		let scale = Math.random() + 0.5;
+		let sine = Math.random() * 60;
+		let x = ww * Math.random();
 
-		function Particle() {
-			let y = wh;
-			let dir = Math.random() > 0.5 ? -1 : 1;
-			let fric = Math.random() * 3 + 1;
-			let scale = Math.random() + 0.5;
-			let sine = Math.random() * 60;
-			let x = ww * Math.random();
+		let item = document.createElement('span');
+		item.className = style.shape + ' ' + SHAPES[SHAPES.length * Math.random() | 0];
+		item.style.transform = `translate3d(${x}px,${y}px,0) scale(${scale})`;
+		div.appendChild(item);
 
-			let item = document.createElement('span');
-			item.className = style.shape + ' ' + SHAPES[SHAPES.length * Math.random() | 0];
-			item.style.transform = `translate3d(${x}px,${y}px,0) scale(${scale})`;
-			elem.appendChild(item);
+		let height = item.clientHeight;
+		let target = -1 * height;
 
-			let height = item.clientHeight;
-			let target = -1 * height;
-
-			return () => {
-				y -= fric;
-				let rot = dir * Math.abs(y + height);
-				let left = x + Math.sin(y * Math.PI / steps) * sine;
-				item.style.transform = `translate3d(${left}px,${y}px,0) scale(${scale}) rotate(${rot}deg)`;
-				return (y > target) || item.remove();
-			}
+		return () => {
+			y -= fric;
+			let rot = dir * Math.abs(y + height);
+			let left = x + Math.sin(y * Math.PI / steps) * sine;
+			item.style.transform = `translate3d(${left}px,${y}px,0) scale(${scale}) rotate(${rot}deg)`;
+			return (y > target) || item.remove();
 		}
+	}
 
-		let last = 0;
-		let running = 1;
-		let particles = [];
+	let last = 0;
+	let running = 1;
+	let particles = [];
 
-		window.onblur = window.onfocus = () => {
-			running = document.hasFocus();
-		};
+	window.onblur = window.onfocus = () => {
+		running = document.hasFocus();
+	};
 
-		function update(ms) {
-			let len = particles.length;
-			if (running && len < 50 && (ms - last) > 200) {
-				last = ms;
-				particles.push(Particle());
-			}
-			while (len--) {
-				particles[len]() || particles.splice(len, 1);
-			}
-			requestAnimationFrame(update);
+	function update(ms) {
+		let len = particles.length;
+		if (running && len < 50 && (ms - last) > 200) {
+			last = ms;
+			particles.push(Particle());
 		}
-
-		update();
+		while (len--) {
+			particles[len]() || particles.splice(len, 1);
+		}
+		requestAnimationFrame(update);
 	}
 
-	shouldComponentUpdate() {
-		return false;
-	}
+	update();
+}
 
-	render() {
-		return (
-			<header class={ style.hero }>
-				<Nav />
-				<div class={ style.titles }>
-					<h1>PWA</h1>
-					<h3>Universal Builder</h3>
-				</div>
-				<div ref={ x => this.shapes = x } class={ style.shapes } />
-			</header>
-		);
-	}
+export default function () {
+	let shapes = <div className={ style.shapes } />;
+	let animate = toParticles.bind(null, shapes);
+
+	return (
+		<header animate={animate} className={ style.hero }>
+			<Nav />
+			<div className={ style.titles }>
+				<h1>PWA</h1>
+				<h3>Universal Builder</h3>
+			</div>
+			{ shapes }
+		</header>
+	);
 }

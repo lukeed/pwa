@@ -32,7 +32,7 @@
   _Includes a plugin system that allows for easy, fine-grain control of your configuration... when needed._
 
 * **Feature Rich**<br>
-  _Supports Babel, Bublé, Browserlist, TypeScript, PostCSS, ESLint, Prettier, and Service Workers out of the box!_
+  _Supports Babel, Bublé, Browserslist, TypeScript, PostCSS, ESLint, Prettier, and Service Workers out of the box!_
 
 * **Instant Prototyping**<br>
   _Quickly scaffold new projects with your preferred view library and toolkit.<br>Kick it off with a perfect Lighthouse score!_
@@ -152,13 +152,14 @@ $ pwa export --help
     $ pwa export [src] [options]
 
   Options
-    -o, --dest      Path to output directory  (default build)
-    -w, --wait      Time (ms) to wait before scraping each route  (default 0)
-    -r, --routes    Comma-delimited list of routes to export
-    -h, --help      Displays this message
+    -o, --dest        Path to output directory  (default build)
+    -w, --wait        Time (ms) to wait before scraping each route  (default 0)
+    -r, --routes      Comma-delimited list of routes to export
+    -i, --insecure    Launch Chrome Headless without sandbox
+    -h, --help        Displays this message
 ```
 
-> **Important:** Using `export` requires a local version of Chrome installed! See [`chrome-launcher`](https://www.npmjs.com/package/chrome-launcher).
+> **Important:** Using `export` requires a local version of Chrome installed! See [`chrome-launcher`](https://www.npmjs.com/package/chrome-launcher).<br>Additionally, the `--insecure` flag launches Chrome without sandboxing. See [here](https://developers.google.com/web/updates/2017/04/headless-chrome#faq) and [here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-fails-due-to-sandbox-issues) for help.
 
 
 ### Watch
@@ -268,7 +269,7 @@ Type: `Object`
 Will be the _environmental_ values for this command.<br>
 This is passed from [`@pwa/core`](https://github.com/lukeed/pwa/tree/master/packages/core#coresrc-opts)'s options.
 
-The `env.cwd`, `env.src`, `env.dest`, `env.logger`, `env.production` and `env.webpack` keys are always defined.<br>Anything else is contextual information for the current command being run.
+The `env.cwd`, `env.src`, `env.dest`, `env.log`, `env.production` and `env.webpack` keys are always defined.<br>Anything else is contextual information for the current command being run.
 
 #### opts
 Type: `Object`
@@ -290,29 +291,35 @@ Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/i
 
 Your Babel config object.
 
-#### `browsers`
-Type: `Array`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L24-L28)
-
-Your target [`browserlist`](https://github.com/browserslist/browserslist) &mdash; which is injected into PostCSS's [`autoprefixer`](https://github.com/postcss/autoprefixer) and Babel's [`env`](https://github.com/babel/babel/tree/master/packages/babel-preset-env) preset.
-
 #### `postcss`
 Type: `Array`<br>
 Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L32-L34)
 
 Your PostCSS config &mdash; you may also use any config file/method that [`postcss-loader`](https://github.com/postcss/postcss-loader) accepts.
 
-#### `uglify`
+#### `terser`
 Type: `Object`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L38-L50)
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L30-L42)
 
-The options for [UglifyJS Plugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin).
+The options for [Terser Plugin](https://github.com/webpack-contrib/terser-webpack-plugin#options).
+
+> **Note:** Expecting UglifyJS? It's no longer maintained!<br>The Terser configuration is nearly identical – simply rename `uglifyOptions` to `terserOptions` :+1:
 
 #### `webpack`
 Type: `Function`
 
 The main handler for ***all*** of PWA!<br>
 When you define a [custom](#customizing) `webpack`, you are not overriding this function. Instead, you are manipulating Webpack's config immediately before PWA executes the build.
+
+### Browserslist
+
+The preferred method for customizing your browser targets is thru the `browserslist` key within your `package.json` file.
+
+> **Note:** When creating a new project with `pwa init`, our recommended config is automatically added for you!
+
+You may choose to change the default values, or use [any configuration method that Browserslist accepts](https://github.com/browserslist/browserslist#queries).
+
+The resulting array of browser targets will be automatically applied to Autoprefixer, Babel, Bublé, PostCSS, Stylelint, ...etc.
 
 
 ### Customizing
@@ -330,9 +337,6 @@ Here is an example custom config file:
 ```js
 // pwa.config.js
 const OfflinePlugin = require('offline-plugin');
-
-// Override default browserlist
-exports.browsers = ['last 2 versions'];
 
 // Mutate "@pwa/plugin-eslint" config
 exports.eslint = function (config) {

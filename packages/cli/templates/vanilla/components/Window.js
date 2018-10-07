@@ -10,6 +10,7 @@ export default function () {
 	wrap.appendChild(div);
 
 	let obj = document.createElement('object');
+	obj.innerText = 'pwa init';
 	obj.type = 'image/svg+xml';
 	obj.data = VIDEO;
 

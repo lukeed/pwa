@@ -1,12 +1,16 @@
 const ExtractCSS = require('mini-css-extract-plugin');
-const { isEmpty } = require('../util');
 
 function generate(isProd, name, options) {
 	options.sourceMap = isProd;
 	return (name += '-loader') && { loader:name, options };
 }
 
-module.exports = function (browsers, postcss, opts) {
+module.exports = function (postcss, opts) {
+	// Throw if `postcss.plugin` is a fn
+	if (typeof postcss.plugins === 'function') {
+		throw new Error('PostCSS "plugins" config cannot be a function');
+	}
+
 	let { src, production } = opts;
 	let fn = generate.bind(null, production);
 	let test, plugins=[], rules=[], paths=['node_modules'];
@@ -37,39 +41,15 @@ module.exports = function (browsers, postcss, opts) {
 		css.localIdentName = '[hash:base64:5]';
 	}
 
-	plugins.push( new ExtractCSS({ filename, chunkFilename }) );
+	plugins.push(
+		new ExtractCSS({ filename, chunkFilename })
+	);
 
-	// PostCSS ~> Array, apply browserlist
-	let k, had, tmp=postcss.plugins, pfx='autoprefixer';
-	postcss.plugins = [];
+	postcss.plugins = postcss.plugins.map(str => {
+		return typeof str === 'string' ? require(str) : str;
+	});
 
-	if (typeof tmp === 'function') {
-		throw new Error('Received unsupported `function` type for PostCSS "plugins" config');
-	} else if (isEmpty(tmp)) {
-		postcss.plugins.push( require(pfx)({ browsers }) );
-	} else if (Array.isArray(tmp)) {
-		postcss.plugins = tmp.map(x => {
-			let type = typeof x;
-			if (type === 'string') {
-				had = had || x === pfx;
-				return require(x)(x === pfx ? { browsers } : {});
-			} else if (type === 'function') {
-				(x.postcssPlugin === pfx) && (had=true) && (x.browsers=browsers);
-				return x;
-			} else {
-				throw new Error(`Found unsupported type \`${type}\` in PostCSS "plugins" config`);
-			}
-		});
-	} else {
-		for (k in tmp) {
-			if (k === pfx) Object.assign(tmp[k], { browsers });
-			postcss.plugins.push( require(k)(tmp[k] || {}) );
-		}
-	}
-
-	had || postcss.plugins.push( require(pfx)({ browsers }) );
-	postcss = fn('postcss', postcss); // loader
-
+	postcss = fn('postcss', postcss); //=> loader
 	let user = [fallback, fn('css', css), postcss];
 	let vendor = [fallback, fn('css', { sourceMap:true }), postcss];
 

@@ -1,28 +1,32 @@
 const { join } = require('path');
 const CopyAssets = require('@pwa/webpack-assets');
 const OptimizeCSS = require('optimize-css-assets-webpack-plugin');
-const UglifyJS = require('uglifyjs-webpack-plugin');
+const Terser = require('terser-webpack-plugin');
 const HTML = require('html-webpack-plugin');
 const toHTMLConfig = require('./html');
 
 module.exports = function (src, config, opts) {
-	const webpack = opts.webpack;
+	const { cwd, webpack } = opts;
+	opts.log = opts.log || console;
 
 	let isProd = opts.production;
 	let bundle = ['./index.js'];
 
-	let { babel, browsers, postcss, uglify } = config;
+	let { babel, postcss, terser } = config;
 	let extns = ['.wasm', '.mjs', '.js', '.json']; // webpack defaults
 
-	// Apply "browserlist" to Babel config
+	// Customize "targets.browsers" w/ ESM warning
 	babel.presets = babel.presets.map(x => {
-		if (!Array.isArray(x) || x[0] !== 'env') return x;
-		x[1].targets = Object.assign({ browsers }, x[1].targets);
+		if (!Array.isArray(x) || x[0] !== '@babel/preset-env') return x;
+		let tars = x[1].targets;
+		if (tars && tars.esmodules && tars.browsers) {
+			opts.log.warn('Babel ignores custom `browsers` when `esmodules` are targeted');
+		}
 		return x;
 	});
 
 	// Construct Style rules
-	let styles = require('./style')(browsers, postcss, opts);
+	let styles = require('./style')(postcss, opts);
 
 	if (!isProd) {
 		bundle.push(
@@ -36,7 +40,7 @@ module.exports = function (src, config, opts) {
 		entry: { bundle },
 		output: {
 			publicPath: '/',
-			path: join(opts.cwd, opts.dest || 'build'),
+			path: join(cwd, opts.dest || 'build'),
 			filename: isProd ? '[name].[hash:8].js' : '[name].js',
 			chunkFilename: isProd ? '[name].chunk.[chunkhash:5].js' : '[name].chunk.js'
 		},
@@ -95,7 +99,7 @@ module.exports = function (src, config, opts) {
 		]),
 		optimization: {
 			minimizer: [
-				new UglifyJS(uglify),
+				new Terser(terser),
 				new OptimizeCSS({})
 			]
 		},
@@ -107,8 +111,8 @@ module.exports = function (src, config, opts) {
 			disableHostCheck: true,
 			watchOptions: {
 				ignored: [
-					join(opts.cwd, 'build'),
-					join(opts.cwd, 'node_modules')
+					join(cwd, 'build'),
+					join(cwd, 'node_modules')
 				]
 			}
 		}

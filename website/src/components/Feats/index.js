@@ -1,3 +1,4 @@
+import { h } from 'zak';
 import items from '@assets/features.json';
 import style from './index.css';
 
@@ -15,5 +16,5 @@ export default function (props) {
 		<div class={ style.features }>
 			{ items.map(Item) }
 		</div>
-	)
+	);
 }

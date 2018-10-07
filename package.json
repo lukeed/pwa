@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "eslint": "^5.5.0",
-    "lerna": "^2.11.0",
+    "lerna": "^3.4.1",
     "module-alias": "^2.1.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.9.1"

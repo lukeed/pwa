@@ -2,44 +2,36 @@ exports.babel = {
 	babelrc: false,
 	cacheDirectory: true,
 	presets: [
-		['env', {
+		['@babel/preset-env', {
 			loose: true,
 			modules: false,
 			targets: {
-				uglify: true,
-				// "browsers" are injected
+				// placeholder
 			},
 			exclude: [
 				'transform-regenerator',
-				'transform-es2015-typeof-symbol'
+				'transform-typeof-symbol'
 			]
 		}]
 	],
 	plugins: [
-		require.resolve('babel-plugin-syntax-dynamic-import')
+		require.resolve('@babel/plugin-syntax-dynamic-import')
 	]
 }
 
-// @see https://jamie.build/last-2-versions
-exports.browsers = [
-	'>0.25%',
-	'not ie 11',
-	'not op_mini all'
-]
-
 // Any PostCSS config
-// ~> "autoprefixer" will be replaced
+// ~> "strings" will be required
 exports.postcss = {
 	plugins: ['autoprefixer']
 }
 
 // Basic config
 // TODO: configure `sourceMap` (globally)
-exports.uglify = {
+exports.terser = {
 	cache: true,
 	parallel: true,
 	sourceMap: true,
-	uglifyOptions: {
+	terserOptions: {
 		mangle: true,
 		compress: true,
 		sourceMap: true,
@@ -49,5 +41,5 @@ exports.uglify = {
 	}
 }
 
-// Leave this commented out -- is visual docs
-// exports.webpack = function (config, opts) {}
+// Leave this commented out -- visual docs
+// exports.webpack = function (config, opts, env) {}

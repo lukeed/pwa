@@ -1,24 +1,26 @@
 exports.babel = function (config, opts) {
 	let pragma = 'h';
 	config.plugins = (config.plugins || []).concat([
-		require.resolve('babel-plugin-transform-react-constant-elements'),
-		require.resolve('babel-plugin-transform-object-rest-spread'),
-		require.resolve('babel-plugin-transform-decorators-legacy'),
-		require.resolve('babel-plugin-transform-class-properties'),
-		[require.resolve('babel-plugin-transform-react-jsx'), { pragma }]
+		require.resolve('@babel/plugin-transform-react-constant-elements'),
+		require.resolve('@babel/plugin-proposal-object-rest-spread'),
+		[require.resolve('@babel/plugin-proposal-decorators'), { legacy:true }],
+		require.resolve('@babel/plugin-proposal-class-properties'),
+		[require.resolve('@babel/plugin-transform-react-jsx'), { pragma }]
 	]);
 	if (opts.production) config.plugins.push(
 		require.resolve('babel-plugin-transform-react-remove-prop-types')
 	);
 }
 
-exports.uglify = {
+exports.terser = {
 	cache: true,
 	parallel: true,
 	sourceMap: true,
-	uglifyOptions: {
+	terserOptions: {
 		sourceMap: true,
-		output: { comments:false },
+		output: {
+			comments: false
+		},
 		mangle: true,
 		compress: {
 			properties: true,
