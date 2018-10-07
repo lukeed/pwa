@@ -1,6 +1,6 @@
 {
   "name": "@pwa/preset-preact",
-  "version": "0.4.0-alpha.0",
+  "version": "0.4.0-alpha.1",
   "files": [
     "index.js"
   ],
@@ -8,12 +8,12 @@
     "node": ">=6"
   },
   "dependencies": {
-    "@preact/async-loader": "next",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-proposal-decorators": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-transform-react-constant-elements": "^7.0.0",
     "@babel/plugin-transform-react-jsx": "^7.0.0",
+    "@preact/async-loader": "next",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.16"
   }
 }
