@@ -297,11 +297,13 @@ Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/i
 
 Your PostCSS config &mdash; you may also use any config file/method that [`postcss-loader`](https://github.com/postcss/postcss-loader) accepts.
 
-#### `uglify`
+#### `terser`
 Type: `Object`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L38-L50)
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L30-L42)
 
-The options for [UglifyJS Plugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin).
+The options for [Terser Plugin](https://github.com/webpack-contrib/terser-webpack-plugin#options).
+
+> **Note:** Expecting UglifyJS? It's no longer maintained!<br>The Terser configuration is nearly identical – simply rename `uglifyOptions` to `terserOptions` :+1:
 
 #### `webpack`
 Type: `Function`

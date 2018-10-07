@@ -1,7 +1,7 @@
 const { join } = require('path');
 const CopyAssets = require('@pwa/webpack-assets');
 const OptimizeCSS = require('optimize-css-assets-webpack-plugin');
-const UglifyJS = require('uglifyjs-webpack-plugin');
+const Terser = require('terser-webpack-plugin');
 const HTML = require('html-webpack-plugin');
 const toHTMLConfig = require('./html');
 
@@ -12,7 +12,7 @@ module.exports = function (src, config, opts) {
 	let isProd = opts.production;
 	let bundle = ['./index.js'];
 
-	let { babel, postcss, uglify } = config;
+	let { babel, postcss, terser } = config;
 	let extns = ['.wasm', '.mjs', '.js', '.json']; // webpack defaults
 
 	// Customize "targets.browsers" w/ ESM warning
@@ -99,7 +99,7 @@ module.exports = function (src, config, opts) {
 		]),
 		optimization: {
 			minimizer: [
-				new UglifyJS(uglify),
+				new Terser(terser),
 				new OptimizeCSS({})
 			]
 		},
