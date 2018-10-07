@@ -8,6 +8,11 @@ node_js:
 git:
   depth: 1
 
+branches:
+  only:
+    - master
+    - next
+
 cache:
   yarn: true
   directories:
