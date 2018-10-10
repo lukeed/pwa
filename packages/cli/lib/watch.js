@@ -93,7 +93,6 @@ module.exports = function (src, opts) {
 	let server = new Server(c, Object.assign(dev, {
 		publicPath,
 		inline: true,
-		contentBase: src,
 		host: hostname,
 		// @see webpack-dev-server/pull/1486
 		// noInfo: true,

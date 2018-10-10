@@ -107,6 +107,7 @@ module.exports = function (src, config, opts) {
 			stats: false, // quiet
 			overlay: true,
 			compress: true,
+			contentBase: src,
 			historyApiFallback: true,
 			disableHostCheck: true,
 			watchOptions: {
