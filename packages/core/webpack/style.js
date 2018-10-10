@@ -5,7 +5,7 @@ function generate(isProd, name, options) {
 	return (name += '-loader') && { loader:name, options };
 }
 
-module.exports = function (postcss, opts) {
+module.exports = function (postcss, css, opts) {
 	// Throw if `postcss.plugin` is a fn
 	if (typeof postcss.plugins === 'function') {
 		throw new Error('PostCSS "plugins" config cannot be a function');
@@ -14,7 +14,7 @@ module.exports = function (postcss, opts) {
 	let { src, production } = opts;
 	let fn = generate.bind(null, production);
 	let test, plugins=[], rules=[], paths=['node_modules'];
-	let ext, filename, chunkFilename, extns=[];
+	let ext, extns=[];
 
 	let obj = {
 		css: [],
@@ -26,13 +26,9 @@ module.exports = function (postcss, opts) {
 	};
 
 	// assume dev/HMR values initially
-	let css={}, fallback='style-loader';
-	chunkFilename = '[id].chunk.css';
-	filename = '[name].css';
-
-	css.localIdentName = '[local]__[hash:base64:5]';
-	css.importLoaders = 1;
-	css.modules = true;
+	let fallback = 'style-loader';
+	let chunkFilename = '[id].chunk.css';
+	let filename = '[name].css';
 
 	if (production) {
 		fallback = ExtractCSS.loader; // prepare extraction
