@@ -291,15 +291,21 @@ Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/i
 
 Your Babel config object.
 
+#### `css`
+Type: `Object`<br>
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L22-L26)
+
+Core CSS behavior &mdash; see [`css-loader`](https://github.com/webpack-contrib/css-loader#options) for options.
+
 #### `postcss`
 Type: `Array`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L32-L34)
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L30-L32)
 
 Your PostCSS config &mdash; you may also use any config file/method that [`postcss-loader`](https://github.com/postcss/postcss-loader) accepts.
 
 #### `terser`
 Type: `Object`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L30-L42)
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L36-L48)
 
 The options for [Terser Plugin](https://github.com/webpack-contrib/terser-webpack-plugin#options).
 
