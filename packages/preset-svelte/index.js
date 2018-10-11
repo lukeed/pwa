@@ -1,7 +1,7 @@
 const { join } = require('path');
 const preprocess = require('svelte-preprocess')();
 
-exports.webpack = function (config) {
+exports.webpack = function (config, env, opts) {
 	config.resolve.extensions.push('.html', '.svelte');
 
 	if (config.resolve.mainFields) {
@@ -10,12 +10,8 @@ exports.webpack = function (config) {
 		config.resolve.mainFields = ['svelte', 'browser', 'module', 'main'];
 	}
 
-	// disable CSS module renaming
-	config.module.rules.forEach(obj => {
-		if (!Array.isArray(obj.use)) return;
-		let css = obj.use.find(o => o.loader && o.loader === 'css-loader');
-		if (css) css.options.localIdentName = '[local]';
-	});
+	// disable CSS modules
+	opts.css.modules = false;
 
 	// turn off "raw-loader" on *.html files
 	config.module.rules.forEach(obj => {
