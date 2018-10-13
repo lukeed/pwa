@@ -1,6 +1,6 @@
 {
   "name": "@pwa/plugin-sw-precache",
-  "version": "0.3.1",
+  "version": "0.4.1",
   "files": [
     "index.js"
   ],
