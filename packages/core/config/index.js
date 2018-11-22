@@ -21,7 +21,7 @@ exports.babel = {
 
 exports.css = {
 	modules: true,
-	importLoaders: 1,
+	importLoaders: 2,
 	localIdentName: '[local]__[hash:base64:5]'
 }
 
