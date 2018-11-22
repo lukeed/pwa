@@ -180,7 +180,7 @@ module.exports = function (type, dir, opts) {
 	let onCancel = () => ok=false;
 	return prompts(BULLETS, { onCancel }).then(argv => {
 		if (!ok) {
-			log.info(`Received ${colors.cyan.underline('CTRL+C')} command`);
+			log.info(`Received ${colors.cyan().underline('CTRL+C')} command`);
 			return log.log(`Exited ${colors.dim('$ pwa init')} setup`);
 		}
 
@@ -333,8 +333,8 @@ module.exports = function (type, dir, opts) {
 		// ---
 
 		let dir = parse(argv.dir).base;
-		let txt = argv.preset ? (colors.magenta.underline(argv.preset) + ' ') : '';
-		let msg = `Created a new ${txt}project within ${ colors.green.bold(dir) } 🎉\n`;
+		let txt = argv.preset ? (colors.magenta().underline(argv.preset) + ' ') : '';
+		let msg = `Created a new ${txt}project within ${ colors.green().bold(dir) } 🎉\n`;
 
 		msg += '\nInside this directory, you may:\n';
 		msg += '\n – Develop within a live-reload server:';
@@ -346,13 +346,13 @@ module.exports = function (type, dir, opts) {
 		msg += '\n – Start a production HTTP file server:';
 		msg += `\n    ${colors.dim('$ npm start')}\n`;
 
-		msg += `\nThese commands have been added to your ${colors.white.underline('package.json')} already.`;
+		msg += `\nThese commands have been added to your ${colors.white().underline('package.json')} already.`;
 		msg += '\nWe suggest you begin by typing:\n';
 		msg += '\n  ' + colors.dim(`$ cd ${dir}`);
 		msg += `\n  ${colors.dim('$ npm install')}`;
 		msg += `\n  ${colors.dim('$ npm run watch')}`;
 
-		msg += `\n\nDocumentation can be found at ${colors.white.bold.underline('https://pwa.cafe/docs')}`;
+		msg += `\n\nDocumentation can be found at ${colors.white().bold().underline('https://pwa.cafe/docs')}`;
 
 		log.success(msg);
 		log.success('Enjoy! 😍');

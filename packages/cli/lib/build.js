@@ -10,7 +10,7 @@ const log = require('./util/log');
 const _ = ' ';
 const gutter = _.repeat(4);
 const levels = ['cyan', 'yellow', 'red']; // sizes
-const th = str => colors.dim.bold.italic.underline(str);
+const th = colors.dim().bold().italic().underline;
 const lpad = (str, max) => _.repeat(max - str.length) + str;
 const rpad = (str, max) => str + _.repeat(max - str.length);
 
@@ -49,7 +49,7 @@ module.exports = function (src, opts) {
 	let dest = ctx.options.output.path;
 
 	del.sync(dest);
-	log.log(`Deleted existing ${colors.bold.italic(opts.dest)} directory`);
+	log.log(`Deleted existing ${colors.bold().italic(opts.dest)} directory`);
 
 	ctx.run((err, stats) => {
 		let errors = [];
@@ -65,14 +65,14 @@ module.exports = function (src, opts) {
 
 		if (errors.length > 0) {
 			let sfx = errors.length > 1 ? 's' : '';
-			let out = `Failed to compile! Found ${ colors.red.bold(errors.length) } error${sfx}:`;
+			let out = `Failed to compile! Found ${ colors.red().bold(errors.length) } error${sfx}:`;
 			errors.forEach(x => (out += '\n' + x));
 			return log.error(out);
 		}
 
 		if (warnings.length > 0) {
 			let sfx = warnings.length > 1 ? 's' : '';
-			let tmp = `Compiled with ${ colors.yellow.bold(warnings.length) } warning${sfx}:`;
+			let tmp = `Compiled with ${ colors.yellow().bold(warnings.length) } warning${sfx}:`;
 			warnings.forEach(x => (tmp += '\n' + x));
 			log.warn(tmp);
 		}
@@ -100,16 +100,16 @@ module.exports = function (src, opts) {
 		max.size += 4;
 
 		// table headers
-		out += ('\n\n' + th(rpad('Filename', max.file)) + gutter + th(lpad('Filesize', max.size)) + _ + _ + colors.dim.bold.italic(lpad('(gzip)', max.gzip)));
+		out += ('\n\n' + th(rpad('Filename', max.file)) + gutter + th(lpad('Filesize', max.size)) + _ + _ + colors.dim().bold().italic(lpad('(gzip)', max.gzip)));
 
 		assets.forEach(obj => {
 			let fn = levels[obj.notice];
-			let gz = colors.italic[obj.notice ? fn : 'dim'](_ + _ + lpad(obj.gzip, max.gzip));
+			let gz = colors.italic()[obj.notice ? fn : 'dim'](_ + _ + lpad(obj.gzip, max.gzip));
 			out += ('\n' + colors.white(rpad(obj.file, max.file)) + gutter + colors[fn](lpad(obj.size, max.size)) + gz);
 		});
 
 		log.success(out + '\n');
-		log.success(`Build complete!\nYour ${colors.bold.italic.green(opts.dest)} directory is ready for deployment 🎉`);
+		log.success(`Build complete!\nYour ${colors.bold().italic().green(opts.dest)} directory is ready for deployment 🎉`);
 
 		if (opts.export && !opts.analyze) {
 			console.log(); // newline
@@ -140,9 +140,9 @@ module.exports = function (src, opts) {
 				routes.sort((a, b) => b.length - a.length); // root is last (TODO)
 			} else {
 				routes = ['/'];
-				let msg = `Exporting the "${colors.bold.yellow('/')}" route only!\nNo other routes found or specified:`;
-				msg += `\n– Your ${colors.bold.italic('@pages')} directory is empty.`;
-				if (ctx.PWA_CONFIG) msg += `\n– Your ${colors.underline.magenta('pwa.config.js')} is missing a "${colors.bold('routes')}" key.`;
+				let msg = `Exporting the "${colors.bold().yellow('/')}" route only!\nNo other routes found or specified:`;
+				msg += `\n– Your ${colors.bold().italic('@pages')} directory is empty.`;
+				if (ctx.PWA_CONFIG) msg += `\n– Your ${colors.underline().magenta('pwa.config.js')} is missing a "${colors.bold('routes')}" key.`;
 				msg += `\n– Your ${colors.dim('$ pwa export')} is missing the ${colors.cyan('--routes')} argument.`;
 				msg += `\n  Please run ${colors.dim('$ pwa export --help')} for more info\n`;
 				log.warn(msg);
@@ -158,14 +158,14 @@ module.exports = function (src, opts) {
 			if (opts.insecure) chromeFlags.push('--no-sandbox');
 
 			let base = 'http://localhost:' + server.address().port;
-			log.log(`Started local server on ${ colors.white.bold.underline(base) }`);
+			log.log(`Started local server on ${ colors.white().bold().underline(base) }`);
 
 			let toHTML = x => x.constructor.name === 'HtmlWebpackPlugin';
 			let minify_opts = ctx.options.plugins.find(toHTML).options.minify;
 
 			function print(obj) {
 				writer(join(dest, obj.file)).end('<!DOCTYPE html>' + minify(obj.html, minify_opts));
-				log.info(`Wrote file: ${colors.bold.magenta(obj.file)}`);
+				log.info(`Wrote file: ${colors.bold().magenta(obj.file)}`);
 			}
 
 			launch({ chromeFlags }).then(proc => {
@@ -179,7 +179,7 @@ module.exports = function (src, opts) {
 							server.close();
 							log.log('Shutdown local server\n');
 							let sfx = arr.length > 1 ? 's' : '';
-							let num = colors.italic.bold.green(arr.length);
+							let num = colors.italic().bold().green(arr.length);
 							log.success(`Export complete!\nGenerated ${num} page${sfx} 🙌🏼`);
 						}).catch(err => {
 							console.log('> error', err); //TODO

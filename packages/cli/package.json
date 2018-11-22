@@ -16,7 +16,7 @@
     "@pwa/core": "^0.4.1",
     "chrome-launcher": "^0.10.2",
     "chrome-remote-interface": "0.25.x",
-    "kleur": "^2.0.1",
+    "kleur": "^3.0.0",
     "mkdirp": "^0.5.1",
     "prompts": "^1.2.1",
     "rimraf": "^2.6.2",

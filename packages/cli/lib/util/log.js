@@ -15,5 +15,5 @@ exports.info = print.bind(null, 'cyan');
 exports.error = print.bind(null, 'red');
 
 exports.logger = msg => {
-	exports.info(msg.includes('@pwa') ? msg.replace(RGX, $.magenta.underline('$1')) : msg);
+	exports.info(msg.includes('@pwa') ? msg.replace(RGX, $.magenta().underline('$1')) : msg);
 };

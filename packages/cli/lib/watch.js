@@ -41,9 +41,9 @@ module.exports = function (src, opts) {
 				let gutter = ' '.repeat(4);
 				let space = hasCA ? ' '.repeat(2) : '';
 				let out = 'Certificate component(s) not found at locations provided!\n';
-				out += colors.bold.white('--key ') + space + gutter + colors.italic.dim(key) + '\n';
-				out += colors.bold.white('--cert') + space + gutter + colors.italic.dim(cert);
-				if (hasCA) out += '\n' + colors.bold.white('--cacert') + gutter + colors.italic.dim(cacert);
+				out += colors.bold().white('--key ') + space + gutter + colors.italic().dim(key) + '\n';
+				out += colors.bold().white('--cert') + space + gutter + colors.italic().dim(cert);
+				if (hasCA) out += '\n' + colors.bold().white('--cacert') + gutter + colors.italic().dim(cacert);
 				return log.error(out);
 			}
 		} else {
@@ -55,19 +55,19 @@ module.exports = function (src, opts) {
 	if (!opts.quiet) {
 		let format = require('webpack-format-messages');
 		let uri = require('url').format({ protocol, hostname, port });
-		log.log(`Starting development server on ${ colors.white.bold.underline(uri) }`);
+		log.log(`Starting development server on ${ colors.white().bold().underline(uri) }`);
 
 		function onError(arr) {
 			arr = [].concat(arr || []);
 			let sfx = arr.length > 1 ? 's' : '';
-			let out = `Failed to compile! Found ${ colors.red.bold(arr.length) } error${sfx}:`;
+			let out = `Failed to compile! Found ${ colors.red().bold(arr.length) } error${sfx}:`;
 			arr.forEach(x => (out += '\n' + x));
 			return log.error(out);
 		}
 
 		c.hooks.invalid.tap('PWA', file => {
 			file = relative(cwd, file);
-			log.info(`File changed: ${ colors.white.bold(file) }`);
+			log.info(`File changed: ${ colors.white().bold(file) }`);
 		});
 
 		c.hooks.failed.tap('PWA', onError);
@@ -81,7 +81,7 @@ module.exports = function (src, opts) {
 
 			if (warnings.length > 0) {
 				let sfx = warnings.length > 1 ? 's' : '';
-				let out = `Compiled with ${ colors.yellow.bold(warnings.length) } warning${sfx}:`;
+				let out = `Compiled with ${ colors.yellow().bold(warnings.length) } warning${sfx}:`;
 				warnings.forEach(x => (out += '\n' + x));
 				log.warn(out);
 			}
