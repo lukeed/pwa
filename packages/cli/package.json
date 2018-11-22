@@ -18,7 +18,7 @@
     "chrome-remote-interface": "0.25.x",
     "kleur": "^2.0.1",
     "mkdirp": "^0.5.1",
-    "prompts": "^0.1.11",
+    "prompts": "^1.2.1",
     "rimraf": "^2.6.2",
     "sade": "^1.4.1",
     "sirv": "^0.1.5",
