@@ -28,7 +28,7 @@ const versions = {
 	'react-router': '^4.3.0',
 	'react-router-dom': '^4.3.0',
 	'sass-loader': '^7.1.0',
-	'sirv-cli': '^0.2.0',
+	'sirv-cli': '^0.4.0',
 	'stylus': '^0.54.0',
 	'stylus-loader': '^3.0.0',
 	'svelte': '^2.13.0',
