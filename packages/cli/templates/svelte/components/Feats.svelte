@@ -9,12 +9,6 @@
 
 <script>
 	import items from '@assets/features.json';
-
-	export default {
-		data() {
-			return { items };
-		}
-	}
 </script>
 
 <style lang="{{style}}">

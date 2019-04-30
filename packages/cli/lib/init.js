@@ -292,11 +292,12 @@ module.exports = function (type, dir, opts) {
 		glob('assets/**/*.*', { cwd:templates }).forEach(copyAsset);
 
 		// (SFCs) Inject "styleDir" content
-		if (/vue|svelte/.test(template)) {
+		let match = /(vue|svelte)/.exec(template);
+		if (match != null) {
 			let tmpl = join(templates, template);
 			let styl = join(templates, styleDir);
 
-			let ext = template.includes('vue') ? 'vue' : 'html';
+			let ext = match[1] || 'html';
 			let rgx = new RegExp(`\\.${ext}$`);
 
 			// Copy `index` style (no pair below)
