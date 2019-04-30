@@ -31,7 +31,7 @@ const versions = {
 	'sirv-cli': '^0.2.0',
 	'stylus': '^0.54.0',
 	'stylus-loader': '^3.0.0',
-	'svelte': '^2.13.0',
+	'svelte': '^3.1.0',
 	'vue': '^2.5.0',
 	'vue-router': '^3.0.0'
 };
