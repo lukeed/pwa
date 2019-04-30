@@ -22,14 +22,6 @@
 	import Code from '@components/Code';
 	import Window from '@components/Window';
 	import Feats from '@components/Feats';
-
-	export default {
-		components: {
-			Window,
-			Feats,
-			Code
-		}
-	}
 </script>
 
 <style lang="{{style}}">

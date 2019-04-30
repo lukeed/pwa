@@ -19,13 +19,7 @@
 
 <script>
 	import Intro from '@components/Intro';
-
-	export default {
-		props: ['params'],
-		components: {
-			Intro
-		}
-	}
+	export let params = {};
 </script>
 
 <style lang="{{style}}">

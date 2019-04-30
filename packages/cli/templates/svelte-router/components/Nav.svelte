@@ -12,26 +12,23 @@
 </nav>
 
 <script>
-	export default {
-		data() {
-			return {
-				stuck: false
-			};
-		},
-		computed: {
-			classes: ({ stuck }) => {
-				let c = 'nav';
-				if (stuck) c += ' stuck';
-				return c;
-			}
-		},
-		oncreate() {
-			addEventListener('scroll', ev => {
-				let stuck = window.pageYOffset > 0;
-				this.set({ stuck });
-			}, { passive:true });
-		}
+	import { onMount } from 'svelte';
+
+	let stuck = false;
+
+	function onScroll(ev) {
+		stuck = window.pageYOffset > 0;
 	}
+
+	$: classes = 'nav' + (stuck ? ' stuck' : '');
+
+	onMount(() => {
+		addEventListener('scroll', onScroll, { passive:true });
+
+		return () => {
+			removeEventListener('scroll', onScroll);
+		}
+	});
 </script>
 
 <style lang="{{style}}">
