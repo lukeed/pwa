@@ -36,17 +36,11 @@ exports.webpack = function (config, env, opts) {
 				preprocess,
 				/**
 				 * TODO:
-				 * With `emitCss: true` the aliased `url(@assets/link.svg)` instantly throws.
-				 * With `emitCss: false`, the same aliased string passes thru, but is still not injected/replaced.
-				 * ~> We only want `emitCss: true`, but both  versions seem to be operating too soon or, at least,
-				 *    without Webpack's `context` application.
-				 *
-				 * TODO:
-				 * Just straight-up doesn't work if `hotReload` is enabled.
-				 * ~> One of many errors: https://github.com/sveltejs/svelte-loader/issues/74
+				 * - The `url(~@assets/link.svg)`should not need "~" prefix
+				 * - The `hotReload` option does not work in the slightest
+				 *    ~> One of many errors: https://github.com/sveltejs/svelte-loader/issues/74
 				 */
-				emitCss: false,
-				// emitCss: true, // TODO
+				emitCss: true,
 				hotReload: false,
 				// hotReload: true, // TODO
 				hydratable: true

@@ -319,6 +319,7 @@ module.exports = function (type, dir, opts) {
 						let esc = styleExt === 'less' ? '&' : (styleExt === 'sass' ? '\\' : '');
 						css = css.replace(/\.shape(\s|\n)/g, esc + ':global(.shape)$1');
 						css = css.replace(/\.intro(\s|\n)/g, esc + ':global(.intro)$1');
+						css = css.replace(/(@assets)/g, '~$1'); // TODO: temporary (I hope)
 					}
 					out.end(tmp.replace('%%__styles__%%', css));
 				}
