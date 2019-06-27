@@ -34,11 +34,16 @@ exports.webpack = function (config, env, opts) {
 			loader: 'svelte-loader',
 			options: {
 				preprocess,
+				/**
+				 * TODO:
+				 * - The `url(~@assets/link.svg)`should not need "~" prefix
+				 * - The `hotReload` option does not work in the slightest
+				 *    ~> One of many errors: https://github.com/sveltejs/svelte-loader/issues/74
+				 */
 				emitCss: true,
-				hotReload: true,
-				hydratable: true,
-				nestedTransitions: true,
-				skipIntroByDefault: true
+				hotReload: false,
+				// hotReload: true, // TODO
+				hydratable: true
 			}
 		}
 	});

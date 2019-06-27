@@ -6,12 +6,6 @@
 
 <script>
 	import video from '@assets/video.svg';
-
-	export default {
-		data() {
-			return { video };
-		}
-	}
 </script>
 
 <style lang="{{style}}">

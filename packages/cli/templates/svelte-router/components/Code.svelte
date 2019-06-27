@@ -6,16 +6,11 @@
 </pre>
 
 <script>
-	export default {
-		props: ['offset', 'label', 'text'],
-		computed: {
-			classes: ({ offset }) => {
-				let c = 'pre';
-				if (offset) c += ' offset';
-				return c;
-			}
-		},
-	}
+	export let label = '';
+	export let offset = false;
+	export let text = '';
+
+	$: classes = 'pre' + (offset ? ' offset' : '');
 </script>
 
 <style lang="{{style}}">

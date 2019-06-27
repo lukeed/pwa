@@ -1,5 +1,5 @@
 import GAnalytics from 'ganalytics';
-import App from '@components/App.html';
+import App from '@components/App';
 import './index.{{style}}';
 
 window.app = new App({

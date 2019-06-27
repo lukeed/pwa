@@ -2,12 +2,6 @@
 	<slot />
 </div>
 
-<script>
-	export default {
-		//
-	}
-</script>
-
 <style lang="{{style}}">
 	%%__styles__%%
 </style>

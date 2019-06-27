@@ -31,7 +31,7 @@ const versions = {
 	'sirv-cli': '^0.4.0',
 	'stylus': '^0.54.0',
 	'stylus-loader': '^3.0.0',
-	'svelte': '^2.13.0',
+	'svelte': '^3.1.0',
 	'vue': '^2.5.0',
 	'vue-router': '^3.0.0'
 };
@@ -292,11 +292,12 @@ module.exports = function (type, dir, opts) {
 		glob('assets/**/*.*', { cwd:templates }).forEach(copyAsset);
 
 		// (SFCs) Inject "styleDir" content
-		if (/vue|svelte/.test(template)) {
+		let match = /(vue|svelte)/.exec(template);
+		if (match != null) {
 			let tmpl = join(templates, template);
 			let styl = join(templates, styleDir);
 
-			let ext = template.includes('vue') ? 'vue' : 'html';
+			let ext = match[1] || 'html';
 			let rgx = new RegExp(`\\.${ext}$`);
 
 			// Copy `index` style (no pair below)
@@ -318,6 +319,7 @@ module.exports = function (type, dir, opts) {
 						let esc = styleExt === 'less' ? '&' : (styleExt === 'sass' ? '\\' : '');
 						css = css.replace(/\.shape(\s|\n)/g, esc + ':global(.shape)$1');
 						css = css.replace(/\.intro(\s|\n)/g, esc + ':global(.intro)$1');
+						css = css.replace(/(@assets)/g, '~$1'); // TODO: temporary (I hope)
 					}
 					out.end(tmp.replace('%%__styles__%%', css));
 				}

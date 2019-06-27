@@ -22,18 +22,7 @@
 	import Intro from '@components/Intro';
 	import Card from '@components/Card';
 
-	export default {
-		components: {
-			Intro,
-			Card
-		},
-
-		data() {
-			return {
-				items: Array.from({ length:10 })
-			};
-		}
-	}
+	const items = Array.from({ length:10 });
 </script>
 
 <style lang="{{style}}">

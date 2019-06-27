@@ -4,12 +4,6 @@
 	<span> by <a href="https://github.com/lukeed">lukeed</a></span>
 </footer>
 
-<script>
-	export default {
-		//
-	}
-</script>
-
 <style lang="{{style}}">
 	%%__styles__%%
 </style>

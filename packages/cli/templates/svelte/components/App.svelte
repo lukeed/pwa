@@ -26,21 +26,11 @@
 </div>
 
 <script>
+	import Hero from '@components/Hero';
 	import Footer from '@components/Footer';
 	import Window from '@components/Window';
 	import Feats from '@components/Feats';
-	import Hero from '@components/Hero';
 	import Code from '@components/Code';
-
-	export default {
-	  components: {
-	    Footer,
-			Window,
-			Feats,
-			Hero,
-			Code
-	  }
-	}
 </script>
 
 <style lang="{{style}}">
