@@ -105,7 +105,6 @@ module.exports = function (src, opts) {
 		if (err) {
 			server.close();
 			log.error('Error starting development server!\n' + err.message);
-			process.exit(1);
 		}
 	});
 }

@@ -12,7 +12,11 @@ exports.log = print.bind(null, 'white');
 exports.warn = print.bind(null, 'yellow');
 exports.success = print.bind(null, 'green');
 exports.info = print.bind(null, 'cyan');
-exports.error = print.bind(null, 'red');
+
+exports.error = (msg, code=1) => {
+	print('red', msg);
+	process.exit(code);
+};
 
 exports.logger = msg => {
 	exports.info(msg.includes('@pwa') ? msg.replace(RGX, $.magenta().underline('$1')) : msg);
