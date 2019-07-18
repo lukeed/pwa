@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "pretest": "lerna bootstrap && eslint packages/*",
-    "test": "tape -r module-alias/register test/**/*.js | tap-spec"
+    "test": "tape -r module-alias/register test/**/*.js | tap-spec",
+    "postinstall": "opencollective-postinstall || true"
   },
   "devDependencies": {
     "eslint": "^5.5.0",
@@ -29,5 +30,12 @@
   "eslintIgnore": [
     "**/node_modules/**",
     "packages/cli/templates/**"
-  ]
+  ],
+  "dependencies": {
+    "opencollective-postinstall": "^2.0.2"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/pwa"
+  }
 }
