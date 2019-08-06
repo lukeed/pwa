@@ -67,7 +67,7 @@ module.exports = function (src, opts) {
 			let sfx = errors.length > 1 ? 's' : '';
 			let out = `Failed to compile! Found ${ colors.red().bold(errors.length) } error${sfx}:`;
 			errors.forEach(x => (out += '\n' + x));
-			return log.error(out);
+			return log.bail(out);
 		}
 
 		if (warnings.length > 0) {
@@ -182,7 +182,7 @@ module.exports = function (src, opts) {
 							let num = colors.italic().bold().green(arr.length);
 							log.success(`Export complete!\nGenerated ${num} page${sfx} 🙌🏼`);
 						}).catch(err => {
-							console.log('> error', err); //TODO
+							console.log('> error', err); // TODO
 						});
 					});
 				});
