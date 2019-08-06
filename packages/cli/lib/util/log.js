@@ -9,13 +9,14 @@ function print(color, msg) {
 }
 
 exports.log = print.bind(null, 'white');
-exports.warn = print.bind(null, 'yellow');
-exports.success = print.bind(null, 'green');
 exports.info = print.bind(null, 'cyan');
+exports.success = print.bind(null, 'green');
+exports.warn = print.bind(null, 'yellow');
+exports.error = print.bind(null, 'red');
 
-exports.error = (msg, code=1) => {
-	print('red', msg);
-	process.exit(code);
+exports.bail = msg => {
+	exports.error(msg);
+	process.exit(1);
 };
 
 exports.logger = msg => {
