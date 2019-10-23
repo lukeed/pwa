@@ -1,7 +1,7 @@
 const { parse } = require('url');
 const { relative } = require('path');
 const { readFileSync } = require('fs');
-const glob = require('tiny-glob/sync');
+const totalist = require('totalist/sync');
 
 const NAME = '@pwa/webpack-assets';
 
@@ -15,8 +15,10 @@ class CopyAssets {
 		let src = this.src || compiler.options.context; // "src" | root
 		let dir = this.dir || compiler.options.resolve.alias['@assets'];
 
-		let arr = glob('**/*.*', { cwd:dir, absolute:true });
-		let set = new Set(arr);
+		let set = new Set();
+		totalist(dir, (rel, abs) => {
+			set.add(abs);
+		});
 
 		// Remove a file from the set if within `dir`.
 		// ~> the "filename" may be different

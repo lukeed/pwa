@@ -8,6 +8,6 @@
     "node": ">=6"
   },
   "dependencies": {
-    "tiny-glob": "^0.2.2"
+    "totalist": "^1.0.0"
   }
 }
