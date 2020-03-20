@@ -3,7 +3,8 @@ import App from '@components/App';
 import './index.{{style}}';
 
 window.app = new App({
-	target: document.querySelector('#app')
+	target: document.querySelector('#app'),
+	hydrate: true
 });
 
 if (process.env.NODE_ENV === 'production') {
