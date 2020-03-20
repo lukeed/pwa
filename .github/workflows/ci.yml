@@ -21,7 +21,7 @@ jobs:
     - name: Install
       run: |
         npm install
-        npm install -g nyc
+        npm install -g nyc@14
 
     - name: Test w/ Coverage
       run: nyc npm test
