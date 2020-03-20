@@ -20,8 +20,8 @@
     "mkdirp": "^0.5.1",
     "prompts": "^1.2.1",
     "rimraf": "^2.6.2",
-    "sade": "^1.4.1",
-    "sirv": "^0.1.5",
+    "sade": "^1.7.0",
+    "sirv": "^0.4.0",
     "templite": "^1.1.0",
     "webpack-dev-server": "^3.1.4",
     "webpack-format-messages": "^2.0.1"
