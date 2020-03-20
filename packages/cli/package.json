@@ -23,6 +23,7 @@
     "sade": "^1.7.0",
     "sirv": "^0.4.0",
     "templite": "^1.1.0",
+    "totalist": "^1.0.1",
     "webpack-dev-server": "^3.1.4",
     "webpack-format-messages": "^2.0.1"
   }

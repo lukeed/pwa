@@ -1,9 +1,8 @@
 const fs = require('fs');
 const colors = require('kleur');
 const templite = require('templite');
-const glob = require('tiny-glob/sync');
 const { format, join, parse, resolve } = require('path');
-const { writer } = require('./util/fs');
+const { glob, writer } = require('./util/fs');
 const log = require('./util/log');
 
 const templates = join(__dirname, '..', 'templates');
@@ -77,9 +76,9 @@ function toAppFile(str, dest) {
 function copyDir(dir, dest, data) {
 	let cwd = join(templates, dir);
 	let isRaw = /svelte|vue|assets/i.test(cwd);
-	glob('**/*.*', { cwd }).forEach(x => {
-		let file = (isRaw || /index/i.test(x)) ? join(dest, x) : toAppFile(x, dest);
-		let src = fs.readFileSync(join(cwd, x), 'utf8');
+	glob(cwd).forEach(({ rel, abs }) => {
+		let file = (isRaw || /index/i.test(rel)) ? join(dest, rel) : toAppFile(rel, dest);
+		let src = fs.readFileSync(abs, 'utf8');
 		writer(file).end(templite(src, data));
 	});
 }
@@ -184,8 +183,6 @@ module.exports = function (type, dir, opts) {
 			return log.log(`Exited ${colors.dim('$ pwa init')} setup`);
 		}
 
-		// console.log(argv);
-
 		if (argv.exists && !argv.force) {
 			return log.error(`Refusing to overwrite existing directory.\nPlease specify a different destination or use the ${colors.cyan('--force')} flag.`);
 		}
@@ -288,8 +285,11 @@ module.exports = function (type, dir, opts) {
 		copyFile(templates, dest, 'index.html');
 
 		// Copy "templates/assets" over
-		let copyAsset = copyFile.bind(null, templates, dest);
-		glob('assets/**/*.*', { cwd:templates }).forEach(copyAsset);
+		let destAssets = join(dest, 'assets');
+		let srcAssets = join(templates, 'assets');
+		glob(srcAssets).forEach(obj => {
+			copyFile(srcAssets, destAssets, obj.rel);
+		});
 
 		// (SFCs) Inject "styleDir" content
 		let match = /(vue|svelte)/.exec(template);
@@ -304,16 +304,16 @@ module.exports = function (type, dir, opts) {
 			copyFile(styl, dest, `index.${styleExt}`);
 
 			// Copy over SFCs, injecting styles
-			glob('**/*.*', { cwd:tmpl }).forEach(x => {
-				let src = fs.readFileSync(join(tmpl, x), 'utf8');
-				let out = writer(join(dest, x));
+			glob(tmpl).forEach(({ rel, abs }) => {
+				let src = fs.readFileSync(abs, 'utf8');
+				let out = writer(join(dest, rel));
 				let tmp = templite(src, data);
 
-				if (/index|router/.test(x)) {
+				if (/index|router/.test(rel)) {
 					out.end(tmp);
 				} else {
 					// find Component's paired stylesheet
-					let css = join(styl, x.replace(rgx, `.${styleExt}`));
+					let css = join(styl, rel.replace(rgx, `.${styleExt}`));
 					css = fs.readFileSync(css, 'utf8').trim().replace(/\n/g, '\n\t');
 					if (/svelte/.test(template)) {
 						let esc = styleExt === 'less' ? '&' : (styleExt === 'sass' ? '\\' : '');

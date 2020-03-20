@@ -4,7 +4,7 @@ const colors = require('kleur');
 const { join } = require('path');
 const { gzipSync } = require('zlib');
 const pretty = require('./util/pretty');
-const { writer } = require('./util/fs');
+const { glob, writer } = require('./util/fs');
 const log = require('./util/log');
 
 const _ = ' ';
@@ -114,7 +114,6 @@ module.exports = function (src, opts) {
 		if (opts.export && !opts.analyze) {
 			console.log(); // newline
 			const sirv = require('sirv');
-			const glob = require('tiny-glob/sync');
 			const { createServer } = require('http');
 			const { minify } = require('html-minifier');
 			const { launch } = require('chrome-launcher');
@@ -131,8 +130,8 @@ module.exports = function (src, opts) {
 				// Get routes from file structure
 				let cwd = ctx.options.resolve.alias['@pages'];
 				if (fs.existsSync(cwd)) {
-					let fmt = x => x.substring(0, x.indexOf('.')).toLowerCase().replace('index', '');
-					routes = glob('**/*', { cwd }).map(fmt).map(slashes);
+					let fmt = x => x.rel.substring(0, x.rel.indexOf('.')).toLowerCase().replace('index', '')
+					routes = glob(cwd).map(fmt).map(slashes);
 				}
 			}
 
