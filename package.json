@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "pretest": "lerna bootstrap && eslint packages/*",
+    "pretest": "lerna bootstrap --hoist && eslint packages/*",
     "test": "tape -r module-alias/register test/**/*.js | tap-spec"
   },
   "devDependencies": {
