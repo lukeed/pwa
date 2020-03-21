@@ -1,19 +1,23 @@
 const { parse } = require('url');
 const { relative } = require('path');
-const { readFileSync } = require('fs');
 const totalist = require('totalist/sync');
+const { existsSync, readFileSync } = require('fs');
 
 const NAME = '@pwa/webpack-assets';
 
 class CopyAssets {
-	constructor(src, dir) {
+	constructor(src, dir, opts={}) {
 		this.src = src;
 		this.dir = dir;
+		this.log = opts.log || console;
 	}
 
 	apply(compiler) {
 		let src = this.src || compiler.options.context; // "src" | root
 		let dir = this.dir || compiler.options.resolve.alias['@assets'];
+
+		if (!existsSync(src)) return this.log.warn(`Missing source directory: ${src}`);
+		if (!existsSync(dir)) return this.log.warn(`Missing assets directory: ${dir}`);
 
 		let set = new Set();
 		totalist(dir, (rel, abs) => {

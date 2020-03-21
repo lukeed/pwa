@@ -90,7 +90,7 @@ module.exports = function (src, config, opts) {
 			// new webpack.NoEmitOnErrorsPlugin(),
 			new HTML(toHTMLConfig(src, opts))
 		].concat(styles.plugins, isProd ? [
-			new CopyAssets(src),
+			new CopyAssets(src, null, { log: opts.log }),
 			new webpack.HashedModuleIdsPlugin(),
 			new webpack.LoaderOptionsPlugin({ minimize:true })
 		] : [
