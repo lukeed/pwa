@@ -147,8 +147,7 @@ module.exports = function (src, opts) {
 				log.warn(msg);
 			}
 
-			let fn;
-			let onNoMatch = res => fn({ path:'/' }, res, r => (r.statusCode=404,r.end()));
+			let fn, onNoMatch = (req, res) => fn(Object.assign(req, { path:'/' }), res, r => (r.statusCode=404,r.end()));
 			let server = createServer(fn=sirv(dest, { onNoMatch })).listen();
 
 			// Disable sandboxing (on command) for dead-simple CI/CD/Docker integrations
