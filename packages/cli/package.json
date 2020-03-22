@@ -1,6 +1,6 @@
 {
   "name": "@pwa/cli",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "bin": {
     "pwa": "bin.js"
   },
