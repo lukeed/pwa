@@ -101,7 +101,11 @@ module.exports = function (src, opts) {
 		hot: true
 	}));
 
+	// WDS is annoying AF
+	let info = console.info;
+	console.info = () => {}; // stfu
 	server.listen(port, hostname, err => {
+		console.info = info;
 		if (err) {
 			server.close();
 			log.bail('Error starting development server!\n' + err.message);
