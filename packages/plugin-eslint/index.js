@@ -1,7 +1,9 @@
 exports.eslint = {
 	cache: true,
 	parserOptions: {
-		parser: 'babel-eslint'
+		ecmaVersion: 10,
+		parser: 'babel-eslint',
+		sourceType: 'module',
 	}
 }
 
