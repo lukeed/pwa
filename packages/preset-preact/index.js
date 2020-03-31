@@ -1,15 +1,22 @@
 exports.babel = function (config, opts) {
-	let pragma = 'h';
 	config.plugins = (config.plugins || []).concat([
 		require.resolve('@babel/plugin-transform-react-constant-elements'),
 		require.resolve('@babel/plugin-proposal-object-rest-spread'),
-		[require.resolve('@babel/plugin-proposal-decorators'), { legacy:true }],
+		[require.resolve('@babel/plugin-proposal-decorators'), {
+			legacy: true
+		}],
 		require.resolve('@babel/plugin-proposal-class-properties'),
-		[require.resolve('@babel/plugin-transform-react-jsx'), { pragma }]
+		[require.resolve('@babel/plugin-transform-react-jsx'), {
+			pragma: 'h',
+			pragmaFrag: 'Fragment'
+		}]
 	]);
-	if (opts.production) config.plugins.push(
-		require.resolve('babel-plugin-transform-react-remove-prop-types')
-	);
+
+	if (opts.production) {
+		config.plugins.push(
+			require.resolve('babel-plugin-transform-react-remove-prop-types')
+		);
+	}
 }
 
 exports.terser = {
@@ -57,10 +64,12 @@ exports.webpack = function (config, opts) {
 	// Preact 8.x vs Preact X
 	let compat = 'preact-compat';
 	let preact = 'preact';
+	let isPreactX = 0;
 
 	try {
 		require.resolve('preact/compat');
 		compat = 'preact/compat';
+		isPreactX = 1;
 	} catch (err) {
 		if (opts.production) {
 			preact = 'preact/dist/preact.min.js';
@@ -77,9 +86,10 @@ exports.webpack = function (config, opts) {
 		'create-react-class': 'preact-compat/lib/create-react-class'
 	});
 
-	let h = ['preact', 'h'];
 	let { ProvidePlugin } = opts.webpack;
-	config.plugins.push( new ProvidePlugin({ h }) );
+	let definitions = { h: ['preact', 'h'] };
+	if (isPreactX) definitions.Fragment = ['preact', 'Fragment'];
+	config.plugins.push(new ProvidePlugin(definitions));
 
 	// Attach `async!` loader
 	config.resolveLoader = config.resolveLoader || {};
