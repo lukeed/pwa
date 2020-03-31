@@ -54,11 +54,25 @@ exports.terser = {
 }
 
 exports.webpack = function (config, opts) {
+	// Preact 8.x vs Preact X
+	let compat = 'preact-compat';
+	let preact = 'preact';
+
+	try {
+		require.resolve('preact/compat');
+		compat = 'preact/compat';
+	} catch (err) {
+		if (opts.production) {
+			preact = 'preact/dist/preact.min.js';
+		}
+	}
+
 	// Apply aliases
 	Object.assign(config.resolve.alias, {
-		'react': 'preact-compat',
-		'react-dom': 'preact-compat',
-		'preact': opts.production ? 'preact/dist/preact.min.js' : 'preact',
+		'react': compat,
+		'react-dom': compat,
+		'preact': preact,
+		'preact-compat': compat,
 		'react-addons-css-transition-group': 'preact-css-transition-group',
 		'create-react-class': 'preact-compat/lib/create-react-class'
 	});
