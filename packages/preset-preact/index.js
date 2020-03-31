@@ -63,10 +63,6 @@ exports.webpack = function (config, opts) {
 		'create-react-class': 'preact-compat/lib/create-react-class'
 	});
 
-	let h = ['preact', 'h'];
-	let { ProvidePlugin } = opts.webpack;
-	config.plugins.push( new ProvidePlugin({ h }) );
-
 	// Attach `async!` loader
 	config.resolveLoader = config.resolveLoader || {};
 	config.resolveLoader.alias = config.resolveLoader.alias || {};
