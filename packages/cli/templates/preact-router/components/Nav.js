@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { Component } from 'preact';
 import { Link } from 'preact-router';
 import style from './index.{{style}}';
 

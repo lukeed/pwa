@@ -1,4 +1,3 @@
-import { h } from 'preact';
 import Code from '@components/Code';
 import Window from '@components/Window';
 import Feats from '@components/Feats';

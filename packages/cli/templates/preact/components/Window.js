@@ -1,4 +1,3 @@
-import { h } from 'preact';
 import VIDEO from '@assets/video.svg';
 import style from './index.{{style}}';
 

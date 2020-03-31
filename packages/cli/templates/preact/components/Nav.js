@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { Component } from 'preact';
 import style from './index.{{style}}';
 
 export default class Nav extends Component {
