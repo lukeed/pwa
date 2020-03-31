@@ -1,0 +1,13 @@
+{
+  "version": "0.0.0",
+  "name": "@pwa/plugin-imagemin",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "imagemin-webpack-plugin": "^2.4.0"
+  }
+}
