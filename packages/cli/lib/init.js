@@ -14,6 +14,7 @@ let presets = ['Preact', 'React', 'Svelte', 'Vue'];
 
 // Things we scaffold
 const versions = {
+	'eslint': '^6.8.0',
 	'ganalytics': '^3.0.0',
 	'less': '^3.8.0',
 	'less-loader': '^5.0.0',
@@ -22,6 +23,7 @@ const versions = {
 	'preact': '^8.3.0',
 	'preact-router': '^2.6.0',
 	'preact-compat': '^3.18.0',
+	'prettier': '^2.0.0',
 	'react': '^16.5.0',
 	'react-dom': '^16.5.0',
 	'react-loadable': '^5.5.0',
@@ -104,7 +106,7 @@ module.exports = function (type, dir, opts) {
 			type: 'multiselect',
 			message: 'Select features needed for your project:',
 			choices(val) {
-				let arr = ['Compression', 'CSS Preprocessor', 'Linter or Formatter (TODO)', 'TypeScript (TODO)'];
+				let arr = ['Compression', 'CSS Preprocessor', 'Linter or Formatter', 'TypeScript (TODO)'];
 				val || arr.push('Bublé'); // only if no preset
 				return toChoices(arr.concat('Router', 'Service Worker', 'E2E Testing (TODO)', 'Unit Testing (TODO)'), true);
 			}
@@ -122,9 +124,9 @@ module.exports = function (type, dir, opts) {
 			format: val => val === 'none' ? false : val.includes('sass') ? 'sass' : val
 		}, {
 			name: 'linter',
-			message: '(TODO) Which linter / formatter do you like?',
+			message: 'Which linter / formatter do you like?',
 			type: (_, all) => all.features.some(x => /linter-or-formatter/.test(x)) && 'select',
-			choices: toChoices(['None', 'ESLint', 'Prettier', 'TSLint']),
+			choices: toChoices(['None', 'ESLint', 'Prettier']),
 			format: val => val !== 'none' && val
 		}, {
 			name: 'sw',
@@ -240,6 +242,11 @@ module.exports = function (type, dir, opts) {
 
 		if (argv.compress) {
 			devdeps.push(`@pwa/plugin-${argv.compress}`);
+		}
+
+		if (argv.linter) {
+			devdeps.push(`@pwa/plugin-${argv.linter}`);
+			devdeps.push(argv.linter);
 		}
 
 		pkg.dependencies = {};
