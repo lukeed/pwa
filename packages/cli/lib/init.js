@@ -34,6 +34,7 @@ const versions = {
 	'stylus': '^0.54.0',
 	'stylus-loader': '^3.0.0',
 	'svelte': '^3.1.0',
+	'typescript': '^3.4.0',
 	'vue': '^2.5.0',
 	'vue-router': '^3.0.0'
 };
@@ -106,7 +107,7 @@ module.exports = function (type, dir, opts) {
 			type: 'multiselect',
 			message: 'Select features needed for your project:',
 			choices(val) {
-				let arr = ['Compression', 'CSS Preprocessor', 'Linter or Formatter', 'TypeScript (TODO)'];
+				let arr = ['Compression', 'CSS Preprocessor', 'Linter or Formatter', 'TypeScript'];
 				val || arr.push('Bublé'); // only if no preset
 				return toChoices(arr.concat('Router', 'Service Worker', 'E2E Testing (TODO)', 'Unit Testing (TODO)'), true);
 			}
@@ -236,6 +237,11 @@ module.exports = function (type, dir, opts) {
 			}
 		}
 
+		// todo: template modifiers
+		if (argv.features.includes('typescript')) {
+			devdeps.push('typescript', '@pwa/plugin-typescript');
+		}
+
 		if (argv.features.includes('buble')) {
 			devdeps.push('@pwa/plugin-buble');
 		}
@@ -291,6 +297,11 @@ module.exports = function (type, dir, opts) {
 
 		// Copy over `index.html` template
 		copyFile(templates, dest, 'index.html');
+
+		// Conditionally copy `tsconfig.json` file
+		if (argv.features.includes('typescript')) {
+			copyFile(templates, dest, 'tsconfig.json');
+		}
 
 		// Copy "templates/assets" over
 		let destAssets = join(dest, 'assets');

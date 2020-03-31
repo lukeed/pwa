@@ -1,7 +1,6 @@
 {
-  "private": true,
-  "name": "@pwa/plugin-typescript",
   "version": "0.4.1",
+  "name": "@pwa/plugin-typescript",
   "files": [
     "index.js"
   ],
@@ -9,7 +8,10 @@
     "node": ">=8"
   },
   "dependencies": {
-    "ts-loader": "^4.4.2",
-    "typescript": "^2.9.2"
+    "@babel/preset-typescript": "^7.0.0",
+    "fork-ts-checker-webpack-plugin": "^4.1.0"
+  },
+  "peerDependencies": {
+    "typescript": "^3.4.0"
   }
 }
