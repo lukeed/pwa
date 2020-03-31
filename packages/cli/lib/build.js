@@ -115,9 +115,9 @@ module.exports = function (src, opts) {
 			console.log(); // newline
 			const sirv = require('sirv');
 			const { createServer } = require('http');
-			const { minify } = require('html-minifier');
-			const { launch } = require('chrome-launcher');
+			const { minify } = require('html-minifier-terser');
 			const remote = require('chrome-remote-interface');
+			const { launch } = require('chrome-launcher');
 
 			let routes = opts.routes || ctx.PWA_CONFIG.routes;
 			let slashes = x => '/' + x.replace(/^\/|\/$/g, '');
