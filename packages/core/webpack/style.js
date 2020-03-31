@@ -5,6 +5,14 @@ function generate(isProd, name, options = {}) {
 	return (name += '-loader') && { loader:name, options };
 }
 
+function toModulesObject(existing) {
+	let localIdentName = '[local]__[hash:base64:5]'; // dev default
+	if (existing === true || existing === 'local') return { localIdentName };
+	if (typeof existing === 'string') return { localIdentName, mode: existing };
+	existing.localIdentName = existing.localIdentName || localIdentName;
+	return existing; // object
+}
+
 module.exports = function (postcss, css, opts) {
 	// Throw if `postcss.plugin` is a fn
 	if (typeof postcss.plugins === 'function') {
@@ -30,12 +38,24 @@ module.exports = function (postcss, css, opts) {
 	let chunkFilename = '[id].chunk.css';
 	let filename = '[name].css';
 
+	if (css.modules) {
+		css.modules = toModulesObject(css.modules);
+	}
+
 	if (production) {
 		fallback = ExtractCSS.loader; // prepare extraction
-		chunkFilename = '[id].chunk.[contenthash:5].css';
-		filename = '[name].[contenthash:5].css';
-		css.localIdentName = '[hash:base64:5]';
+		chunkFilename = '[id].chunk.[contenthash:8].css';
+		filename = '[name].[contenthash:8].css';
+		// Expose production configuration
+		if (css.modules && css.localIdentName) {
+			if (!css.localIdentName.includes('[local]')) {
+				css.modules.localIdentName = css.localIdentName;
+			}
+		}
 	}
+
+	// css-loader config shape
+	delete css.localIdentName;
 
 	plugins.push(
 		new ExtractCSS({ filename, chunkFilename })
