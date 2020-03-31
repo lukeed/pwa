@@ -1,6 +1,6 @@
 const ExtractCSS = require('mini-css-extract-plugin');
 
-function generate(isProd, name, options) {
+function generate(isProd, name, options = {}) {
 	options.sourceMap = isProd;
 	return (name += '-loader') && { loader:name, options };
 }
@@ -13,16 +13,16 @@ module.exports = function (postcss, css, opts) {
 
 	let { src, production } = opts;
 	let fn = generate.bind(null, production);
-	let test, plugins=[], rules=[], paths=['node_modules'];
+	let test, plugins=[], rules=[];
 	let ext, extns=[];
 
 	let obj = {
 		css: [],
-		less: fn('less', { paths }),
-		sass: fn('sass', { indentedSyntax:true, includePaths:paths }),
-		scss: fn('sass', { includePaths:paths }),
-		stylus: fn('stylus', { paths }),
-		styl: fn('stylus', { paths })
+		less: fn('less'),
+		sass: fn('sass', { indentedSyntax: true }),
+		scss: fn('sass'),
+		stylus: fn('stylus'),
+		styl: fn('stylus')
 	};
 
 	// assume dev/HMR values initially
