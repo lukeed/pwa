@@ -37,6 +37,7 @@ exports.postcss = {
 exports.terser = {
 	cache: true,
 	parallel: true,
+	extractComments: false,
 	sourceMap: true,
 	terserOptions: {
 		mangle: true,
