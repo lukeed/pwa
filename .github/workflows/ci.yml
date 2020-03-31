@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        nodejs: [6, 8, 10, 12]
+        nodejs: [8, 10, 12]
     steps:
     - uses: actions/checkout@master
       with:
