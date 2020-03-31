@@ -10,7 +10,7 @@
     "templates"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "dependencies": {
     "@pwa/core": "^0.4.6",

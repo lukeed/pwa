@@ -5,7 +5,7 @@
     "index.js"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "dependencies": {
     "buble": "^0.19.3",

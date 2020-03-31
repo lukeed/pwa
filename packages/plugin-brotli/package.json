@@ -5,7 +5,7 @@
     "index.js"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "dependencies": {
     "compression-webpack-plugin": "^2.0.0",

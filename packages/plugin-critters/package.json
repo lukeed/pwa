@@ -5,7 +5,7 @@
     "index.js"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "dependencies": {
     "critters-webpack-plugin": "^1.1.0"

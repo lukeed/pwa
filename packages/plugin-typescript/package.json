@@ -6,7 +6,7 @@
     "index.js"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "dependencies": {
     "ts-loader": "^4.4.2",

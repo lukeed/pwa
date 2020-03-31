@@ -5,7 +5,7 @@
     "index.js"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.0.0",
