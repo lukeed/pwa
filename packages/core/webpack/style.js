@@ -6,10 +6,8 @@ function generate(isProd, name, options = {}) {
 }
 
 function toModulesObject(existing) {
-	let localIdentName = '[local]__[hash:base64:5]'; // dev default
-	if (existing === true || existing === 'local') return { localIdentName };
-	if (typeof existing === 'string') return { localIdentName, mode: existing };
-	existing.localIdentName = existing.localIdentName || localIdentName;
+	if (existing === true || existing === 'local') return { mode: 'local' };
+	if (typeof existing === 'string') return { mode: existing };
 	return existing; // object
 }
 
@@ -52,6 +50,8 @@ module.exports = function (postcss, css, opts) {
 				css.modules.localIdentName = css.localIdentName;
 			}
 		}
+	} else if (css.modules) {
+		css.modules.localIdentName = '[local]__[hash:base64:5]';
 	}
 
 	// css-loader config shape
