@@ -16,7 +16,7 @@ let presets = ['Preact', 'React', 'Svelte', 'Vue'];
 const versions = {
 	'ganalytics': '^3.0.0',
 	'less': '^3.8.0',
-	'less-loader': '^4.1.0',
+	'less-loader': '^5.0.0',
 	'navaid': '^1.0.0',
 	'node-sass': '^4.9.0',
 	'preact': '^8.3.0',
