@@ -41,8 +41,8 @@ module.exports = function (src, config, opts) {
 		output: {
 			publicPath: '/',
 			path: join(cwd, opts.dest || 'build'),
-			filename: isProd ? '[name].[hash:8].js' : '[name].js',
-			chunkFilename: isProd ? '[name].chunk.[chunkhash:5].js' : '[name].chunk.js'
+			filename: isProd ? '[name].[chunkhash:8].js' : '[name].js',
+			chunkFilename: isProd ? '[name].chunk.[chunkhash:8].js' : '[name].chunk.js'
 		},
 		mode: isProd ? 'production' : 'development',
 		resolve: {
