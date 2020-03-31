@@ -91,13 +91,13 @@ module.exports = function (src, config, opts) {
 			new HTML(toHTMLConfig(src, opts))
 		].concat(styles.plugins, isProd ? [
 			new CopyAssets(src, null, { log: opts.log }),
-			new webpack.HashedModuleIdsPlugin(),
-			new webpack.LoaderOptionsPlugin({ minimize:true })
+			new webpack.LoaderOptionsPlugin({ minimize: true })
 		] : [
 			new webpack.NamedModulesPlugin(),
 			new webpack.HotModuleReplacementPlugin()
 		]),
 		optimization: {
+			moduleIds: 'hashed',
 			minimizer: [
 				new Terser(terser),
 				new OptimizeCSS({})
