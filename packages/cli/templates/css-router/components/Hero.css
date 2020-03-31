@@ -53,23 +53,23 @@
 }
 
 :global(.penta) {
-	background-image: url(@assets/shapes/penta.svg);
+	background-image: url(~@assets/shapes/penta.svg);
 }
 
 :global(.point) {
-	background-image: url(@assets/shapes/point.svg);
+	background-image: url(~@assets/shapes/point.svg);
 }
 
 :global(.square) {
-	background-image: url(@assets/shapes/square.svg);
+	background-image: url(~@assets/shapes/square.svg);
 }
 
 :global(.cross) {
-	background-image: url(@assets/shapes/cross.svg);
+	background-image: url(~@assets/shapes/cross.svg);
 }
 
 :global(.circle) {
-	background-image: url(@assets/shapes/circle.svg);
+	background-image: url(~@assets/shapes/circle.svg);
 }
 
 @media screen and (max-width: 421px) {
