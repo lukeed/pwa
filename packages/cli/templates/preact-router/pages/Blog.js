@@ -1,3 +1,4 @@
+import { h } from 'preact';
 import { Link } from 'preact-router';
 import Intro from '@components/Intro';
 import Card from '@components/Card';

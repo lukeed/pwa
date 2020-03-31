@@ -1,4 +1,4 @@
-import { Component } from 'preact';
+import { h, Component } from 'preact';
 import Nav from '@components/Nav';
 import style from './index.{{style}}';
 

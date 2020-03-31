@@ -1,3 +1,4 @@
+import { h } from 'preact';
 import items from '@assets/features.json';
 import style from './index.{{style}}';
 

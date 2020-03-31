@@ -1,4 +1,4 @@
-import { Component } from 'preact';
+import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 import Footer from '@components/Footer';
 import Hero from '@components/Hero';

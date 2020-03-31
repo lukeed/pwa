@@ -1,3 +1,4 @@
+import { h } from 'preact';
 import Intro from '@components/Intro';
 import style from './index.{{style}}';
 

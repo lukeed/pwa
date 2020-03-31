@@ -1,3 +1,4 @@
+import { h } from 'preact';
 import Footer from '@components/Footer';
 import Window from '@components/Window';
 import Feats from '@components/Feats';
