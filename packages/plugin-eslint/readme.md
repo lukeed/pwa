@@ -5,7 +5,7 @@
 ## Install
 
 ```sh
-$ npm install --save-dev @pwa/plugin-eslint
+$ npm install --save-dev @pwa/plugin-eslint eslint
 ```
 
 ## Usage
@@ -24,7 +24,9 @@ You may also define or use existing `.eslintrc.*` files in your project. You may
 exports.eslint = {
   cache: true,
   parserOptions: {
-    parser: 'babel-eslint'
+    ecmaVersion: 10,
+    parser: 'babel-eslint',
+    sourceType: 'module',
   }
 }
 ```
@@ -32,4 +34,3 @@ exports.eslint = {
 ***Available Options:***
 
 See [Options](https://github.com/webpack-contrib/eslint-loader#options) for `eslint-loader` and [ESLint's Options](https://eslint.org/docs/developer-guide/nodejs-api#cliengine) too.
-

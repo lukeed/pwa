@@ -5,7 +5,7 @@
 ## Install
 
 ```sh
-$ npm install --save-dev @pwa/plugin-prettier
+$ npm install --save-dev @pwa/plugin-prettier prettier
 ```
 
 ## Usage
@@ -29,11 +29,10 @@ By default, Prettier's [configuration files](https://prettier.io/docs/en/configu
 
 ```js
 exports.prettier = {
-  parser: 'babylon'
+  parser: 'babel'
 }
 ```
 
 ***Available Options:***
 
 See Prettier's [Options](https://prettier.io/docs/en/options.html)
-
