@@ -280,6 +280,11 @@ module.exports = function (type, dir, opts) {
 		let ignore = fs.readFileSync(join(templates, '_gitignore'));
 		writer(join(dest, '.gitignore')).end(ignore);
 
+		// Conditionally copy `tsconfig.json` file
+		if (argv.features.includes('typescript')) {
+			copyFile(templates, dest, 'tsconfig.json');
+		}
+
 		// working w/ "src" files only now
 		dest = join(dest, 'src');
 
@@ -297,11 +302,6 @@ module.exports = function (type, dir, opts) {
 
 		// Copy over `index.html` template
 		copyFile(templates, dest, 'index.html');
-
-		// Conditionally copy `tsconfig.json` file
-		if (argv.features.includes('typescript')) {
-			copyFile(templates, dest, 'tsconfig.json');
-		}
 
 		// Copy "templates/assets" over
 		let destAssets = join(dest, 'assets');

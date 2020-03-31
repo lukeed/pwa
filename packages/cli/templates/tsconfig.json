@@ -2,10 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "esnext",
+    "module": "commonjs",
     "noImplicitAny": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
+    "esModuleInterop": true,
     "allowJs": true,
     "noEmit": true,
     "paths": {
