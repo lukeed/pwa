@@ -20,6 +20,7 @@ const versions = {
 	'navaid': '^1.0.0',
 	'node-sass': '^4.9.0',
 	'preact': '^8.3.0',
+	'preact-router': '^2.6.0',
 	'preact-compat': '^3.18.0',
 	'react': '^16.5.0',
 	'react-dom': '^16.5.0',
