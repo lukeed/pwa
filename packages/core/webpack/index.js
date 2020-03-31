@@ -100,7 +100,12 @@ module.exports = function (src, config, opts) {
 			moduleIds: 'hashed',
 			minimizer: [
 				new Terser(terser),
-				new OptimizeCSS({})
+				new OptimizeCSS({
+					cssProcessorOptions: {
+						sourcemap: false,
+						reduceIdents: false,
+					}
+				})
 			]
 		},
 		devServer: {
