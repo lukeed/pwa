@@ -20,6 +20,7 @@ exports.babel = {
 }
 
 exports.css = {
+	ignoreOrder: false,
 	importLoaders: 2,
 	modules: {
 		localIdentName: '[hash:base64:5]',

@@ -54,11 +54,14 @@ module.exports = function (postcss, css, opts) {
 		css.modules.localIdentName = '[local]__[hash:base64:5]';
 	}
 
+	let ignoreOrder = css.ignoreOrder;
+
 	// css-loader config shape
 	delete css.localIdentName;
+	delete css.ignoreOrder;
 
 	plugins.push(
-		new ExtractCSS({ filename, chunkFilename })
+		new ExtractCSS({ filename, chunkFilename, ignoreOrder })
 	);
 
 	postcss.plugins = postcss.plugins.map(str => {
