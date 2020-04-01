@@ -289,25 +289,31 @@ The following keys are defined by default within every PWA instance. You may [mu
 
 #### `babel`
 Type: `Object`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L1-L21)
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L1-L20)
 
 Your Babel config object.
 
 #### `css`
 Type: `Object`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L22-L26)
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L22-L28)
 
 Core CSS behavior &mdash; see [`css-loader`](https://github.com/webpack-contrib/css-loader#options) for options.
 
+#### `html`
+Type: `Object`<br>
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L30-L41
+
+Your HTML plugin configuration &mdash; see [`html-webpack-plugin`](https://github.com/jantimon/html-webpack-plugin#options) for options.
+
 #### `postcss`
 Type: `Array`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L30-L32)
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L45-L47)
 
 Your PostCSS config &mdash; you may also use any config file/method that [`postcss-loader`](https://github.com/postcss/postcss-loader) accepts.
 
 #### `terser`
 Type: `Object`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L36-L48)
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L51-L64)
 
 The options for [Terser Plugin](https://github.com/webpack-contrib/terser-webpack-plugin#options).
 
