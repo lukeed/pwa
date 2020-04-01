@@ -301,7 +301,7 @@ Core CSS behavior &mdash; see [`css-loader`](https://github.com/webpack-contrib
 
 #### `html`
 Type: `Object`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L30-L41
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L30-L41)
 
 Your HTML plugin configuration &mdash; see [`html-webpack-plugin`](https://github.com/jantimon/html-webpack-plugin#options) for options.
 
