@@ -27,6 +27,19 @@ exports.css = {
 	}
 }
 
+exports.html = {
+	minify: {
+		removeComments: true,
+		collapseWhitespace: true,
+		removeRedundantAttributes: true,
+		removeStyleLinkTypeAttributes: true,
+		removeScriptTypeAttributes: true,
+		useShortDoctype: true,
+		minifyCSS: true,
+		minifyJS: true,
+	}
+}
+
 // Any PostCSS config
 // ~> "strings" will be required
 exports.postcss = {

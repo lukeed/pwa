@@ -12,7 +12,7 @@ module.exports = function (src, config, opts) {
 	let isProd = opts.production;
 	let bundle = ['./index.js'];
 
-	let { babel, css, postcss, terser } = config;
+	let { babel, css, postcss, terser, html } = config;
 	let extns = ['.wasm', '.mjs', '.js', '.json']; // webpack defaults
 
 	// Customize "targets.browsers" w/ ESM warning
@@ -88,7 +88,7 @@ module.exports = function (src, config, opts) {
 		devtool: isProd ? 'source-map' : 'inline-source-map',
 		plugins: [
 			// new webpack.NoEmitOnErrorsPlugin(),
-			new HTML(toHTMLConfig(src, opts))
+			new HTML(toHTMLConfig(src, html, opts))
 		].concat(styles.plugins, isProd ? [
 			new CopyAssets(src, null, { log: opts.log }),
 			new webpack.LoaderOptionsPlugin({ minimize: true })

@@ -1,22 +1,22 @@
+const { join } = require('path');
 const { readdirSync } = require('fs');
-const { join, relative } = require('path');
 
-const fallback = join(__dirname, 'template.ejs');
+module.exports = function (src, opts, env) {
+	if (!env.production) {
+		opts.minify = false;
+	}
 
-module.exports = function (src, opts) {
-	let config = {};
+	if (env.template) {
+		opts.template = env.template;
+	} else if (!opts.template) {
+		let rgx = /index\.(html|hbs|ejs)$/;
+		let file = readdirSync(src).find(x => rgx.test(x));
+		opts.template = file ? join(src, file) : join(__dirname, 'template.ejs');
+	}
 
-	let rgx = /index\.(html|hbs|ejs)$/;
-	let template = opts.template || readdirSync(src).find(x => rgx.test(x));
-	config.template = template || relative(src, fallback);
+	if (!/([!]|-loader)/i.test(opts.template)) {
+		opts.template = '!!ejs-loader!' + opts.template;
+	}
 
-	config.minify = opts.production && {
-		removeComments: true,
-		collapseWhitespace: true,
-		removeRedundantAttributes: true,
-		removeStyleLinkTypeAttributes: true,
-		removeScriptTypeAttributes: true
-	};
-
-	return config;
+	return opts;
 }
