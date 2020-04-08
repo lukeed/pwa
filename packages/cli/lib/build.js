@@ -32,10 +32,12 @@ function dump(chrome, delay, base, pathname) {
 	let file = join(pathname, 'index.html');
 
 	return Page.navigate({ url }).then(() => {
-		return Page.loadEventFired().then(() => {
-			return sleep(delay).then(() => {
-				return Runtime.evaluate({ expression }).then(r => {
-					return { file, html:r.result.value };
+		return Runtime.evaluate({ expression: 'window.PWA_EXPORT=true;' }).then(() => {
+			return Page.loadEventFired().then(() => {
+				return sleep(delay).then(() => {
+					return Runtime.evaluate({ expression }).then(r => {
+						return { file, html:r.result.value };
+					});
 				});
 			});
 		});
