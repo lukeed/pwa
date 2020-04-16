@@ -20,6 +20,9 @@
       "node": true
     },
     "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 10
+    },
     "rules": {
       "no-console": 1,
       "no-cond-assign": 0,
