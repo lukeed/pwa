@@ -20,9 +20,8 @@ const versions = {
 	'less-loader': '^5.0.0',
 	'navaid': '^1.0.0',
 	'node-sass': '^4.13.0',
-	'preact': '^8.3.0',
-	'preact-router': '^2.6.0',
-	'preact-compat': '^3.18.0',
+	'preact': '^10.4.0',
+	'preact-router': '^3.2.0',
 	'prettier': '^2.0.0',
 	'react': '^16.5.0',
 	'react-dom': '^16.5.0',
@@ -217,7 +216,6 @@ module.exports = function (type, dir, opts) {
 		if (argv.preset) {
 			devdeps.push(`@pwa/preset-${argv.preset}`);
 			(/svelte/.test(argv.preset) ? devdeps : deps).push(argv.preset);
-			if (argv.preset === 'preact') deps.push('preact-compat');
 			if (argv.preset === 'react') deps.push('react-dom');
 		}
 
