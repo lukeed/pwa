@@ -185,6 +185,8 @@ module.exports = function (src, opts) {
 							console.log('> error', err); // TODO
 						});
 					});
+				}).catch(err => {
+					log.bail(`Cannot launch Chrome: ${err.message}`);
 				});
 			});
 		}
