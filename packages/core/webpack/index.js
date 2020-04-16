@@ -12,7 +12,7 @@ module.exports = function (src, config, opts) {
 	let isProd = opts.production;
 	let bundle = ['./index.js'];
 
-	let { babel, css, postcss, terser, html } = config;
+	let { babel, terser, html } = config;
 	let extns = ['.wasm', '.mjs', '.js', '.json']; // webpack defaults
 
 	// Customize "targets.browsers" w/ ESM warning
@@ -26,7 +26,7 @@ module.exports = function (src, config, opts) {
 	});
 
 	// Construct Style rules
-	let styles = require('./style')(postcss, css, opts);
+	let styles = require('./style')(config, opts);
 
 	if (!isProd) {
 		bundle.push(

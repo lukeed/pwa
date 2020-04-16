@@ -11,7 +11,9 @@ function toModulesObject(existing) {
 	return existing; // object
 }
 
-module.exports = function (postcss, css, opts) {
+module.exports = function (config, opts) {
+	let { postcss, css } = config;
+
 	// Throw if `postcss.plugin` is a fn
 	if (typeof postcss.plugins === 'function') {
 		throw new Error('PostCSS "plugins" config cannot be a function');
@@ -24,11 +26,14 @@ module.exports = function (postcss, css, opts) {
 
 	let obj = {
 		css: [],
-		less: fn('less'),
-		sass: fn('sass', { indentedSyntax: true }),
-		scss: fn('sass'),
-		stylus: fn('stylus'),
-		styl: fn('stylus')
+		less: fn('less', config.less),
+		stylus: fn('stylus', config.stylus),
+		styl: fn('stylus', config.stylus),
+		scss: fn('sass', config.sass),
+		sass: fn('sass', {
+			...config.sass,
+			indentedSyntax: true
+		}),
 	};
 
 	// assume dev/HMR values initially

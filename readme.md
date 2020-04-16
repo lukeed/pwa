@@ -305,15 +305,41 @@ Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/i
 
 Your HTML plugin configuration &mdash; see [`html-webpack-plugin`](https://github.com/jantimon/html-webpack-plugin#options) for options.
 
+#### `less`
+Type: `Object`<br>
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L51)
+
+Any `less-loader` options &mdash; see [`less-loader`](https://webpack.js.org/loaders/less-loader/#options) for documentation.
+
+> **Note:** This is the entire loader config; you may need to include the `lessOptions` nested object.
+
 #### `postcss`
-Type: `Array`<br>
+Type: `Object`<br>
 Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L45-L47)
 
 Your PostCSS config &mdash; you may also use any config file/method that [`postcss-loader`](https://github.com/postcss/postcss-loader) accepts.
 
+> **Important:** The `postcss.plugins` key cannot be a function!
+
+#### `sass`
+Type: `Object`<br>
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L53)
+
+Any `sass-loader` options &mdash; see [`sass-loader`](https://webpack.js.org/loaders/sass-loader/#options) for documentation.
+
+This object will be used for _both_ `.scss` and `.sass` file extensions.<br>The `.sass` extension will automatically enforce the `indentedSyntax` option.
+
+> **Note:** This is the entire loader config; you may need to include the `sassOptions` nested object.
+
+#### `stylus`
+Type: `Object`<br>
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L52)
+
+Any `stylus-loader` options &mdash; see [`stylus-loader`](https://www.npmjs.com/package/stylus-loader) for documentation.
+
 #### `terser`
 Type: `Object`<br>
-Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L51-L64)
+Default: [Link](https://github.com/lukeed/pwa/blob/master/packages/core/config/index.js#L57-L70)
 
 The options for [Terser Plugin](https://github.com/webpack-contrib/terser-webpack-plugin#options).
 

@@ -47,6 +47,11 @@ exports.postcss = {
 	plugins: ['autoprefixer']
 }
 
+// CSS Preprocessors
+exports.less = {};
+exports.stylus = {};
+exports.sass = {};
+
 // Basic config
 // TODO: configure `sourceMap` (globally)
 exports.terser = {
