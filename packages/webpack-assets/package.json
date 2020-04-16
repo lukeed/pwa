@@ -8,6 +8,6 @@
     "node": ">=8"
   },
   "dependencies": {
-    "totalist": "^1.0.0"
+    "totalist": "^1.0.1"
   }
 }
