@@ -32,16 +32,19 @@ module.exports = function (postcss, css, opts) {
 	};
 
 	// assume dev/HMR values initially
-	let fallback = 'style-loader';
-	let chunkFilename = '[id].chunk.css';
 	let filename = '[name].css';
+	let chunkFilename = '[id].chunk.css';
+	let fallback = {
+		loader: 'style-loader',
+		options: { esModule: true }
+	};
 
 	if (css.modules) {
 		css.modules = toModulesObject(css.modules);
 	}
 
 	if (production) {
-		fallback = ExtractCSS.loader; // prepare extraction
+		fallback.loader = ExtractCSS.loader; // prepare extraction
 		chunkFilename = '[id].chunk.[contenthash:8].css';
 		filename = '[name].[contenthash:8].css';
 		// Expose production configuration
