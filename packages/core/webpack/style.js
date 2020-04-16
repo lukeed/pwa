@@ -32,7 +32,10 @@ module.exports = function (config, opts) {
 		scss: fn('sass', config.sass),
 		sass: fn('sass', {
 			...config.sass,
-			indentedSyntax: true
+			sassOptions: {
+				...config.sassOptions,
+				indentedSyntax: true
+			}
 		}),
 	};
 
