@@ -8,8 +8,8 @@ exports.brotli = {
 	compressionOptions: {
 		params: {
 			[zlib.constants.BROTLI_PARAM_MODE]: zlib.constants.BROTLI_MODE_GENERIC,
-    	[zlib.constants.BROTLI_PARAM_QUALITY]: 11,
-			[zlub.constants.BROTLI_PARAM_SIZE_HINT]: 0,
+			[zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+			[zlib.constants.BROTLI_PARAM_SIZE_HINT]: 0,
 			[zlib.constants.BROTLI_PARAM_LGBLOCK]: 0,
 			[zlib.constants.BROTLI_PARAM_LGWIN]: 22
 		}
