@@ -8,8 +8,7 @@
     "node": ">= 10.13.0"
   },
   "dependencies": {
-    "compression-webpack-plugin": "^7.0.0",
-    "iltorb": "^2.4.0"
+    "compression-webpack-plugin": "^7.0.0"
   },
   "publishConfig": {
     "access": "public"
