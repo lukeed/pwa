@@ -1,15 +1,14 @@
 {
   "name": "@pwa/plugin-brotli",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "files": [
     "index.js"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">= 10.13.0"
   },
   "dependencies": {
-    "compression-webpack-plugin": "^2.0.0",
-    "iltorb": "^2.4.0"
+    "compression-webpack-plugin": "^7.0.0"
   },
   "publishConfig": {
     "access": "public"
